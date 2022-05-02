@@ -1,0 +1,22 @@
+server:
+  port: 8040
+  
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  
+  datasource: # 마이바티스 dataSource객체 세팅
+    driver-class-name: 
+    url: jdbc:mysql://database-1.cxqevdecz202.ap-northeast-2.rds.amazonaws.com:3306/soboon?characterEncoding=utf-8
+    username: mohel
+    password: 1234
+  
+  devtools: # 코드 수정시 서버 자동 재시작
+    livereload:
+      enabled: true
+      
+mybatis:
+  type-aliases-package: com.semiproject.soboon.vo
+  mapper-locations: mapper/*Mapper.xml
