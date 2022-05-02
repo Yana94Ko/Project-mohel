@@ -6,9 +6,9 @@
 /* top-head */
 .top-head {
 	width: inherit;
-	height: 30px;
+	height: 25px;
 	background: #eee;
-	line-height: 30px;
+	line-height: 25px;
 }
 .top-head-userinfo {
 	float: right;
