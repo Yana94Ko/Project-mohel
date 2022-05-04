@@ -1,4 +1,4 @@
-package com.finalproject.mohel;
+package com.finalproject.mohel.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,5 +11,10 @@ public class MemberController {
 	@GetMapping("signup")
 	public String signup() {
 		return "/member/signup";
+	}
+	
+	@GetMapping("userEdit")
+	public String userEdit() {
+		return "/member/userEdit";
 	}
 }
