@@ -41,12 +41,14 @@
 				</div>
 				<div class="ck-msg"></div>
 			</li>
+			
 			<hr style="width: 1000px; position: relative; left: -250px;">
+			
 			<li><h3>기초/활동 대사량 측정</h3></li>
 			<li class="not-ck-msg list-left">
 				생년월일: <input id="birthdate" name="birthdate" type="date">
 				<label for="m">남 :</label>
-				<input id="m" type="radio" name="gender" value="m">
+				<input id="m" type="radio" name="gender" value="m" checked>
 				<label for="w">여 :</label>
 				<input id="w" type="radio" name="gender" value="w">
 			</li>
@@ -83,7 +85,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="list-left"><input type="button" value="측정"></li>
+			<li class="list-left"><input id="checkMetabolic" type="button" value="측정"></li>
 			<li class="list-left not-ck-msg bmr-amr">
 				<div id="BMR">기초대사량: <span></span></div>
 				<div id="AMR">활동대사량: <span></span></div>

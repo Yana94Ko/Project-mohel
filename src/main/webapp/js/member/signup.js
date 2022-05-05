@@ -37,6 +37,19 @@ $(function() {
 		});
 	}
 	
+	// input 숫자만 입력 가능
+	const onlyNum = (element) => {
+		var regOnlyNum = /[^0-9]/g;
+		$(element).val($(element).val().replace(regOnlyNum, ''));
+	}
+	
+	// 글자수 한정
+	const inputMaxLength = (element, max) => {
+		if($(element).val().length>max){
+			$(element).val($(element).val().substring(0, max));
+		}
+	}
+	
 	var emailCheck = false;
 	var pwdCheck = false;
 	var nicknameCheck = false;
@@ -49,7 +62,6 @@ $(function() {
 			$('#emailCk').val('');
 			$(".ck-msg:eq(0)").html('');
 			activeCheckBox($('#emailCheckBox>input'));
-			
 			$.ajax({
 				url: '/member/checkMail',
 				data: "email="+$('#email').val(),
@@ -86,6 +98,7 @@ $(function() {
     let userpwdCk = $('#pwdCk');
     let regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
     const pwCk = function() {
+		inputMaxLength(this, 20);
         let str = "";
         pwdCheck = false;
         if(userpwd.val().length===0 || userpwdCk.val().length===0){
@@ -110,10 +123,9 @@ $(function() {
     nickname.on('input', function() {
 		let str = "";
 		nicknameCheck = false;
+		inputMaxLength(this, 10);
 		if(nickname.val().length<2) {
 			str = '<span style="color: gray;">문자+숫자 사용(2~10글자)</span>';
-		}else if(nickname.val().length>nicknameMaxLength){
-			nickname.val(nickname.val().substring(0, nicknameMaxLength));
 		}else if(regNickname.test(nickname.val())) {
 			$.ajax({
 				url: "/member/searchNickname",
@@ -135,16 +147,12 @@ $(function() {
 		$(".ck-msg:eq(2)").html(str);
 	});
 	
-	var regOnlyNum = /[^0-9]/g;
+	
 	// 전화번호 인증
 	var tel = $('#tel');
-	var phonNumLength = 11;
 	tel.on('input', function() {
-		$(this).val($(this).val().replace(regOnlyNum, '')); // 숫자만 입력가능
-		
-		if($(this).val().length>phonNumLength){ // 번호가 11글자를 넘으면 안됨
-			$(this).val($(this).val().substring(0, phonNumLength));
-		}
+		onlyNum(this);
+		inputMaxLength(this, 11);
 	});
 	var telCkNum = "";
 	var regTel = /^010|011|016|017|018|019/
@@ -185,5 +193,61 @@ $(function() {
 		telCheck = false;
 	});
 	
+	// 나이
+	var today = new Date();
+	var age = 0;
+	$('#birthdate').on('input', function() {
+		var birthdateArr = $(this).val().split('-');
+		var birthdate = new Date(birthdateArr[0], birthdateArr[1]-1, birthdateArr[2]);
+		
+		if(new Date(today.getFullYear(), today.getMonth(), today.getDate()) < birthdate){
+			$(this).val(today.toISOString().split('T')[0]);
+			age = 0;
+		}else {
+			age = today.getFullYear() - birthdate.getFullYear();
+			var subMonth = today.getMonth()-birthdate.getMonth();
+			if(age!=0 && (subMonth<0 || (subMonth === 0 && today.getDate()<birthdate.getDate()))){
+				age--;
+			}
+		}
+	});
 	
+	// 키
+	var height = 0;
+	$('#height').on('input', function() {
+		onlyNum(this);
+		inputMaxLength(this, 3);
+		
+		height = $(this).val();
+	});
+	
+	// 체중
+	var weight = 0;
+	$('#weight').on('input', function() {
+		onlyNum(this);
+		inputMaxLength(this, 4);
+		
+		weight = $(this).val();
+	});
+	
+	// 활동량
+	var activeScore = 0;
+	$('input[name="active"]').on('click', function() {
+		activeScore = $(this).val();
+	});
+	
+	// 기초 대사량, 활동대사량
+	$('#checkMetabolic').click(function() {
+		if(age * height * weight * activeScore == 0){
+			alert("입력란을 모두 채워주세요.");
+		}else {
+			var BMR = 0;
+			var AMR = 0;
+			if($('input[name="gender"]:checked').val()=='m'){
+				// 남자 측정
+			}else if($('input[name="gender"]:checked').val()=='w'){
+				// 여자 측정
+			}
+		}
+	});
 });
