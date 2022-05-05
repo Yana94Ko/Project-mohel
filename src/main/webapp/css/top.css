@@ -33,7 +33,7 @@
 
 /* top-body */
 .top-body {
-	height: 60px;
+	height: 70px;
 	display: flex;
 	align-items: center;
 }
@@ -77,4 +77,8 @@
 }
 .category-list-box li > a:hover {
 	color: #000;
+}
+
+#topLogo:hover {
+	cursor: pointer;
 }

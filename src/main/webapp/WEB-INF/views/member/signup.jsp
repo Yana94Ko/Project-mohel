@@ -1,45 +1,48 @@
 <link rel="stylesheet" href="/css/member/signup.css" type="text/css">
 <script src="/js/member/signup.js"></script>
 <div class="signup-main container">
-	<div class="logo"></div>
+	<!-- <h2 id="signupTitle">회원가입</h2> -->
+	<img src="/img/mohel-logo-06.png">
 	<form id="signupFrm" method="post" action="/member/signupOk" enctype="multipart/form-data">
 		<ul id="sugnupFrmBox">
 			<li>
-				<input id="profile" type="file" accept="image/jpg, image/jpeg, image/png" multiple="multiple" hidden="true">
+				<input id="profile" type="file" accept="image/jpg, image/jpeg, image/png" hidden="true">
 				<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="/img/member/defaultProfile.png"></label>
 				<br><input id="defaultProfile" type="button" value="이미지 제거">
 			</li>
-			<li class="not-ck-msg">
-				<div class="form-use-btn">
-					<input id="email" name="email" type="text" placeholder="이메일">
-					<input type="button" value="인증">
+			<li>
+				<div class="form-use-btn input-first">
+					<input id="email" name="email" class="text-box" type="text" placeholder="이메일">
+					<input id="emailCheckNumSend" type="button" value="인증">
 				</div>
-				<div class="form-use-btn">
-					<input id="emailCk" type="text" placeholder="이메일 인증번호">
-					<input type="button" value="확인">
+				<div id="emailCheckBox" class="form-use-btn check">
+					<input id="emailCk" class="text-box" type="text" placeholder="인증번호 6자리" disabled>
+					<input id="emailCkBtn" type="button" value="확인" disabled>
 				</div>
+				<div class="ck-msg"></div>
 			</li>
 			<li>
-				<input id="pwd" name="pwd" type="password" placeholder="비밀번호">
-				<input id="pwdCk" type="password" placeholder="비밀번호 확인">
-				<div class="ck-msg">비밀번호가 일치합니다!!</div>
+				<input id="pwd" class="text-box input-first" name="pwd" type="password" placeholder="비밀번호">
+				<input id="pwdCk" class="text-box" type="password" placeholder="비밀번호 확인">
+				<div class="ck-msg"><span style="color: gray;">영문+숫자+특수문자 사용(8~20글자)</span></div>
 			</li>
 			<li>
-				<input id="nickname" name="nickname" type="text" placeholder="닉네임">
-				<div class="ck-msg">중복된 닉네임 입니다.</div>
+				<input id="nickname" class="text-box" name="nickname" type="text" placeholder="닉네임">
+				<div class="ck-msg"><span style="color: gray;">문자+숫자 사용(2~10글자)</span></div>
 			</li>
 			<li>
-				<div class="form-use-btn">
-					<input id="tel" name="tel" type="text" placeholder="전화번호">
-					<input type="button" value="인증">
+				<div class="form-use-btn input-first">
+					<input id="tel" name="tel" class="text-box" type="text" placeholder="전화번호">
+					<input id="telCheckNumSend" type="button" value="인증">
 				</div>
-				<div class="form-use-btn">
-					<input id="telCk" type="text" placeholder="인증번호 입력">
-					<input type="button" value="확인">
+				<div id="telCheckBox" class="form-use-btn check">
+					<input id="telCk" class="text-box" type="text" placeholder="인증번호 입력" disabled>
+					<input id="telCkBtn" type="button" value="확인" disabled>
 				</div>
+				<div class="ck-msg"></div>
 			</li>
 			<hr style="width: 1000px; position: relative; left: -250px;">
-			<li><h3>기초/활동 대사량 체크</h3></li>
+			<li><h3>기초/활동 대사량 측정</h3></li>
 			<li class="not-ck-msg list-left">
 				생년월일: <input id="birthdate" name="birthdate" type="date">
 				<label for="m">남 :</label>
@@ -80,6 +83,7 @@
 					</li>
 				</ul>
 			</li>
+			<li class="list-left"><input type="button" value="측정"></li>
 			<li class="list-left not-ck-msg bmr-amr">
 				<div id="BMR">기초대사량: <span></span></div>
 				<div id="AMR">활동대사량: <span></span></div>

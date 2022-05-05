@@ -3,18 +3,23 @@
 	width: 460px;
 	margin: 0 auto;
 }
-.signup-main > .logo {
+#signupTitle {
+	width: 128px;
 	margin: 30px auto;
 }
 
 #sugnupFrmBox > li {
 	text-align: center;
 }
+#defaultProfile {
+	margin-bottom: 30px;
+}
 .ck-msg {
 	line-height: 20px;
 	height: 20px;
 	font-size: 12px;
 	text-align: left;
+	margin-bottom: 10px;
 }
 
 .not-ck-msg{
@@ -24,16 +29,6 @@
 .form-use-btn {
 	border: 1px solid #ccc;
 	width: inherit;
-}
-.form-use-btn,
-#pwd {
-	margin-bottom: 5px;
-}
-.form-use-btn>input:first-child,
-#sugnupFrmBox input[type="password"],
-#nickname {
-	height: 45px;
-	padding: 0 15px;
 }
 .form-use-btn>input:first-child {
 	width: 395px;
@@ -48,11 +43,19 @@
 	border: 1px solid #888;
 	width: 50px;
 }
+.form-use-btn>input[type="button"]:disabled,
 .form-use-btn>input[type="button"]:hover {
 	background: #eee;
 }
 .form-use-btn>input[type="button"]:active {
 	background: #fff;
+}
+.input-first {
+	margin-bottom: 5px;
+}
+.text-box{
+	height: 45px;
+	padding: 0 15px;
 }
 
 #sugnupFrmBox input[type="password"],
@@ -99,4 +102,12 @@
 	border: 1px solid gray;
 	border-radius: 5px;
 	margin-bottom: 50px;
+}
+
+.check {
+	background-color: #FAFAFA
+}
+#emailCk,
+#telCk {
+	background-color: rgba(0,0,0,0);
 }
