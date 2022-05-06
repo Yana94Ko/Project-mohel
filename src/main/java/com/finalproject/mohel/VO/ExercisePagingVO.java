@@ -1,22 +1,22 @@
 package com.finalproject.mohel.VO;
 
 public class ExercisePagingVO {
-	// ÆäÀÌÂ¡
-		private int onePageRecord = 9; // ÇÑ ÆäÀÌÁö´ç Ãâ·Â ÇÒ ÆäÀÌÁö ¼ö
-		private int pageNum = 1; // ÇöÀç ÆäÀÌÁö
+	// í˜ì´ì§•
+		private int onePageRecord = 9; // í•œ í˜ì´ì§€ë‹¹ ì¶œë ¥ í•  í˜ì´ì§€ ìˆ˜
+		private int pageNum = 1; // í˜„ì¬ í˜ì´ì§€
 		private int totalRecord;
-		private int totalRecord1; // ÃÑ ·¹ÄÚµå ¼ö
-		private int totalRecord2; // ÃÑ ·¹ÄÚµå ¼ö
-		private int totalRecord3; // ÃÑ ·¹ÄÚµå ¼ö
-		private int totalPage; // ÃÑ ÆäÀÌÁö ¼ö
-		private int totalPage1; // ÃÑ ÆäÀÌÁö ¼ö
-		private int totalPage2; // ÃÑ ÆäÀÌÁö ¼ö
-		private int totalPage3; // ÃÑ ÆäÀÌÁö ¼ö
+		private int totalRecord1; // ì´ ë ˆì½”ë“œ ìˆ˜
+		private int totalRecord2; // ì´ ë ˆì½”ë“œ ìˆ˜
+		private int totalRecord3; // ì´ ë ˆì½”ë“œ ìˆ˜
+		private int totalPage; // ì´ í˜ì´ì§€ ìˆ˜
+		private int totalPage1; // ì´ í˜ì´ì§€ ìˆ˜
+		private int totalPage2; // ì´ í˜ì´ì§€ ìˆ˜
+		private int totalPage3; // ì´ í˜ì´ì§€ ìˆ˜
 		private int offsetIndex = 0;
-		private int onePageCount = 5; // ÇÑ ¹ø¿¡ Ç¥½ÃÇÒ ·¹ÄÚµå ¼ö
+		private int onePageCount = 5; // í•œ ë²ˆì— í‘œì‹œí•  ë ˆì½”ë“œ ìˆ˜
 		private int startPage = 1;
 
-		// °Ë»ö
+		// ê²€ìƒ‰
 		private String searchKey;
 		private String searchWord;
 
@@ -34,9 +34,9 @@ public class ExercisePagingVO {
 
 		public void setPageNum(int pageNum) {
 			this.pageNum = pageNum;
-			// offset À§Ä¡ °è»ê
+			// offset ìœ„ì¹˜ ê³„ì‚°
 			offsetIndex = (pageNum - 1) * onePageRecord;
-			// ÆäÀÌÁö ¹øÈ£ÀÇ ½ÃÀÛ°ª
+			// í˜ì´ì§€ ë²ˆí˜¸ì˜ ì‹œì‘ê°’
 			startPage = ((pageNum - 1) / onePageCount * onePageCount) + 1;
 		}
 
@@ -47,10 +47,10 @@ public class ExercisePagingVO {
 		public void setTotalRecord(int totalRecord) {
 			this.totalRecord = totalRecord;
 
-			// ÃÑ ÆäÀÌÁö ¼ö
-			if (totalRecord % onePageRecord == 0) { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ¾ø´Â °æ¿ì
+			// ì´ í˜ì´ì§€ ìˆ˜
+			if (totalRecord % onePageRecord == 0) { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ì—†ëŠ” ê²½ìš°
 				totalPage = totalRecord / onePageRecord;
-			} else { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ÀÖ´Â °æ¿ì (1~4°³)
+			} else { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ìˆëŠ” ê²½ìš° (1~4ê°œ)
 				totalPage = totalRecord / onePageRecord + 1;
 			}
 		}
@@ -62,10 +62,10 @@ public class ExercisePagingVO {
 		public void setTotalRecord1(int totalRecord1) {
 			this.totalRecord1 = totalRecord1;
 
-			// ÃÑ ÆäÀÌÁö ¼ö
-			if (totalRecord1 % onePageRecord == 0) { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ¾ø´Â °æ¿ì
+			// ì´ í˜ì´ì§€ ìˆ˜
+			if (totalRecord1 % onePageRecord == 0) { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ì—†ëŠ” ê²½ìš°
 				totalPage1 = totalRecord1 / onePageRecord;
-			} else { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ÀÖ´Â °æ¿ì (1~4°³)
+			} else { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ìˆëŠ” ê²½ìš° (1~4ê°œ)
 				totalPage1 = totalRecord1 / onePageRecord + 1;
 			}
 		}
@@ -77,10 +77,10 @@ public class ExercisePagingVO {
 		public void setTotalRecord2(int totalRecord2) {
 			this.totalRecord2 = totalRecord2;
 
-			// ÃÑ ÆäÀÌÁö ¼ö
-			if (totalRecord2 % onePageRecord == 0) { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ¾ø´Â °æ¿ì
+			// ì´ í˜ì´ì§€ ìˆ˜
+			if (totalRecord2 % onePageRecord == 0) { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ì—†ëŠ” ê²½ìš°
 				totalPage2 = totalRecord2 / onePageRecord;
-			} else { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ÀÖ´Â °æ¿ì (1~4°³)
+			} else { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ìˆëŠ” ê²½ìš° (1~4ê°œ)
 				totalPage2 = totalRecord2 / onePageRecord + 1;
 			}
 		}
@@ -91,10 +91,10 @@ public class ExercisePagingVO {
 		public void setTotalRecord3(int totalRecord3) {
 			this.totalRecord3 = totalRecord3;
 
-			// ÃÑ ÆäÀÌÁö ¼ö
-			if (totalRecord3 % onePageRecord == 0) { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ¾ø´Â °æ¿ì
+			// ì´ í˜ì´ì§€ ìˆ˜
+			if (totalRecord3 % onePageRecord == 0) { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ì—†ëŠ” ê²½ìš°
 				totalPage3 = totalRecord3 / onePageRecord;
-			} else { // ³ª¸ÓÁö ·¹ÄÚµå°¡ ÀÖ´Â °æ¿ì (1~4°³)
+			} else { // ë‚˜ë¨¸ì§€ ë ˆì½”ë“œê°€ ìˆëŠ” ê²½ìš° (1~4ê°œ)
 				totalPage3 = totalRecord3 / onePageRecord + 1;
 			}
 		}
