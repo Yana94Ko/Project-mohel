@@ -72,41 +72,41 @@ public class ExerciseController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
         try {
-			//±Ûµî·Ï ¼º°ø
+			//ê¸€ë“±ë¡ ì„±ê³µ
 			service.exerciseInsert(vo);
 			
-			//±Û ¸ñ·ÏÀ¸·Î ÀÌµ¿
-			String msg = "<script>alert('±ÛÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.');location.href='/exercise/exerciseList';</script>";
+			//ê¸€ ëª©ë¡ìœ¼ë¡œ ì´ë™
+			String msg = "<script>alert('ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.');location.href='/exercise/exerciseList';</script>";
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK);
 		} catch (Exception e) {
-			// ±Ûµî·Ï ½ÇÆĞ
+			// ê¸€ë“±ë¡ ì‹¤íŒ¨
 			e.printStackTrace();
-			//±Û µî·Ï ÆûÀ¸·Î
-			String msg = "<script>alert('±Ûµî·ÏÀ» ½ÇÆĞ ÇÏ¿´½À´Ï´Ù.');history.back();</script>";
+			//ê¸€ ë“±ë¡ í¼ìœ¼ë¡œ
+			String msg = "<script>alert('ê¸€ë“±ë¡ì„ ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.');history.back();</script>";
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-	//±Û º¸±â
+	//ê¸€ ë³´ê¸°
 	@GetMapping("/exercise/exerciseView")
 	public ModelAndView exerciseView(@RequestParam("no") int no, BoardVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		service.cntHit(no); // Á¶È¸¼ö Áõ°¡
+		service.cntHit(no); // ì¡°íšŒìˆ˜ ì¦ê°€
 		mav.addObject("vo", service.exerciseSelect(no));
-		service.cntHit(no); // Á¶È¸¼ö Áõ°¡
+		service.cntHit(no); // ì¡°íšŒìˆ˜ ì¦ê°€
 		mav.addObject("nickname",(String)session.getAttribute("nickname"));
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "¤·¤·");
+			mav.addObject("nickname", "ã…‡ã…‡");
 		}
 
 		mav.setViewName("exercise/exerciseView");
 		return mav;
 	}
 
-	//±Û ¼öÁ¤
+	//ê¸€ ìˆ˜ì •
 	@GetMapping("/exercise/exerciseEdit")
 	public ModelAndView exerciseEdit(int no, BoardVO vo, HttpSession session) {
 		System.out.println(no);
@@ -118,7 +118,7 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "¤·¤·");
+			mav.addObject("nickname", "ã…‡ã…‡");
 		}
 		mav.setViewName("exercise/exerciseEdit");
 		return mav;
@@ -135,38 +135,38 @@ public class ExerciseController {
 			int result =service.exerciseUpdate(vo);
 			System.out.println(result);
 			//System.out.println(vo.getApplicantMax());
-			String msg="<script>alert('±ÛÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù.');location.href='/exercise/exerciseView?no="+vo.getNo()+"';</script>";
+			String msg="<script>alert('ê¸€ì´ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.');location.href='/exercise/exerciseView?no="+vo.getNo()+"';</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			String msg = "<script>alert('±Û ¼öÁ¤ ½ÇÆĞ ÇÏ¿´½À´Ï´Ù.'); history.go(-1);</script>";
+			String msg = "<script>alert('ê¸€ ìˆ˜ì • ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.'); history.go(-1);</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 				
 	}
-	// ±Û »èÁ¦
+	// ê¸€ ì‚­ì œ
 	@GetMapping("/exercise/exerciseDel")
 	public ModelAndView exerciseDel(BoardVO vo, int no, HttpSession session, ModelAndView mav) {
 		String nickname = (String)session.getAttribute("nickName");
 		vo.setNickname((String)session.getAttribute("logId"));
 		int result = service.exerciseDelete(no, nickname);
 		if(result>0) {
-			//»èÁ¦µÊ
-			System.out.println("±Û »èÁ¦ ¼º°ø");
+			//ì‚­ì œë¨
+			System.out.println("ê¸€ ì‚­ì œ ì„±ê³µ");
 			mav.setViewName("redirect:exerciseList");
 			
 		} else {
-			//»èÁ¦ ¾ÈµÊ
-			System.out.println("»èÁ¦ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			//ì‚­ì œ ì•ˆë¨
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:exerciseView");
 		}
 		
 		return mav;
 	}
-	// ±Û º¸±â
+	// ê¸€ ë³´ê¸°
 	@GetMapping("/exercise/exerciseReview")
 	public ModelAndView exerciseReview(int no, BoardVO vo) {
 		ModelAndView mav = new ModelAndView();
@@ -177,7 +177,7 @@ public class ExerciseController {
 	}
 	
 	
-	// ¸ğµÎÀÇ ¿îµ¿ ¸®½ºÆ®
+	// ëª¨ë‘ì˜ ìš´ë™ ë¦¬ìŠ¤íŠ¸
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
@@ -188,7 +188,7 @@ public class ExerciseController {
 		return mav;
 	}
 	
-	// ¸ğµÎÀÇ ¿îµ¿ ±Û¾²±â
+	// ëª¨ë‘ì˜ ìš´ë™ ê¸€ì“°ê¸°
 	@GetMapping("/exercise/every_exerciseWrite")
 	public ModelAndView every_exerciseWrite() {
 		ModelAndView mav = new ModelAndView();
@@ -213,35 +213,35 @@ public class ExerciseController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
         try {
-			//±Ûµî·Ï ¼º°ø
+			//ê¸€ë“±ë¡ ì„±ê³µ
 			service.every_exerciseInsert(vo);
 			
-			//±Û ¸ñ·ÏÀ¸·Î ÀÌµ¿
-			String msg = "<script>alert('±ÛÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.');location.href='/exercise/every_exerciseList';</script>";
+			//ê¸€ ëª©ë¡ìœ¼ë¡œ ì´ë™
+			String msg = "<script>alert('ê¸€ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.');location.href='/exercise/every_exerciseList';</script>";
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK);
 		} catch (Exception e) {
-			// ±Ûµî·Ï ½ÇÆĞ
+			// ê¸€ë“±ë¡ ì‹¤íŒ¨
 			e.printStackTrace();
-			//±Û µî·Ï ÆûÀ¸·Î
-			String msg = "<script>alert('±Ûµî·ÏÀ» ½ÇÆĞ ÇÏ¿´½À´Ï´Ù.');history.back();</script>";
+			//ê¸€ ë“±ë¡ í¼ìœ¼ë¡œ
+			String msg = "<script>alert('ê¸€ë“±ë¡ì„ ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.');history.back();</script>";
 			entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
 
-	// ¸ğµÎÀÇ ¿îµ¿ ±Ûº¸±â
+	// ëª¨ë‘ì˜ ìš´ë™ ê¸€ë³´ê¸°
 	@GetMapping("/exercise/every_exerciseView")
 	public ModelAndView every_exerciseView(String category, String nickname, HttpSession session, int no) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("category", category);
 		//mav.addObject("nickname", nickname);
-		service.cntHit(no); // Á¶È¸¼ö Áõ°¡
+		service.cntHit(no); // ì¡°íšŒìˆ˜ ì¦ê°€
 		mav.addObject("vo", service.every_exerciseSelect(no));
 		session.setAttribute("nickname", nickname);
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
-	// ¸ğµÎÀÇ ¿îµ¿ ±Û ¼öÁ¤
+	// ëª¨ë‘ì˜ ìš´ë™ ê¸€ ìˆ˜ì •
 	@GetMapping("/exercise/every_exerciseEdit")
 	public ModelAndView every_exerciseEdit(int no, ExerciseVO vo, HttpSession session) {
 		//System.out.println(no);
@@ -253,7 +253,7 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "¤·¤·");
+			mav.addObject("nickname", "ã…‡ã…‡");
 		}
 		mav.setViewName("exercise/every_exerciseEdit");
 		return mav;
@@ -270,30 +270,30 @@ public class ExerciseController {
 			int result =service.every_exerciseUpdate(vo);
 			System.out.println(result);
 			//System.out.println(vo.getApplicantMax());
-			String msg="<script>alert('±ÛÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù.');location.href='/exercise/every_exerciseView?no="+vo.getNo()+"';</script>";
+			String msg="<script>alert('ê¸€ì´ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.');location.href='/exercise/every_exerciseView?no="+vo.getNo()+"';</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			String msg = "<script>alert('±Û ¼öÁ¤ ½ÇÆĞ ÇÏ¿´½À´Ï´Ù.'); history.go(-1);</script>";
+			String msg = "<script>alert('ê¸€ ìˆ˜ì • ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.'); history.go(-1);</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 				
 	}
-	// ¸ğµÎÀÇ ¿îµ¿ ±Û »èÁ¦
+	// ëª¨ë‘ì˜ ìš´ë™ ê¸€ ì‚­ì œ
 	@GetMapping("/exercise/every_exerciseDel")
 	public ModelAndView every_exerciseDel(BoardVO bvo, ExerciseVO vo, int no, HttpSession session, ModelAndView mav) {
 		String nickname = (String)session.getAttribute("nickname");
 		bvo.setNickname((String)session.getAttribute("logId"));
 		int result = service.every_exerciseDelete(no, nickname);
 		if(result>0) {
-			//»èÁ¦µÊ
+			//ì‚­ì œë¨
 			mav.setViewName("redirect:every_exerciseList");
 			
 		} else {
-			//»èÁ¦ ¾ÈµÊ
-			System.out.println("»èÁ¦ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			//ì‚­ì œ ì•ˆë¨
+			System.out.println("ì‚­ì œ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:every_exerciseView");
 		}

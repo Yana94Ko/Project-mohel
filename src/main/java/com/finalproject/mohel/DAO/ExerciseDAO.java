@@ -12,7 +12,7 @@ import com.finalproject.mohel.VO.ExerciseVO;
 @Mapper
 @Repository
 public interface ExerciseDAO {
-	//Âü°¡ ¿©ºÎ
+	//ì°¸ê°€ ì—¬ë¶€
 	public int resolveStatus(String nickname,int no);
 	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO);
 	public int exerciseInsert(BoardVO vo); 
@@ -23,7 +23,7 @@ public interface ExerciseDAO {
 
 	public void cntHit (int no);
 
-	//ÃÑ·¹ÄÚµå¼ö
+	//ì´ë ˆì½”ë“œìˆ˜
 	public int totalRecord(ExercisePagingVO pVO);
 	public int totalRecord1(ExerciseVO vo, ExercisePagingVO pVO);
 	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO);
@@ -37,17 +37,17 @@ public interface ExerciseDAO {
 	public int exerciseStateUpdate(ExerciseVO vo);
 	public int exerciseStateDel(ExerciseVO vo);
 	
-	//ÈÄ±âµî·Ï
+	//í›„ê¸°ë“±ë¡
 	public int exerciseReviewWrite(ExerciseVO vo);
-	//ÈÄ±â¸ñ·Ï
+	//í›„ê¸°ëª©ë¡
 	public List<ExerciseVO> exerciseReviewList(int no);
 	
-	//¶óÀÌµù Âü°¡ È½¼ö
+	//ë¼ì´ë”© ì°¸ê°€ íšŸìˆ˜
 	public int exerciseCountUp(ExerciseVO vo);
 	
 
 	//-------------------------------------------
-	// ¸ğµÎÀÇ ¿îµ¿
+	// ëª¨ë‘ì˜ ìš´ë™
 	
 	public List<ExerciseVO> every_exerciseList(ExercisePagingVO pVO);
 	public int every_exerciseInsert(ExerciseVO vo); 

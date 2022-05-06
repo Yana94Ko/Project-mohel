@@ -10,12 +10,12 @@ import com.finalproject.mohel.VO.ExerciseReplyVO;
 @Mapper
 @Repository
 public interface ExerciseReplyDAO {
-	//´ñ±Ûµî·Ï
+	//ëŒ“ê¸€ë“±ë¡
 		public int exerciseReplyWrite(ExerciseReplyVO vo);
-		//´ñ±Û¸ñ·Ï
+		//ëŒ“ê¸€ëª©ë¡
 		public List<ExerciseReplyVO> exerciseReplyList(int no);
-		//´ñ±Û¼öÁ¤
+		//ëŒ“ê¸€ìˆ˜ì •
 		public int exerciseEdit(ExerciseReplyVO vo);
-		//´ñ±Û»èÁ¦
+		//ëŒ“ê¸€ì‚­ì œ
 		public int exerciseReplyDel(int no, String nickname);
 }

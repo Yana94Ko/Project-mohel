@@ -20,26 +20,26 @@ public class ExerciseReplyController {
 	ExerciseReplyService service;
 	
 	
-	// ´ñ±Û µî·Ï
+	// ëŒ“ê¸€ ë“±ë¡
 	@RequestMapping(value="/exercise/exerciseReplyWriteOk", method=RequestMethod.POST)
 	public int exerciseReplyWriteOk (ExerciseReplyVO vo, HttpSession session) {
 		vo.setNickname((String)session.getAttribute("nickName"));
 		return service.exerciseReplyWrite(vo);
 	}
-	// ´ñ±Û¸ñ·Ï
+	// ëŒ“ê¸€ëª©ë¡
 	@RequestMapping("/exercise/exerciseReplyList")
 	public List<ExerciseReplyVO> ridingReplyList(int no) {
 		return service.exerciseReplyList(no);
 	}
 
-	// ´ñ±Û¼öÁ¤
+	// ëŒ“ê¸€ìˆ˜ì •
 	@PostMapping("/exercise/exerciseReplyEditOk")
 	public int exerciseReplyEditOk(ExerciseReplyVO vo, HttpSession session) {
 		vo.setNickname((String) session.getAttribute("nickName"));
 		return service.exerciseReplyEdit(vo);
 	}
 
-	// ´ñ±Û»èÁ¦
+	// ëŒ“ê¸€ì‚­ì œ
 	@GetMapping("/exercise/exercisegReplyDel")
 	public int exerciseReplyDelOk(int no, HttpSession session) {
 		return service.exerciseReplyDel(no, (String) session.getAttribute("nickName"));
