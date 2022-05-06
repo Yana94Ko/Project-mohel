@@ -13,7 +13,8 @@ $(function() {
 	fileInput.addEventListener("change", handleFiles);
 	// 이미지제거 클릭시 기본 이미지로 프로필 사진 변경
 	$('#defaultProfile').click(function() {
-		$('#profileImg').attr('src', '/img/member/defaultProfile.png');
+		$('#profileImg').attr('src', '/img/defaultProfile.png');
+		$('#profile').val('');
 	});
 	
 	// 선택시 테두리 굵은 검은색 변경
@@ -58,19 +59,32 @@ $(function() {
 	var mailCkNum = "";
 	let regEmail = /^\w{6,}[@][a-zA-Z]{2,}[.][a-zA-Z]{2,3}([.][a-zA-Z]{2,3})?$/;
 	$('#emailCheckNumSend').click(function() {
+		var str = '';
 		if(regEmail.test($('#email').val())){
-			$('#emailCk').val('');
-			$(".ck-msg:eq(0)").html('');
-			activeCheckBox($('#emailCheckBox>input'));
 			$.ajax({
-				url: '/member/checkMail',
-				data: "email="+$('#email').val(),
+				url: '/member/searchEmail',
+				data: 'email='+$('#email').val(),
 				type: 'post',
+				async: false,
 				success: function(result) {
-					mailCkNum=result;
+					if(result==0){
+						$('#emailCk').val('');
+						$(".ck-msg:eq(0)").html('');
+						activeCheckBox($('#emailCheckBox>input'));
+						$.ajax({
+							url: '/member/checkMail',
+							data: "email="+$('#email').val(),
+							type: 'post',
+							success: function(result) {
+								mailCkNum=result;
+							}
+						});
+						str = '<span style="color: green;">메일이 발송되었습니다.</span>';
+					}else {
+						str = '<span style="color: red;">중복된 이메일 입니다.</span>';
+					}
 				}
 			});
-			str = '<span style="color: green;">메일이 발송되었습니다.</span>';
 		}else {
 			str = '<span style="color: red;">이메일을 확인해주세요.</span>';
 		}
@@ -158,7 +172,7 @@ $(function() {
 	var regTel = /^010|011|016|017|018|019/
 	$('#telCheckNumSend').click(function() {
 		var str = '';
-		if(tel.val().length<phonNumLength-1 || !regTel.test(tel.val())){
+		if(tel.val().length<10 || !regTel.test(tel.val())){
 			str = '<span style="color: red;">전화번호를 정확히 입력해주세요.</span>';
 		} else {
 			$('#telCk').val('');
@@ -193,10 +207,12 @@ $(function() {
 		telCheck = false;
 	});
 	
+	var metabolicCheckOk = false;
 	// 나이
 	var today = new Date();
 	var age = 0;
 	$('#birthdate').on('input', function() {
+		metabolicCheckOk = false;
 		var birthdateArr = $(this).val().split('-');
 		var birthdate = new Date(birthdateArr[0], birthdateArr[1]-1, birthdateArr[2]);
 		
@@ -210,11 +226,13 @@ $(function() {
 				age--;
 			}
 		}
+		$('#age').val(age);
 	});
 	
 	// 키
 	var height = 0;
 	$('#height').on('input', function() {
+		metabolicCheckOk = false;
 		onlyNum(this);
 		inputMaxLength(this, 3);
 		
@@ -224,8 +242,9 @@ $(function() {
 	// 체중
 	var weight = 0;
 	$('#weight').on('input', function() {
+		metabolicCheckOk = false;
 		onlyNum(this);
-		inputMaxLength(this, 4);
+		inputMaxLength(this, 3);
 		
 		weight = $(this).val();
 	});
@@ -233,6 +252,7 @@ $(function() {
 	// 활동량
 	var activeScore = 0;
 	$('input[name="active"]').on('click', function() {
+		metabolicCheckOk = false;
 		activeScore = $(this).val();
 	});
 	
@@ -242,12 +262,25 @@ $(function() {
 			alert("입력란을 모두 채워주세요.");
 		}else {
 			var BMR = 0;
-			var AMR = 0;
 			if($('input[name="gender"]:checked').val()=='m'){
-				// 남자 측정
+				BMR = 66.47+(13.75*weight)+(5*height)-(6.76*age);
 			}else if($('input[name="gender"]:checked').val()=='w'){
-				// 여자 측정
+				BMR = 655.1+(9.56*weight)+(1.85*height)-(4.68*age);
 			}
+			var AMR = BMR*activeScore;
+			$('#BMR>span').text(Math.round(BMR * 100)/100+'kcal');
+			$('#AMR>span').text(Math.round(AMR * 100)/100+'kcal');
+			metabolicCheckOk = true;
+		}
+	});
+	
+	$('#signupFrm').submit(function() {
+		if(!(emailCheck && pwdCheck && nicknameCheck && telCheck)) {
+			alert("회원정보를 확인해주세요.");
+			return false;
+		} else if(!metabolicCheckOk){
+			alert("대사량 측정을 완료해주세요.");
+			return false;
 		}
 	});
 });

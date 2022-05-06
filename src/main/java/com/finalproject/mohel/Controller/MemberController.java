@@ -2,6 +2,8 @@ package com.finalproject.mohel.controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -16,21 +18,25 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.MemberService;
+import com.finalproject.mohel.vo.MemberVO;
 
-@Controller
+@RestController
 @RequestMapping("/member/")
 public class MemberController {
 	
@@ -38,19 +44,63 @@ public class MemberController {
 	MemberService service;
 	@Autowired
 	JavaMailSender javaMailSender;
+	
+	ModelAndView mav = new ModelAndView();
 
 	@GetMapping("signup")
-	public String signup() {
-		return "/member/signup";
+	public ModelAndView signup() {
+		mav.setViewName("/member/signup");
+		return mav;
+	}
+	
+	@PostMapping("signupOk")
+	public ModelAndView signupOk(MemberVO vo, HttpServletRequest request) {
+		
+		// 배포시 경로 변경
+		String path = "D:\\study\\Multi Campus\\Project-mohel\\profile";
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
+		
+		MultipartFile file = mr.getFile("filename");
+		if(!file.getOriginalFilename().equals("")) {
+			String orgFileName = file.getOriginalFilename();
+			int point = orgFileName.lastIndexOf(".");
+			String ext = orgFileName.substring(point+1);
+			
+			File f = new File(path, System.currentTimeMillis()+"."+ext);
+			
+			orgFileName = f.getName();
+			
+			try {
+				file.transferTo(f);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			vo.setProfile(orgFileName);
+		}else {
+			vo.setProfile("defaultProfile.png");
+		}
+		
+		service.insertMember(vo);
+		
+		mav.setViewName("redirect:/");
+		return mav;
 	}
 	
 	@GetMapping("userEdit")
-	public String userEdit() {
-		return "/member/userEdit";
+	public ModelAndView userEdit() {
+		mav.setViewName("/member/userEdit");
+		return mav;
+	}
+	
+	@PostMapping("searchEmail")
+	public int searchEmail(String email) {
+		return service.searchEmail(email);
 	}
 	
 	@PostMapping("checkMail")
-	@ResponseBody
 	public String checkMail(String email) {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		
@@ -75,13 +125,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("searchNickname")
-	@ResponseBody
 	public int searchNickname(String nickname) {
 		return service.searchNickname(nickname);
 	}
 	
 	@PostMapping("sendSMS")
-	@ResponseBody
 	public String sendSMS(String tel) {
 		String hostNameUrl = "https://sens.apigw.ntruss.com";			// 호스트 URL
 		String requestUrl= "/sms/v2/services/";							// 요청 URL
@@ -111,7 +159,7 @@ public class MemberController {
 	    
 	    String body = bodyJson.toString();
 	    
-	    System.out.println(body);
+//	    System.out.println(body);
 	    
         try {
             URL url = new URL(apiUrl);
@@ -133,7 +181,7 @@ public class MemberController {
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            System.out.println("responseCode" +" " + responseCode);
+//            System.out.println("responseCode" +" " + responseCode);
             if(responseCode == 202) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else { // 에러 발생
@@ -147,7 +195,7 @@ public class MemberController {
             }
             br.close();
             
-            System.out.println(response.toString());
+//            System.out.println(response.toString());
 
         } catch (Exception e) {}
         

@@ -6,4 +6,11 @@
 	<select id="searchNickname" resultType="int">
 		select count(no) from member where nickname=#{param1}
 	</select>
+	<select id="searchEmail" resultType="int">
+		select count(no) from member where email=#{param1}
+	</select>
+	<insert id="insertMember">
+		insert into member(email, pwd, nickname, tel, profile, birthdate, gender, age, height, weight, BMR, AMR)
+		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{BMR}, #{AMR})
+	</insert>
 </mapper>

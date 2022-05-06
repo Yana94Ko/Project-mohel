@@ -5,14 +5,19 @@ public class MemberVO {
 	private String email;
 	private String pwd;
 	private String nickname;
+	private String tel;
 	private String profile;
 	private String birthdate;
-	private int weight;
-	private int height;
-	private int age;
+	
 	private String gender;
-	private float BRM;
-	private float ARM;
+	private int age;
+	private int height;
+	private int weight;
+	private float active;
+	
+	private float BMR;
+	private float AMR;
+	
 	private int verify;
 	private String recentvisit;
 	private String joindate;
@@ -20,11 +25,11 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [getNo()=" + getNo() + ", getEmail()=" + getEmail() + ", getPwd()=" + getPwd()
-				+ ", getNickname()=" + getNickname() + ", getProfile()=" + getProfile() + ", getBirthdate()="
-				+ getBirthdate() + ", getWeight()=" + getWeight() + ", getHeight()=" + getHeight() + ", getAge()="
-				+ getAge() + ", getGender()=" + getGender() + ", getBRM()=" + getBRM() + ", getARM()=" + getARM()
-				+ ", getVerify()=" + getVerify() + ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()="
-				+ getJoindate() + "]";
+				+ ", getNickname()=" + getNickname() + ", getTel()=" + getTel() + ", getProfile()=" + getProfile()
+				+ ", getBirthdate()=" + getBirthdate() + ", getGender()=" + getGender() + ", getAge()=" + getAge()
+				+ ", getHeight()=" + getHeight() + ", getWeight()=" + getWeight() + ", getActive()=" + getActive()
+				+ ", getBRM()=" + getBMR() + ", getARM()=" + getAMR() + ", getVerify()=" + getVerify()
+				+ ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()=" + getJoindate() + "]";
 	}
 	
 	public int getNo() {
@@ -51,6 +56,12 @@ public class MemberVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 	public String getProfile() {
 		return profile;
 	}
@@ -63,17 +74,11 @@ public class MemberVO {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	public int getWeight() {
-		return weight;
+	public String getGender() {
+		return gender;
 	}
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public int getAge() {
 		return age;
@@ -81,23 +86,41 @@ public class MemberVO {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getGender() {
-		return gender;
+	public int getHeight() {
+		return height;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setHeight(int height) {
+		this.height = height;
 	}
-	public float getBRM() {
-		return BRM;
+	public int getWeight() {
+		return weight;
 	}
-	public void setBRM(float bRM) {
-		BRM = bRM;
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
-	public float getARM() {
-		return ARM;
+	public float getActive() {
+		return active;
 	}
-	public void setARM(float aRM) {
-		ARM = aRM;
+	public void setActive(float active) {
+		this.active = active;
+	}
+	public float getBMR() {
+		if(getGender().equals("m")) {
+			BMR = (float) (66.47+(13.75*(float) getWeight())+(5*(float) getHeight())-(6.76*(float) getAge()));
+		}else {
+			BMR = (float) (655.1+(9.56*(float) getWeight())+(1.85*(float) getHeight())-(4.68*(float) getAge()));
+		}
+		return BMR;
+	}
+	public void setBMR(float bRM) {
+		BMR = bRM;
+	}
+	public float getAMR() {
+		AMR = getBMR()*getActive();
+		return AMR;
+	}
+	public void setAMR(float aRM) {
+		AMR = aRM;
 	}
 	public int getVerify() {
 		return verify;
