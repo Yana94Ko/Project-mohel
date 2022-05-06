@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="top-head-userinfo">
 				<c:if test="${logStatus!='Y'}">
-					<a href="#">로그인</a> | 
+					<a href="/member/login">로그인</a> | 
 					<a href="/member/signup">회원가입</a>
 				</c:if>
 				<c:if test="${logStatus=='Y'}">
