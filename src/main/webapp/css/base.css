@@ -16,7 +16,16 @@ a:active {
 	color: black;
 }
 
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+
 .container {
 	width: 1000px;
 	margin: 0 auto;
+}
+
+.logo {
+	height: 60px;
+	width: 50px;
 }

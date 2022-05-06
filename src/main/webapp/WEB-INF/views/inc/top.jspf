@@ -31,14 +31,14 @@
 				</c:if>
 				<c:if test="${logStatus=='Y'}">
 					<a href="#">로그아웃</a> | 
-					<a href="#">마이페이지</a>
+					<a href="/member/userEdit">마이페이지</a>
 				</c:if>
 			</div>
 		</div>
 	</div>
 	<div class="top-and-category">
 		<div class="top-body container">
-			<a href="/" class="top-body-logo"></a>
+			<img id="topLogo" src="/img/mohel-logo-03.png" class="top-body-logo logo">
 			<div class="top-body-category">
 				<a href="#">식단</a>
 				<a href="#">운동</a>
