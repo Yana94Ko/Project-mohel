@@ -1,5 +1,8 @@
 server:
   port: 8040
+  servlet:
+    session:
+      timeout: 43220m
   
 spring:
   mvc:

@@ -6,7 +6,12 @@
 		<ul id="sugnupFrmBox">
 			<li>
 				<input id="profile" name="filename" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
-				<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="/img/defaultProfile.png"></label>
+				<c:if test="${kakaoVO!=null}">
+					<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="${kakaoVO.profile }"></label>
+				</c:if>
+				<c:if test="${kakaoVO==null}">
+					<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="/img/defaultProfile.png"></label>
+				</c:if>
 				<br><input id="defaultProfile" type="button" value="이미지 제거">
 			</li>
 			<li>
@@ -26,7 +31,7 @@
 				<div class="ck-msg"><span style="color: gray;">영문+숫자+특수문자 사용(8~20글자)</span></div>
 			</li>
 			<li>
-				<input id="nickname" name="nickname" class="text-box" type="text" placeholder="닉네임">
+				<input id="nickname" name="nickname" class="text-box" type="text" placeholder="닉네임" value="${userInfo.nickname }">
 				<div class="ck-msg"><span style="color: gray;">문자+숫자 사용(2~10글자)</span></div>
 			</li>
 			<li>

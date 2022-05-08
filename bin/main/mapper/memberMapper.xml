@@ -13,4 +13,11 @@
 		insert into member(email, pwd, nickname, tel, profile, birthdate, gender, age, height, weight, BMR, AMR)
 		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{BMR}, #{AMR})
 	</insert>
+	<select id="selectMember" resultType="MemberVO">
+		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, bmr, amr, verify
+		from member where email=#{email}
+		<if test="pwd!=null">
+			 and pwd=#{pwd}
+		</if>
+	</select>
 </mapper>

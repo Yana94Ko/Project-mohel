@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.finalproject.mohel.Certified;
+import com.finalproject.mohel.service.Certified;
+import com.finalproject.mohel.service.KakaoAPI;
 import com.finalproject.mohel.service.MemberService;
 import com.finalproject.mohel.vo.MemberVO;
 
@@ -28,27 +31,27 @@ public class MemberController {
 	MemberService service;
 	@Autowired
 	JavaMailSender javaMailSender;
+	@Autowired
+	Certified certified;
+	@Autowired
+	KakaoAPI kakao;
 	
-	Certified certified = new Certified();
 	ModelAndView mav = new ModelAndView();
 
+	// 회원가입
 	@GetMapping("signup")
 	public ModelAndView signup() {
+		mav.clear();
 		mav.setViewName("/member/signup");
-		return mav;
-	}
-	
-	@GetMapping("login")
-	public ModelAndView login() {
-		mav.setViewName("/member/login");
 		return mav;
 	}
 	
 	@PostMapping("signupOk")
 	public ModelAndView signupOk(MemberVO vo, HttpServletRequest request) {
 		
-		// 배포시 경로 변경
-		String path = "D:\\study\\Multi Campus\\Project-mohel\\profile";
+//		배포시 폴더경로 변경
+//		String path = "D:\\study\\Multi Campus\\Project-mohel\\profile";
+		String path = request.getSession().getServletContext().getRealPath("/img/profile");
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
 		
 		MultipartFile file = mr.getFile("filename");
@@ -76,7 +79,7 @@ public class MemberController {
 		
 		service.insertMember(vo);
 		
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:login");
 		return mav;
 	}
 	
@@ -106,5 +109,49 @@ public class MemberController {
 		return certified.sendSMS(tel);
 	}
 	
+	
+	// 로그인
+	@GetMapping("login")
+	public ModelAndView login(RedirectAttributes ra) {
+		mav.setViewName("/member/login");
+		return mav;
+	}
+	
+	@PostMapping("loginOk")
+	public ModelAndView loginOk(HttpSession session, MemberVO vo, RedirectAttributes redirect) {
+		MemberVO userInfo = service.selectMember(vo);
+		if(userInfo!=null) {
+			session.setAttribute("userInfo", userInfo);
+			session.setAttribute("logStatus", "Y");
+			mav.setViewName("redirect:/");
+		}else {
+			redirect.addFlashAttribute("email", vo.getEmail());
+			redirect.addFlashAttribute("nologin", true);
+			mav.setViewName("redirect:login");
+		}
+		return mav;
+	}
+	
+	@GetMapping("logout")
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		mav.setViewName("redirect:/");
+		return mav;
+	}
+	
+	@GetMapping("kakaologin")
+	public ModelAndView kakaologin(String code, HttpSession session, RedirectAttributes redirect) {
+		MemberVO kakaoVO = new MemberVO(kakao.getUserInfo(kakao.getAccessToken(code)));
+		MemberVO userInfo = service.selectMember(kakaoVO);
+		if(userInfo!=null) {
+			session.setAttribute("userInfo", userInfo);
+			session.setAttribute("logStatus", "Y");
+			mav.setViewName("redirect:/");
+		}else {
+			
+		}
+		
+		return mav;
+	}
 	
 }

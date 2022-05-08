@@ -1,4 +1,4 @@
-package com.finalproject.mohel;
+package com.finalproject.mohel.service;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,7 +20,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Certified {
 	
 	public String checkMail(String email, JavaMailSender javaMailSender) {
@@ -82,7 +84,7 @@ public class Certified {
 
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
-            con.setDoOutput(true);
+            con.setDoOutput(true); // POST요청시
             con.setDoInput(true);
             con.setRequestProperty("content-type", "application/json");
             con.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
