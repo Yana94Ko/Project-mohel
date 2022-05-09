@@ -145,7 +145,6 @@ public class MemberController {
 		MemberVO userInfo = service.selectMember(kakaoVO);
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
-			session.setAttribute("logStatus", "Y");
 			mav.setViewName("redirect:/");
 		}else {
 			
