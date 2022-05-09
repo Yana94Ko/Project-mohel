@@ -48,7 +48,7 @@
 		<div class="category-list">
 			<div class="category-list-box container">
 				<ul>
-					<li><a href="#">나만의 식단</a></li>
+					<li><a href="/myFoodMain">나만의 식단</a></li>
 					<li><a href="#">모두의 식단</a></li>
 				</ul>
 				<ul>
