@@ -122,7 +122,7 @@ public class MemberController {
 		MemberVO userInfo = service.selectMember(vo);
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
-			session.setAttribute("logStatus", "Y");
+			session.setAttribute("verify", userInfo.getVerify());
 			mav.setViewName("redirect:/");
 		}else {
 			redirect.addFlashAttribute("email", vo.getEmail());
