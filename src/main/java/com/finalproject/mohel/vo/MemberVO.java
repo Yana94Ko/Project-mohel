@@ -1,5 +1,7 @@
 package com.finalproject.mohel.vo;
 
+import java.util.HashMap;
+
 public class MemberVO {
 	private int no;
 	private String email;
@@ -30,6 +32,14 @@ public class MemberVO {
 				+ ", getHeight()=" + getHeight() + ", getWeight()=" + getWeight() + ", getActive()=" + getActive()
 				+ ", getBRM()=" + getBMR() + ", getARM()=" + getAMR() + ", getVerify()=" + getVerify()
 				+ ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()=" + getJoindate() + "]";
+	}
+	
+	public MemberVO() {}
+	
+	public MemberVO(HashMap<String, String> kakaoInfo) {
+		email = kakaoInfo.get("id");
+		nickname = kakaoInfo.get("nickname");
+		profile = kakaoInfo.get("profile");
 	}
 	
 	public int getNo() {
@@ -105,10 +115,12 @@ public class MemberVO {
 		this.active = active;
 	}
 	public float getBMR() {
-		if(getGender().equals("m")) {
-			BMR = (float) (66.47+(13.75*(float) getWeight())+(5*(float) getHeight())-(6.76*(float) getAge()));
-		}else {
-			BMR = (float) (655.1+(9.56*(float) getWeight())+(1.85*(float) getHeight())-(4.68*(float) getAge()));
+		if(active!=0) {
+			if(getGender().equals("m")) {
+				BMR = (float) (66.47+(13.75*(float) getWeight())+(5*(float) getHeight())-(6.76*(float) getAge()));
+			}else {
+				BMR = (float) (655.1+(9.56*(float) getWeight())+(1.85*(float) getHeight())-(4.68*(float) getAge()));
+			}
 		}
 		return BMR;
 	}
@@ -116,7 +128,9 @@ public class MemberVO {
 		BMR = bRM;
 	}
 	public float getAMR() {
-		AMR = getBMR()*getActive();
+		if(active!=0) {
+			AMR = getBMR()*getActive();
+		}
 		return AMR;
 	}
 	public void setAMR(float aRM) {

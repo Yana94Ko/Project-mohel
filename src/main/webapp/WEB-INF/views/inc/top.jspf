@@ -25,12 +25,12 @@
 	<div class="top-head">
 		<div class="container">
 			<div class="top-head-userinfo">
-				<c:if test="${logStatus!='Y'}">
-					<a href="#">로그인</a> | 
+				<c:if test="${userInfo==null}">
+					<a href="/member/login">로그인</a> | 
 					<a href="/member/signup">회원가입</a>
 				</c:if>
-				<c:if test="${logStatus=='Y'}">
-					<a href="#">로그아웃</a> | 
+				<c:if test="${userInfo!=null}">
+					<a href="/member/logout">로그아웃</a> | 
 					<a href="/member/userEdit">마이페이지</a>
 				</c:if>
 			</div>

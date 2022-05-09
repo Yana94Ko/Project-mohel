@@ -19,10 +19,10 @@ $(function() {
 	
 	// 선택시 테두리 굵은 검은색 변경
 	$(".form-use-btn>input:first-child").on('focus', function() {
-		$(this).parent().css('border', '2px solid black').css('border-radius', '4px');
+		$(this).parent().css('outline', '2px solid black').css('border-radius', '4px');
 	});
 	$(".form-use-btn>input:first-child").on('blur', function() {
-		$(this).parent().css('border', '1px solid #ccc').css('border-radius', '0px');
+		$(this).parent().css('outline', '1px solid #ccc').css('border-radius', '0px');
 	});
 	
 	// 인증박스 활성화

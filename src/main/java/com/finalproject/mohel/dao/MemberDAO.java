@@ -11,4 +11,5 @@ public interface MemberDAO {
 	public int searchNickname(String nickname);
 	public int searchEmail(String email);
 	public int insertMember(MemberVO vo);
+	public MemberVO selectMember(MemberVO vo);
 }
