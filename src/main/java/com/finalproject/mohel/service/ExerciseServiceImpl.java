@@ -6,10 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.finalproject.mohel.DAO.ExerciseDAO;
-import com.finalproject.mohel.VO.BoardVO;
-import com.finalproject.mohel.VO.ExercisePagingVO;
-import com.finalproject.mohel.VO.ExerciseVO;
+import com.finalproject.mohel.dao.ExerciseDAO;
+import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExercisePagingVO;
+import com.finalproject.mohel.vo.ExerciseVO;
+
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService{
@@ -145,6 +146,11 @@ public class ExerciseServiceImpl implements ExerciseService{
 	@Override
 	public void every_cntHit(int no) {
 		dao.every_cntHit(no);
+	}
+
+	@Override
+	public BoardVO getFilename(int no) {
+		return dao.getFilename(no);
 	}
 
 

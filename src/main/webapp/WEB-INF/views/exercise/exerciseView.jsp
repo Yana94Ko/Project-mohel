@@ -5,37 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link href="${url}/css/exercise/exerciseView.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript"
+		src="${url}/js/exercise/exerciseView.js"></script>
 <!-- Bootstrap CSS by bootswatch -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
 	rel="stylesheet" crossorigin="anonymous" />
 
 <meta charset="UTF-8">
-<style>
-/*메인폼*/
-#exercise-mainFrm {
-	width: 1000px;
-	height: 800px;
-	border: solid gray #ddd;
-}
 
-#main-title {
-	text-align: center;
-	margin: 30px;
-	position: relative;
-	font-size: 30px;
-}
 
-#delete-btn {
-	position: relative;
-	left: 2%;
-}
-#exerciselist-btn{
-	position: relative;
-	left:66%;
-}
-</style>
+<!-- <script type="text/javascript" src="${url}/js/exercise/exerciseView.js"></script> -->
 <script>
 function del(){
 	if(confirm('삭제할까요?')){
@@ -43,12 +25,11 @@ function del(){
 	}
 }
 </script>
-
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="container" id="exercise-mainFrm">
-		<form method="post" id="exerciseFrm">
+		<form method="post" id="exerciseFrm" enctype="multipart/form-data">
 			<fieldset>
 				<legend id="main-title">나만의 운동 기록</legend>
 				<div class="form-group row">
@@ -78,7 +59,7 @@ function del(){
 					<input type='hidden' name='nickname'
 						id='nickname' value='${nickname}' />
 						<input type='hidden' name='no' value='${vo.no }'/>
-
+					<img src='/img/exercise/${vo.img1}' id="preview" name="img1" class="rounded"/>
 				</div>
 
 

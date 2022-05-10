@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link href="${url}/css/exercise/exerciseEdit.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript"
+		src="${url}/js/exercise/exerciseEdit.js"></script>
 <!-- Bootstrap CSS by bootswatch -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
@@ -13,28 +16,7 @@
 
 <meta charset="UTF-8">
 <style>
-/*메인폼*/
-#exercise-mainFrm {
-	width: 1000px;
-	height: 800px;
-	border: solid gray #ddd;
-}
 
-#main-title {
-	text-align: center;
-	margin: 30px;
-	position: relative;
-	font-size: 30px;
-}
-
-#delete-btn {
-	position: relative;
-	left: 2%;
-}
-#exerciselist-btn{
-	position: relative;
-	left:76%;
-}
 </style>
 
 
@@ -74,6 +56,7 @@
 					<input type='hidden' name='nickname'
 						id='nickname' value='${nickname}' />
 						<input type='hidden' name='no' value='${vo.no }'/>
+					<img src='${url}/img/exercise/${vo.img1}' id="preview" style="display: none" class="rounded"/>
 				</div>
 
 

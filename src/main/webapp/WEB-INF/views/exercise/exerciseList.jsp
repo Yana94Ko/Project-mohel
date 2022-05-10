@@ -7,68 +7,16 @@
 
 <html>
 <head>
-
+<link href="${url}/css/exercise/exerciseList.css" rel="stylesheet"
+	type="text/css" />
 <!-- Bootstrap CSS by bootswatch -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
 	rel="stylesheet" crossorigin="anonymous" />
-<link href="${url}/css/exercise/exercise.css" rel="stylesheet"
-	type="text/css" />
 
 <meta charset="UTF-8">
-<style>
-/*검색바*/
-.search-bar {
-	width: 500px;
-	height: 50px;
-	position: relative;
-	left: 15px;
-}
-/*나만의 운동기록 버튼*/
-#write {
-	width: 400px;
-	left: 0px;
-	right: 0;
-	margin: auto;
-	position: relative;
-}
-/*나만의 운동기록리스트*/
-#exercise-main-tbl {
-	position: relative;
-	margin-top: 20px;
-}
-#exercise-main-tbl{
-	overflow:hidden;
-	width:100%;
-	height:80px;
-	text-align:center;
-	border-bottom: 1px solid #bdbdbd;
-	font-weight: 600;
-}
-#exercise-head>th:nth-child(6n+2){
-	overflow:hidden;
-	text-overflow:hidden;
-	width:20%;
-}
-#exercise-head>th:nth-child(6n+3){
-	overflow:hidden;
-	text-overflow:hidden;
-	width:45%;
-}
-</style>
-<script>
-$(function(){
-    $("#search").keyup(function(){
-        var value = $(this).val().toLowerCase();
-        
-        $("#searchList>tr").filter(function(){
-            var idx = $(this).text().toLowerCase().indexOf(value); 
-            $(this).toggle(idx>-1);
-        });
-    });
-});
 
-</script>
+<script type="text/javascript" src="${url}/js/exercise/exerciseList.js"></script>
 <title>나만의 운동</title>
 
 </head>
@@ -108,7 +56,8 @@ $(function(){
 
 				<c:forEach var="vo" items="${lst }">
 					<tr class="table-light"
-						onclick="location.href='/exercise/exerciseView?no=${vo.no}'" id="exercise-head">
+						onclick="location.href='/exercise/exerciseView?no=${vo.no}'"
+						id="exercise-head">
 
 						<td>${vo.no }</td>
 						<td>${vo.title }</td>
@@ -121,39 +70,50 @@ $(function(){
 
 			</tbody>
 		</table>
-			<!-- 페이징 -->
-	<br/>
-	<ul class="paging">
-		<!-- 이전페이지 -->		
-		<c:if test="${pVO.pageNum==1}">
-			<li><a href="#">prev</a>
-		</c:if>
-		<c:if test="${pVO.pageNum>1}">
-			<li><a href="/myapp/exercise/exerciseList?pageNum=${pVO.pageNum-1}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">prev</a></li>
-		</c:if>
-		<!-- 페이지 번호 -->
-		<c:forEach var="p" begin="${pVO.startPage}" end="${pVO.startPage+pVO.onePageCount-1}">
-			<!-- 총페이지수 보다 출력할 페이지 번호가 작을때 -->
-			<c:if test="${p<=pVO.totalPage}">
-				<c:if test="${p==pVO.pageNum}">
-					<li style="background-color:red">
-				</c:if>
-				<c:if test="${p!=pVO.pageNum }">
-					<li>
-				</c:if>
-				<li><a href="/myapp/exercise/exerciseList?pageNum=${p}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">${p}</a></li>
+		<!-- 페이징 -->
+		<br />
+		<!-- 페이징 -->
+		<ul class="paging">
+			<!-- 이전페이지 -->
+			<c:if test="${pVO.pageNum==1}">
+				<li><a href="#"><img
+						src="${url}/img/exercise/left-arrow.png" id="left-btn">prev</a>
 			</c:if>
-		</c:forEach>
-			
-		<!-- 다음페이지 -->
-		<c:if test="${pVO.pageNum==pVO.totalPage }">
-			<li>next</li>
-		</c:if>
-		<c:if test="${pVO.pageNum<pVO.totalPage }">
-			<li><a href="/myapp/exercise/exerciseList?pageNum=${pVO.pageNum+1 }<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">next</a></li>
-		</c:if>
-			
-	</ul>
-</div>
+			<c:if test="${pVO.pageNum>1}">
+				<li><a
+					href="/exercise/exerciseList?pageNum=${pVO.pageNum-1}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>"><img
+						src="${url}/img/exercise/left-arrow.png" id="left-btn">prev</a></li>
+			</c:if>
+			<!-- 페이지 번호 -->
+			<c:forEach var="p" begin="${pVO.startPage}"
+				end="${pVO.startPage+pVO.onePageCount-1}">
+				<!-- 총페이지수 보다 출력할 페이지 번호가 작을때 -->
+				<c:if test="${p<=pVO.totalPage}">
+					<c:if test="${p==pVO.pageNum}">
+						<li>
+					</c:if>
+					<c:if test="${p!=pVO.pageNum }">
+						<li>
+					</c:if>
+					<a
+						href="/exercise/exerciseList?pageNum=${p}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">${p}</a>
+					</li>
+				</c:if>
+
+			</c:forEach>
+
+			<!-- 다음페이지 -->
+			<c:if test="${pVO.pageNum==pVO.totalPage }">
+				<li>next<a href="#"><img
+						src="${url}/img/exercise/right-arrow.png" id="right-btn"></a></li>
+			</c:if>
+			<c:if test="${pVO.pageNum<pVO.totalPage }">
+				<li><a
+					href="/exercise/exerciseList?pageNum=${pVO.pageNum+1 }<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">next<img
+						src="${url}/img/exercise/right-arrow.png" id="right-btn"></a></li>
+			</c:if>
+
+		</ul>
+	</div>
 </body>
 </html>

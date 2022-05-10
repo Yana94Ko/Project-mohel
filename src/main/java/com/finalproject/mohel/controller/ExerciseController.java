@@ -2,7 +2,9 @@ package com.finalproject.mohel.controller;
 
 
 
+import java.io.File;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finalproject.mohel.VO.BoardVO;
-import com.finalproject.mohel.VO.ExercisePagingVO;
-import com.finalproject.mohel.VO.ExerciseVO;
 import com.finalproject.mohel.service.ExerciseService;
+import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExercisePagingVO;
+import com.finalproject.mohel.vo.ExerciseVO;
 
 @RestController
 public class ExerciseController {
@@ -34,8 +38,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/exerciseList")
 	public ModelAndView exerciseList(ExercisePagingVO pVO, String category) {
 		ModelAndView mav = new ModelAndView();
-		
-		//pVO.setTotalRecord(service.totalRecord(pVO));
+		pVO.setTotalRecord(service.totalRecord(pVO));
 		
 		mav.addObject("lst", service.exerciseList(pVO));
 		mav.addObject("pVO", pVO);
@@ -66,14 +69,35 @@ public class ExerciseController {
 	}
 	
 	@PostMapping("/exercise/exerciseWriteOk")
-    public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request){
+    public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
 		vo.setNickname((String)request.getSession().getAttribute("nickname"));
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
+       
+        mr = (MultipartHttpServletRequest) request;
+		MultipartFile file = mr.getFile("filename");
+		
+		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
+        System.out.println(path);
+       
+        String orgFileName = file.getOriginalFilename();
+        int point = orgFileName.lastIndexOf(".");
+        String ext = orgFileName.substring(point+1);
+        			
+        File f = new File(path, System.currentTimeMillis()+"."+ext);
+        			
+        orgFileName = f.getName();
+        
+        //String filename = file.getOriginalFilename();
+		//File uploadFile = new File(path, filename);
         try {
-			//글등록 성공
-			service.exerciseInsert(vo);
+        	file.transferTo(f);
+			vo.setImg1(file.getOriginalFilename());
+        	//글등록 성공
+			
+        	service.exerciseInsert(vo);
+			
 			
 			//글 목록으로 이동
 			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/exerciseList';</script>";
@@ -181,6 +205,8 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
+		pVO.setTotalRecord(service.totalRecord(pVO));
+		
 		mav.addObject("lst", service.every_exerciseList(pVO));
 		mav.addObject("pVO", pVO);
 	

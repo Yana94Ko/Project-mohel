@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finalproject.mohel.VO.ExerciseReplyVO;
 import com.finalproject.mohel.service.ExerciseReplyService;
+import com.finalproject.mohel.vo.ExerciseReplyVO;
 
 @RestController
 public class ExerciseReplyController {

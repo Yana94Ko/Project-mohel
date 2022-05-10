@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.finalproject.mohel.DAO.ExerciseReplyDAO;
-import com.finalproject.mohel.VO.ExerciseReplyVO;
+import com.finalproject.mohel.dao.ExerciseReplyDAO;
+import com.finalproject.mohel.vo.ExerciseReplyVO;
+
 
 @Service
 public class ExerciseReplyServiceImpl implements ExerciseReplyService{

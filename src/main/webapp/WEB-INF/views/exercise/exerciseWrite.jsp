@@ -5,30 +5,22 @@
 <html>
 <head>
 
+<link href="${url}/css/exercise/exerciseWrite.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript"
+		src="${url}/js/exercise/exerciseWrite.js"></script>
+	
 <!-- Bootstrap CSS by bootswatch -->
  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-
+<script type="text/javascript"
+		src="${url}/js/exercise/exerciseWrite.js"></script>
 <meta charset="UTF-8">
-<style>
-/*메인폼*/
-#exercise-mainFrm{
-	width:1000px;
-	height:800px;
-	border:solid gray #ddd;
-	
-}
-	#main-title{
-		text-align:center;
-		margin:30px;
-		position:relative;
-		font-size:30px;
-	}
-</style>
+
 <title>Insert title here</title>
 </head>
 <body>
 <div class="container" id="exercise-mainFrm">
-<form method="post" action="/exercise/exerciseWriteOk" id="exerciseFrm">
+<form method="post" action="/exercise/exerciseWriteOk" id="exerciseFrm" enctype="multipart/form-data">
   <fieldset>
     <legend id="main-title">나만의 운동 기록</legend>
     <div class="form-group row">
@@ -49,13 +41,14 @@
     </div>
     <div class="form-group">
       <label for="formFile" class="form-label mt-4">사진 업로드</label>
-      <input class="form-control" type="file" id="formFile" name="img1">
+      <input class="form-control" type="file" id="formFile" name="filename">
       <input type='hidden' name='category' id='category' value='${category}'/>
       <input type='hidden' name='nickname' id='nickname' value='${nickname}'/>
-   
+  	 <img src='/img/exercise/${vo.img1}' id="preview" style="display: none" name="img1" class="rounded"/>
     </div>
 
-    <button type="submit" class="btn btn-primary">등록하기</button>
+   <button type="submit" class="btn btn-primary">등록하기</button>
+   
   </fieldset>
 </form>
 </div>

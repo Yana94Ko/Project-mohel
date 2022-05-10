@@ -2,9 +2,10 @@ package com.finalproject.mohel.service;
 
 import java.util.List;
 
-import com.finalproject.mohel.VO.BoardVO;
-import com.finalproject.mohel.VO.ExercisePagingVO;
-import com.finalproject.mohel.VO.ExerciseVO;
+import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExercisePagingVO;
+import com.finalproject.mohel.vo.ExerciseVO;
+
 
 public interface ExerciseService {
 	//참가 여부
@@ -16,6 +17,8 @@ public interface ExerciseService {
 	public int exerciseUpdate(BoardVO vo);
 	public int exerciseDelete(int no, String nickname);
 
+	public BoardVO getFilename(int no);
+	
 	public void cntHit (int no);
 
 	//총레코드수

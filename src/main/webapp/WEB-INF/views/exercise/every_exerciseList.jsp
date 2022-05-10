@@ -5,56 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link href="${url}/css/exercise/every_exerciseList.css" rel="stylesheet"
+	type="text/css" />
 <!-- Bootstrap CSS by bootswatch -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
 	rel="stylesheet" crossorigin="anonymous" />
-<style>
 
-/*메인*/
-#main_text {
-	margin: 30px;
-	text-align: center;
-}
-
-#recruitment {
-	width: 400px;
-	left: 450px;
-	right: 0;
-	margin: auto;
-	position: relative;
-}
-/*모두의 운동리스트*/
-#every_exercise_img {
-	width: 300px;
-	height: 320px;
-}
-
-#thumbnail-list {
-	margin: 30px;
-	width:1300px;
-	height:100%;
-}
-
-.service_item {
-	position: relative;
-	left: 200px;
-	float:left;
-	margin:30px;
-}
-#thumbnail-text{
-	width:300px;
-	height:200px;
-}
-/*검색바*/
-.search-bar {
-	width: 500px;
-	height: 50px;
-	position: relative;
-	left: 15px;
-}
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -94,8 +51,52 @@
 				</div>
 			</div>
 		</c:forEach>
-
 	</div>
+	<div id="paging-div">
+		<!-- 페이징 -->
+		<br />
+		<!-- 페이징 -->
+		<ul class="paging">
+			<!-- 이전페이지 -->
+			<c:if test="${pVO.pageNum==1}">
+				<li><a href="#"><img
+						src="${url}/img/exercise/left-arrow.png" id="left-btn">prev</a>
+			</c:if>
+			<c:if test="${pVO.pageNum>1}">
+				<li><a
+					href="/exercise/every_exerciseList?pageNum=${pVO.pageNum-1}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>"><img
+						src="${url}/img/exercise/left-arrow.png" id="left-btn">prev</a></li>
+			</c:if>
+			<!-- 페이지 번호 -->
+			<c:forEach var="p" begin="${pVO.startPage}"
+				end="${pVO.startPage+pVO.onePageCount-1}">
+				<!-- 총페이지수 보다 출력할 페이지 번호가 작을때 -->
+				<c:if test="${p<=pVO.totalPage}">
+					<c:if test="${p==pVO.pageNum}">
+						<li>
+					</c:if>
+					<c:if test="${p!=pVO.pageNum }">
+						<li>
+					</c:if>
+					<a
+						href="/exercise/every_exerciseList?pageNum=${p}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">${p}</a>
+					</li>
+				</c:if>
 
+			</c:forEach>
+
+			<!-- 다음페이지 -->
+			<c:if test="${pVO.pageNum==pVO.totalPage }">
+				<li>next<a href="#"><img
+						src="${url}/img/exercise/right-arrow.png" id="right-btn"></a></li>
+			</c:if>
+			<c:if test="${pVO.pageNum<pVO.totalPage }">
+				<li><a
+					href="/exercise/every_exerciseList?pageNum=${pVO.pageNum+1 }<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord }</c:if>">next<img
+						src="${url}/img/exercise/right-arrow.png" id="right-btn"></a></li>
+			</c:if>
+
+		</ul>
+		</div>
 </body>
 </html>

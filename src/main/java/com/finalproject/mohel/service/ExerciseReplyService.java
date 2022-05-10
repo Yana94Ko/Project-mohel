@@ -2,7 +2,8 @@ package com.finalproject.mohel.service;
 
 import java.util.List;
 
-import com.finalproject.mohel.VO.ExerciseReplyVO;
+import com.finalproject.mohel.vo.ExerciseReplyVO;
+
 
 
 public interface ExerciseReplyService {
