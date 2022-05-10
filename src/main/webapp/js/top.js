@@ -1,7 +1,7 @@
 $(function() {
 	$(".top-body-category").mouseenter(() => {
 		$('.category-list').animate({
-			height: '110px'
+			height: '120px'
 		}, 150);
 	});
 	$(".top-and-category").mouseleave(() => {
