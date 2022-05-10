@@ -7,8 +7,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,15 +42,22 @@ public class MemberController {
 
 	// 회원가입
 	@GetMapping("signup")
-	public ModelAndView signup() {
-		mav.clear();
+	public ModelAndView signup(Model model, HttpSession session) {
+		Object obj = model.getAttribute("kakaoVO");
+		if(obj!=null) {
+			session.setAttribute("kakaoVO", obj);
+		}else {
+			session.invalidate();
+		}
+		
 		mav.setViewName("/member/signup");
 		return mav;
 	}
 	
 	@PostMapping("signupOk")
-	public ModelAndView signupOk(MemberVO vo, HttpServletRequest request) {
-		
+	public ModelAndView signupOk(MemberVO vo, HttpServletRequest request, HttpSession session) {
+		Object objKakao = session.getAttribute("kakaoVO");
+		session.invalidate();
 //		배포시 폴더경로 변경
 //		String path = "D:\\study\\Multi Campus\\Project-mohel\\profile";
 		String path = request.getSession().getServletContext().getRealPath("/img/profile");
@@ -73,6 +82,9 @@ public class MemberController {
 			}
 			
 			vo.setProfile(orgFileName);
+		}else if(objKakao!=null) {
+			JSONObject JSONObjKakao = new JSONObject(objKakao);
+			vo.setProfile(JSONObjKakao.getString("profile"));
 		}else {
 			vo.setProfile("defaultProfile.png");
 		}
@@ -143,11 +155,14 @@ public class MemberController {
 	public ModelAndView kakaologin(String code, HttpSession session, RedirectAttributes redirect) {
 		MemberVO kakaoVO = new MemberVO(kakao.getUserInfo(kakao.getAccessToken(code)));
 		MemberVO userInfo = service.selectMember(kakaoVO);
+		
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
+			session.setAttribute("kakao", true);
 			mav.setViewName("redirect:/");
 		}else {
-			
+			redirect.addFlashAttribute("kakaoVO", kakaoVO);
+			mav.setViewName("redirect:signup");
 		}
 		
 		return mav;
