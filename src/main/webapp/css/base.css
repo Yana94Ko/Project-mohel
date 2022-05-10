@@ -12,18 +12,10 @@ a,
 a:visited,
 a:hover,
 a:active {
-	height:5px;
 	text-decoration: none;
-	color: gray;
-	font-family:'Noto Sans KR', sans-serif;
+	color: black;
 }
 
 input:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0 1000px #fff inset;
 }
-
-.container {
-	width: 1000px;
-	margin: 0 auto;
-}
-

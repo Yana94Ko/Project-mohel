@@ -14,15 +14,7 @@
 .top-head {
 	width: inherit;
 	height: 25px;
-	margin-left:200px;
 	line-height: 25px;
-}
-.top-body-logo img{
-	position: absolute;
-	height: 60px;
-	width: 120px;
-	top: 28px;
-	left: 450px;
 }
 .top-head-userinfo {
 	float: right;
@@ -44,32 +36,27 @@
 /* top-and-category */
 .top-and-category {
 	width: inherit;
-}
-
-/* top-body */
-.top-body {
-	height: 90px;
-	display: flex;
-	align-items: center;
+	line-height: 100px;
+	overflow: auto;
 }
 	
 .top-body-logo {
 	margin-left: 40px;
 	position: absolute;
 }
+
+.category-list-box,
 .top-body-category {
-	
-	width: 990px;
-	margin: -10px 750px 0px;
 	display: flex;
 	justify-content: space-around;
+	width: 830px !important;
+	float: right;
 }
 .top-body-category > a {
-	
-	width: 950px;
-	padding: 40px 40px;
 	font-size: 20px;
 	font-weight: bold;
+	width: 106px;
+	text-align: center;
 }
 
 .top-body-category a:hover:nth-child(1){
@@ -95,11 +82,8 @@
 	z-index:100;
 	background-color: #fff;
 }
-.category-list-box {
-	width: 1000px;
-	margin: 0px 692px 0px;
-	display: flex;
-	justify-content: space-around;
+.category-list-box > ul {
+	width: 106px;
 }
 .category-list-box li {
 	text-align: center;
