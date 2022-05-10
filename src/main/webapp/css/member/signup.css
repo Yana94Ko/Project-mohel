@@ -1,0 +1,102 @@
+@charset "UTF-8";
+#signupFrm {
+	width: 460px;
+	margin: 0 auto;
+}
+.signup-main > .logo {
+	margin: 30px auto;
+}
+
+#sugnupFrmBox > li {
+	text-align: center;
+}
+.ck-msg {
+	line-height: 20px;
+	height: 20px;
+	font-size: 12px;
+	text-align: left;
+}
+
+.not-ck-msg{
+	margin: 20px 0;
+}
+
+.form-use-btn {
+	border: 1px solid #ccc;
+	width: inherit;
+}
+.form-use-btn,
+#pwd {
+	margin-bottom: 5px;
+}
+.form-use-btn>input:first-child,
+#sugnupFrmBox input[type="password"],
+#nickname {
+	height: 45px;
+	padding: 0 15px;
+}
+.form-use-btn>input:first-child {
+	width: 395px;
+	border: 0px;
+	padding: 0 10px;
+}
+.form-use-btn>input:first-child:focus {
+	outline: none;
+}
+.form-use-btn>input[type="button"] {
+	background: white;
+	border: 1px solid #888;
+	width: 50px;
+}
+.form-use-btn>input[type="button"]:hover {
+	background: #eee;
+}
+.form-use-btn>input[type="button"]:active {
+	background: #fff;
+}
+
+#sugnupFrmBox input[type="password"],
+#nickname {
+	width: 460px;
+	border-radius: 0px;
+	border: 1px solid #ccc;
+}
+
+.thumbnail-area img {
+	object-fit: cover;
+	width: 5rem;
+	height: 5rem;
+	border-radius: 50%;
+	display: block;
+}
+.thumbnail-area img:hover {
+	cursor: pointer;
+}
+
+#birthdate {
+	margin-right: 30px;
+}
+
+.list-left {
+	text-align: left !important;
+}
+
+.body-size-input {
+	width: 40px;
+	border: 1px solid #ccc;
+}
+.body-size-label {
+	width: 60px;
+}
+.active-quantity label {
+	width: 200px;
+}
+.bmr-amr>div {
+	font-weight: bold;
+}
+#sugnupFrmBox button {
+	padding: 5px 20px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	margin-bottom: 50px;
+}
