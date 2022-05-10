@@ -13,7 +13,7 @@ $(function() {
 	fileInput.addEventListener("change", handleFiles);
 	// 이미지제거 클릭시 기본 이미지로 프로필 사진 변경
 	$('#defaultProfile').click(function() {
-		$('#profileImg').attr('src', '/img/defaultProfile.png');
+		$('#profileImg').attr('src', '/img/profile/defaultProfile.png');
 		$('#profile').val('');
 	});
 	
@@ -69,7 +69,7 @@ $(function() {
 				success: function(result) {
 					if(result==0){
 						$('#emailCk').val('');
-						$(".ck-msg:eq(0)").html('');
+						$("#emailCkMsg").html('');
 						activeCheckBox($('#emailCheckBox>input'));
 						$.ajax({
 							url: '/member/checkMail',
@@ -88,7 +88,7 @@ $(function() {
 		}else {
 			str = '<span style="color: red;">이메일을 확인해주세요.</span>';
 		}
-		$(".ck-msg:eq(0)").html(str);
+		$("#emailCkMsg").html(str);
 	});
 	$('#emailCkBtn').on('click', function() {
 		var str='';
@@ -98,12 +98,12 @@ $(function() {
 		}else {
 			str = '<span style="color: red;">인증번호를 확인해주세요</span>';
 		}
-		$(".ck-msg:eq(0)").html(str);
+		$("#emailCkMsg").html(str);
 	});
 	$('#email').on('input', function(){
 		emailCheck = false;
 		$('#emailCk').val('');
-		$(".ck-msg:eq(0)").html('');
+		$("#emailCkMsg").html('');
 		disabledCheckBox($('#emailCheckBox>input'));
 	});
 	
@@ -125,7 +125,7 @@ $(function() {
             str = '<span style="color: blue;">비밀번호가 동일합니다.</span>';
             pwdCheck = true;
         }
-        $(".ck-msg:eq(1)").html(str);
+        $("#pwdCkMsg").html(str);
     };
     userpwd.on('input', pwCk);
     userpwdCk.on('input', pwCk);
@@ -134,10 +134,8 @@ $(function() {
     let nicknameMaxLength =10;
     let regNickname = new RegExp("^[\\w가-힣]{2,"+nicknameMaxLength+"}$");
     let nickname = $('#nickname');
-    nickname.on('input', function() {
-		let str = "";
-		nicknameCheck = false;
-		inputMaxLength(this, 10);
+    const checkNickname = (e) => {
+		inputMaxLength(e, 10);
 		if(nickname.val().length<2) {
 			str = '<span style="color: gray;">문자+숫자 사용(2~10글자)</span>';
 		}else if(regNickname.test(nickname.val())) {
@@ -158,8 +156,15 @@ $(function() {
 		}else {
 			str = '<span style="color: red;">사용 불가능한 닉네임입니다.</span>';
 		}
-		$(".ck-msg:eq(2)").html(str);
+		$("#nicknameCkMsg").html(str);
+	}
+	checkNickname(nickname);
+    nickname.on('input', function() {
+		let str = "";
+		nicknameCheck = false;
+		checkNickname(this);
 	});
+	
 	
 	
 	// 전화번호 인증
@@ -176,7 +181,7 @@ $(function() {
 			str = '<span style="color: red;">전화번호를 정확히 입력해주세요.</span>';
 		} else {
 			$('#telCk').val('');
-			$(".ck-msg:eq(3)").html('');
+			$("#telCkMsg").html('');
 			activeCheckBox($('#telCheckBox>input'));
 			$.ajax({
 				url: "/member/sendSMS",
@@ -188,7 +193,7 @@ $(function() {
 			});
 			str = '<span style="color: green;">인증번호가 발송되었습니다.</span>';
 		}
-		$(".ck-msg:eq(3)").html(str);
+		$("#telCkMsg").html(str);
 	});
 	$('#telCkBtn').on('click', function() {
 		var str='';
@@ -198,11 +203,11 @@ $(function() {
 		}else {
 			str = '<span style="color: red;">인증번호를 확인해주세요</span>'
 		}
-		$(".ck-msg:eq(3)").html(str);
+		$("#telCkMsg").html(str);
 	});
 	$('#tel').on('input', function(){
 		$('#telCk').val('');
-		$(".ck-msg:eq(3)").html('');
+		$("#telCkMsg").html('');
 		disabledCheckBox($('#telCheckBox>input'));
 		telCheck = false;
 	});
@@ -274,11 +279,20 @@ $(function() {
 		}
 	});
 	
+	// 카카오 로그인 확인
+	var kakaoLogin = false;
+	var kakaoId = "";
+	var regKakaoId = /^[0-9]{10}$/;
+	if($(email).val().length!=0 && regKakaoId.test($(email).val())){
+		kakaoLogin = true;
+		kakaoId = $(email).val();
+	}
 	$('#signupFrm').submit(function() {
-		if(!(emailCheck && pwdCheck && nicknameCheck && telCheck)) {
+		if(!((kakaoLogin && regKakaoId.test(kakaoId) && kakaoId==$(email).val())
+		|| (emailCheck && pwdCheck && nicknameCheck) && telCheck)) {
 			alert("회원정보를 확인해주세요.");
 			return false;
-		} else if(!metabolicCheckOk){
+		}else if(!metabolicCheckOk){
 			alert("대사량 측정을 완료해주세요.");
 			return false;
 		}

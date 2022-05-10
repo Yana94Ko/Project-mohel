@@ -129,7 +129,7 @@ public class MemberVO {
 	}
 	public float getAMR() {
 		if(active!=0) {
-			AMR = getBMR()*getActive();
+			AMR = (float)(Math.round(getBMR()*getActive() * 100))/100;
 		}
 		return AMR;
 	}

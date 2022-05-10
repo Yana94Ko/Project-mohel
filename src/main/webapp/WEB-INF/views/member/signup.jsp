@@ -10,29 +10,38 @@
 					<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="${kakaoVO.profile }"></label>
 				</c:if>
 				<c:if test="${kakaoVO==null}">
-					<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="/img/defaultProfile.png"></label>
+					<label class="thumbnail-area" for="profile" title="이미지 업로드"><img id="profileImg" src="/img/profile/defaultProfile.png"></label>
 				</c:if>
 				<br><input id="defaultProfile" type="button" value="이미지 제거">
 			</li>
+			
 			<li>
-				<div class="form-use-btn input-first">
-					<input id="email" name="email" class="text-box" type="text" placeholder="이메일">
-					<input id="emailCheckNumSend" type="button" value="인증">
-				</div>
-				<div id="emailCheckBox" class="form-use-btn check">
-					<input id="emailCk" class="text-box" type="text" placeholder="인증번호 6자리" disabled>
-					<input id="emailCkBtn" type="button" value="확인" disabled>
-				</div>
-				<div class="ck-msg"></div>
+				<c:if test="${kakaoVO!=null}">
+					<input id="email" name="email" class="text-box" type="hidden" placeholder="이메일" value="${kakaoVO.email }">
+				</c:if>
+				<c:if test="${kakaoVO==null}">
+					<div class="form-use-btn input-first">
+						<input id="email" name="email" class="text-box" type="text" placeholder="이메일">
+						<input id="emailCheckNumSend" type="button" value="인증">
+					</div>
+					<div id="emailCheckBox" class="form-use-btn check">
+						<input id="emailCk" class="text-box" type="text" placeholder="인증번호 6자리" disabled>
+						<input id="emailCkBtn" type="button" value="확인" disabled>
+					</div>
+					<div id="emailCkMsg" class="ck-msg"></div>
+				</c:if>
 			</li>
+			
+			<c:if test="${kakaoVO==null}">
+				<li>
+					<input id="pwd" name="pwd" class="text-box input-first" type="password" placeholder="비밀번호">
+					<input id="pwdCk" class="text-box" type="password" placeholder="비밀번호 확인">
+					<div id="pwdCkMsg" class="ck-msg"><span style="color: gray;">영문+숫자+특수문자 사용(8~20글자)</span></div>
+				</li>
+			</c:if>
 			<li>
-				<input id="pwd" name="pwd" class="text-box input-first" type="password" placeholder="비밀번호">
-				<input id="pwdCk" class="text-box" type="password" placeholder="비밀번호 확인">
-				<div class="ck-msg"><span style="color: gray;">영문+숫자+특수문자 사용(8~20글자)</span></div>
-			</li>
-			<li>
-				<input id="nickname" name="nickname" class="text-box" type="text" placeholder="닉네임" value="${userInfo.nickname }">
-				<div class="ck-msg"><span style="color: gray;">문자+숫자 사용(2~10글자)</span></div>
+				<input id="nickname" name="nickname" class="text-box" type="text" placeholder="닉네임" value="${kakaoVO.nickname }">
+				<div id="nicknameCkMsg" class="ck-msg"><span style="color: gray;">문자+숫자 사용(2~10글자)</span></div>
 			</li>
 			<li>
 				<div class="form-use-btn input-first">
@@ -43,7 +52,7 @@
 					<input id="telCk" class="text-box" type="text" placeholder="인증번호 입력" disabled>
 					<input id="telCkBtn" type="button" value="확인" disabled>
 				</div>
-				<div class="ck-msg"></div>
+				<div id="telCkMsg" class="ck-msg"></div>
 			</li>
 			
 			<li><h3>기초/활동 대사량 측정</h3></li>
