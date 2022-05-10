@@ -12,8 +12,10 @@ a,
 a:visited,
 a:hover,
 a:active {
+	height:5px;
 	text-decoration: none;
-	color: black;
+	color: gray;
+	font-family:'Noto Sans KR', sans-serif;
 }
 
 input:-webkit-autofill {
@@ -25,7 +27,3 @@ input:-webkit-autofill {
 	margin: 0 auto;
 }
 
-.logo {
-	height: 60px;
-	width: 50px;
-}
