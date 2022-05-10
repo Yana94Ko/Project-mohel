@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/*exerciseEdit*/
+/*메인폼*/
+#exercise-mainFrm {
+	width: 1000px;
+	height: 800px;
+	border: solid gray #ddd;
+}
+
+#main-title {
+	text-align: center;
+	margin: 30px;
+	position: relative;
+	font-size: 30px;
+}
+
+#delete-btn {
+	position: relative;
+	left: 2%;
+}
+#exerciselist-btn{
+	position: relative;
+	left:76%;
+}
+/*이미지*/
+#formFile{
+	width:330px;
+}
+#preview{
+	margin:2px;
+	width:260px;
+	height:260px;
+	position:relative;
+	float:right;
+	right:250px;
+	top:-45px;
+}
