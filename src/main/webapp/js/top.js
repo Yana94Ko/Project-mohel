@@ -9,4 +9,7 @@ $(function() {
 			height: '0'
 		}, 150);
 	});
+	$('#topLogo').click(function() {
+		location.href="/";
+	});
 });

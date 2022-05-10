@@ -1,5 +1,8 @@
 server:
   port: 8040
+  servlet:
+    session:
+      timeout: 43220m
   
 spring:
   mvc:
@@ -9,7 +12,7 @@ spring:
   
   datasource: # 마이바티스 dataSource객체 세팅
     driver-class-name: 
-    url: jdbc:mysql://database-1.cxqevdecz202.ap-northeast-2.rds.amazonaws.com:3306/soboon?characterEncoding=utf-8
+    url: jdbc:mysql://database-1.cxqevdecz202.ap-northeast-2.rds.amazonaws.com:3306/mohel?characterEncoding=utf-8
     username: mohel
     password: 1234
   
@@ -17,6 +20,18 @@ spring:
     livereload:
       enabled: true
       
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mohealth12345@gmail.com
+    password: vcnnebkmplgestrb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+      
 mybatis:
-  type-aliases-package: com.semiproject.soboon.vo
+  type-aliases-package: com.finalproject.mohel.vo
   mapper-locations: mapper/*Mapper.xml
