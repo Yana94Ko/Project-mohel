@@ -33,9 +33,9 @@ public class MemberController {
 	MemberService service;
 	@Autowired
 	JavaMailSender javaMailSender;
-	@Autowired
+	@Inject
 	Certified certified;
-	@Autowired
+	@Inject
 	KakaoAPI kakao;
 	
 	ModelAndView mav = new ModelAndView();
