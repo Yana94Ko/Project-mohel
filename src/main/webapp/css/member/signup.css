@@ -64,14 +64,7 @@
 	border: 1px solid #ccc;
 }
 
-.thumbnail-area img {
-	object-fit: cover;
-	width: 7rem;
-	height: 7rem;
-	border-radius: 50%;
-	display: block;
-}
-.thumbnail-area img:hover {
+.profile-img:hover {
 	cursor: pointer;
 }
 
