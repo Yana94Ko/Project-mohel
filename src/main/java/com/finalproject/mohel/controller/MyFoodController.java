@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.finalproject.mohel.service.MyFoodService;
 import com.finalproject.mohel.vo.MyFoodVO;
-import com.google.gson.Gson;
 
 @Controller
 public class MyFoodController {
@@ -30,7 +29,6 @@ public class MyFoodController {
 		}
 		String dateParam = String.format("%d-%02d-%02d", current.getYear(), current.getMonthValue(), current.getDayOfMonth());
 		List<MyFoodVO> list = service.getMyFood(dateParam+"%", "ㅇㅇ");
-		
 		
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("year", current.getYear());
