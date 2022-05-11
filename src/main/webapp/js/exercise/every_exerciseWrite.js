@@ -157,10 +157,11 @@ function setPlaceMarker(placePosition){
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
-
+	var pinfo=places.place_name+' '+ places.address_name;
     var el = document.createElement('li'),
+   
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+                '<div class="info" onclick="showInfo(\''+pinfo+'\')">' +
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
@@ -177,6 +178,11 @@ function getListItem(index, places) {
     el.className = 'item';
 
     return el;
+}
+// 지도에서 장소 클릭하면 placeinfo에 담음
+function showInfo(places){
+	$("#location").val(places)
+	//alert(places+$('#location'))
 }
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다

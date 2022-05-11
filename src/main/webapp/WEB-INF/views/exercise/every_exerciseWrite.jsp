@@ -21,33 +21,7 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-function placeinfo() { // 현재 글의 댓글을 모두 가져오기      
-    var params = "id=" + id; // 32번 글인경우: no=32
-   
-    var url = "/every_exercise/placeinfo?" + params;
-   	 $.ajax({
-             type : 'get',
-             url : url,
-             // data:params,
-             success : function(result) {
-				  var store =result.store;
-				  var tag = "<div>";
-				  	  tag += "<div>"+everyexercise.placeinfo+"</div>";
-				  	  tag +="</div>";
-				  	 let logId='${logId}';
-				  	 
-					$('#location').html(tag);
-            
-             },
-             error : function(e) {
-                console.log(e.responseText);
-             }
-          })
-          
-          
- }
-</script>
+
 </head>
 <body>
 	<div class="container" id="every-exercise-mainFrm">
