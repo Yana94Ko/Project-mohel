@@ -6,10 +6,10 @@
 		<ul id="sugnupFrmBox">
 			<li>
 				<input id="profile" name="filename" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
-				<c:if test="${kakaoVO==null || kakaoVO.profile==null}">
+				<c:if test="${kakaoVO.profile==null}">
 					<label for="profile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="/img/profile/defaultProfile.png"></label>
 				</c:if>
-				<c:if test="${kakaoVO!=null}">
+				<c:if test="${kakaoVO.profile!=null}">
 					<label for="profile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="${kakaoVO.profile }"></label>
 				</c:if>
 				<br><input id="defaultProfile" type="button" value="이미지 제거">

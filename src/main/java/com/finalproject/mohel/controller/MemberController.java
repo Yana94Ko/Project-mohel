@@ -56,6 +56,7 @@ public class MemberController {
 	@PostMapping("signupOk")
 	public String signupOk(MemberVO vo, HttpServletRequest request, HttpSession session) {
 		Object objKakao = session.getAttribute("kakaoVO");
+		JSONObject JSONObjKakao = new JSONObject(objKakao);
 		session.invalidate();
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
 		
@@ -82,8 +83,7 @@ public class MemberController {
 			}
 			
 			vo.setProfile(profilePath+orgFileName);
-		}else if(objKakao!=null) {
-			JSONObject JSONObjKakao = new JSONObject(objKakao);
+		}else if(JSONObjKakao.getString("profile")!=null) {
 			vo.setProfile(JSONObjKakao.getString("profile"));
 		}else {
 			vo.setProfile(profilePath+"defaultProfile.png");

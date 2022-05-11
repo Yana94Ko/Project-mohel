@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +38,9 @@ public class MyFoodController {
 		map.put("date", current.getDayOfMonth());
 		map.put("day", current.getDayOfWeek().getValue());
 		
-		model.addAttribute("dateJson", new Gson().toJson(map));
+		model.addAttribute("dateJson", new JSONObject(map));
 		model.addAttribute("today", dateParam);
-		model.addAttribute("foodList", new Gson().toJson(list));
+		model.addAttribute("foodList", new JSONArray(list));
 		
 		return "food/myFoodMain";
 	}
