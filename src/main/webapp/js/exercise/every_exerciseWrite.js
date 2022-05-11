@@ -20,6 +20,14 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 //searchPlaces();
 
+//장소 검색란에 키워드를 입력하면, 자동으로 search 진행
+$('#location').on("keyup", function() {
+	$('#keyword').val($('#location').val());
+	// 엔터키가 눌렸을 때 실행할 내용
+	if (window.event.keyCode == 13) {
+		searchPlaces();
+	}
+});
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
@@ -36,7 +44,8 @@ function searchPlaces() {
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
-
+		//검색이 완료되면 리스트 보이기
+        $("#menu_wrap").css('display','block');
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
@@ -86,23 +95,42 @@ function displayPlaces(places) {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
+        (function(marker, places,placePosition) {
+			var placesinfo = JSON.stringify(places);
             kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
+                displayInfowindow(marker, places.place_name);
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
 
+            kakao.maps.event.addListener(marker, 'click', function() {
+                $("#location").val(places.place_name);
+                $("#placeinfo").val(placesinfo);
+                $("#menu_wrap").css('display','none');
+                removeMarker();
+				setPlaceMarker(placePosition);
+				map.setLevel(4, {anchor: placePosition});
+            });
+            
             itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
+                displayInfowindow(marker, places.place_name);
             };
 
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
-        })(marker, places[i].place_name);
+            
+            itemEl.onclick =  function () {
+                $("#location").val(places.place_name);
+                $("#placeinfo").val(placesinfo);
+                $("#menu_wrap").css('display','none');
+                removeMarker();
+				setPlaceMarker(placePosition);
+				map.setLevel(4, {anchor: placePosition});
+            };
+        })(marker, places[i],placePosition);
 
         fragment.appendChild(itemEl);
     }
@@ -113,6 +141,18 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
+}
+
+//(custom)검색결과에서 선택한 장소에 마커를 생성해주는 함수
+function setPlaceMarker(placePosition){
+	
+	// 마커를 생성합니다
+	var selectedMarker = new kakao.maps.Marker({
+	    position: placePosition
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	selectedMarker.setMap(map);
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -219,4 +259,7 @@ function removeAllChildNods(el) {
     while (el.hasChildNodes()) {
         el.removeChild (el.lastChild);
     }
+}
+function everyExerciseWriteOk(){
+	$("#everyExerciseFrm").submit();
 }

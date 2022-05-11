@@ -62,7 +62,7 @@
 	<!-- 운동 참가 신청 -->
 
 	<insert id="exerciseMemberInsert">
-		insert into exercise_member (no, nickname)
+		insert into exercise_member (exerciseNo, nickname)
 		values(#{no}, #{nickname})
 	</insert>
 
@@ -112,7 +112,7 @@
 		date_format(startdate, '%Y-%m-%d')as startdate, date_format(enddate, '%Y-%m-%d')as enddate,
 		date_format(writedate, '%Y-%m-%d') as writedate,
 		placeinfo,
-		applicantCnt, applicantMax, hit
+		applicantCnt, applicantMax, hit, nickname
 		from everyexercise
 		<if test='searchWord != null'>
 			where ${searchKey} like '%${searchWord}%'
@@ -123,9 +123,9 @@
 	<insert id="every_exerciseInsert">
 		insert into everyexercise(no, title, contents,
 		startdate, enddate, writedate, placeinfo, applicantCnt, applicantMax,
-		hit)
+		hit, nickname)
 		values(#{no}, #{title}, #{contents}, #{startdate}, #{enddate},
-		now(), #{placeinfo}, #{applicantCnt}, #{applicantMax}, #{hit})
+		now(), #{placeinfo}, #{applicantCnt}, #{applicantMax}, #{hit}, #{nickname})
 	</insert>
 	<update id="every_cntHit" parameterType="int">
 		update everyexercise set
@@ -138,7 +138,7 @@
 		startdate,DATE_FORMAT(enddate, '%Y-%m-%d') AS
 		enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
 		placeinfo,
-		applicantCnt, applicantMax, hit
+		applicantCnt, applicantMax, hit, nickname
 		from everyexercise where no=#{param1}
 	</select>
 	<update id="every_exerciseUpdate">

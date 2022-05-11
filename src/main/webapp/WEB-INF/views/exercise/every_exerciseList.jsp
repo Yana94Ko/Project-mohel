@@ -33,7 +33,7 @@
 	</div>
 
 	<div  id="thumbnail-list">
-		<c:forEach var="vo" items="${lst }">
+		<c:forEach var="vo" items="${lst }" varStatus="st">
 			<div id="wrap">
 				<div class="service_item"
 					onclick="location.href='/exercise/every_exerciseView?no=${vo.no}'">
@@ -46,7 +46,10 @@
 					<div class="separator_small"></div>
 					<p id="thumbnail-text">
 						<strong>${vo.title }</strong><br />${vo.contents}<br />${vo.startdate } - ${vo.enddate }
-						<br/>${vo.placeinfo}<br/>참가자 수 ${vo.applicantCnt} / 최대 인원 ${vo.applicantMax }<br/>조회수 ${vo.hit}
+						<br/>
+							<textarea style="display:none" id="placeinfo${st.index}">${vo.placeinfo}</textarea>
+							장소 <span id="addressname${st.index}"></span>
+						<br/>참가자 수 ${vo.applicantCnt} / 최대 인원 ${vo.applicantMax }<br/>조회수 ${vo.hit}
 					</p>
 				</div>
 			</div>
@@ -98,5 +101,5 @@
 
 		</ul>
 		</div>
-</body>
-</html>
+<script type="text/javascript" src="${url}/js/exercise/every_exerciseList.js"></script>
+		
