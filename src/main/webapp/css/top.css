@@ -71,7 +71,6 @@
     position: absolute;
     width: inherit;
     height: 0px;
-    border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     overflow: hidden;
     z-index:100;

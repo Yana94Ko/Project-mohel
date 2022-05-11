@@ -11,7 +11,6 @@
 		if (confirm("삭제하시겠습니까?")) {
 			// 확인버튼 선택시
 			location.href = "/exercise/every_exerciseDel?no=${vo.no}";
-
 		}
 	}
 	/*
