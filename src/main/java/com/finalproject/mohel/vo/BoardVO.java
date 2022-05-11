@@ -1,5 +1,7 @@
 package com.finalproject.mohel.vo;
 
+import java.util.List;
+
 public class BoardVO {
 	private int no;
 	private String title;
@@ -15,8 +17,7 @@ public class BoardVO {
 	private String writedate;
 	private String moddate;
 	private int hit;
-	
-	
+
 	public int getNo() {
 		return no;
 	}
@@ -101,7 +102,6 @@ public class BoardVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
 	
 	
 }
