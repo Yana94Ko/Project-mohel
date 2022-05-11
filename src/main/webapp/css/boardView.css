@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* board-view */
+.board-view {
+  width: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 30px; 
+}
+.board-view h3 {
+  padding: 8px 0;
+  text-align: center;
+}
+
+/* board-view title */
+.board-view .title {
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0 16px 0;
+  
+}
+.board-view .title .writer {
+  align-items: flex-end; 
+  display: flex;
+  font-weight: 600;
+}
+.board-view .title .writer > span {
+  margin-right: 16px;
+}
+.board-view .title .writer p:nth-child(2) {
+  font-weight: 500;
+  color: #999;
+  margin : 0; 
+  margin-right: 16px;
+}
+.board-view .title .writer p:last-child {
+  margin : 0;
+  color: #999;
+  font-weight: 500;
+}
+.board-view .title .writer p:last-child > span {
+  color: #000;
+  font-weight: 600;
+}
+
+/* board-view contents */
+.board-view > .contents {
+  min-height: 20vh;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+/* board-view comment */
+.board-view .comment-box .write-area {
+  border: 1px solid #ccc;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.board-view .comment-box .write-area span {
+  display: inline-block;
+  font-weight: 600;
+  margin: 16px 0 16px 16px;
+}
+.board-view .comment-box .write-area form {
+  display: flex;
+  flex-direction: column;
+}
+.board-view .comment-box .write-area form textarea {
+  margin: 0 16px;
+  resize: none;
+  border: none;
+}
+.board-view .comment-box .write-area form button {
+  width: 15%;
+  align-self: flex-end;
+  margin-top: 16px;
+  border: none;
+  background-color: #ddd;
+  font-weight: 900;
+  padding: 16px 0;
+  cursor: pointer;
+}
+
+.board-view .comment {
+  border-bottom: 1px solid #bbb;
+  padding: 16px 0;
+  margin-bottom: 32px;
+}
+.board-view .comment .info {
+  display: flex;
+  margin-bottom: 16px;
+}
+.board-view .comment .info span {
+  font-weight: 600;
+  margin-right: 16px;
+}
+.board-view .comment .info p {
+  color: #999;
+}
+.board-view .comment > .contents {
+  display: flex;
+  justify-content: space-between;
+}
+.board-view .comment > .contents .btn-box {
+  display: flex;
+  justify-content: space-between;
+  width: 13%;
+}
+.board-view .comment > .contents .btn-box button {
+  padding: 3px 8px;
+  cursor: pointer;
+}
