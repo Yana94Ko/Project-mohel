@@ -7,10 +7,6 @@
 <head>
 <link href="${url}/css/exercise/every_exerciseWrite.css"
 	rel="stylesheet" type="text/css" />
-<!-- Bootstrap CSS by bootswatch -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
-	rel="stylesheet" crossorigin="anonymous" />
 
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->

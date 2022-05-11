@@ -58,8 +58,8 @@
 						<li><a href="#">모두의 식단</a></li>
 					</ul>
 					<ul>
-						<li><a href="#">나만의 운동</a></li>
-						<li><a href="#">모두의 운동</a></li>
+						<li><a href="${url}/exercise/exerciseList?category=운동">나만의 운동</a></li>
+						<li><a href="/exercise/every_exerciseList">모두의 운동</a></li>
 					</ul>
 					<ul>
 						<li><a href="#">자유 게시판</a></li>
