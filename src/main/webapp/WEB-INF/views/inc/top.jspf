@@ -34,7 +34,7 @@
 				</c:if>
 				<c:if test="${userInfo!=null}">
 					<a href="/member/logout">로그아웃</a> | 
-					<a href="/member/userEdit">마이페이지</a>
+					<a href="/mypage/userEdit">마이페이지</a>
 				</c:if>
 			</div>
 		</div>

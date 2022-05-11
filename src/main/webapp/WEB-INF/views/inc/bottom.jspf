@@ -1,56 +1,50 @@
 <!------------ CSS ------------->
 <link rel="stylesheet" href="/css/bottom.css">
+<footer class="footer-section">
+	<div class="footer-container container grid">
+		<div class="footer-content grid">
+			<div class="footer-data">
+				<h3 class="footer-title">Customer Service</h3>
+				<ul>
+					<li><a href="" class="footer-link"><i
+							class="bi bi-envelope-paper"></i> mohel365@gmail.com</a></li>
+					<li><a class="footer-link">문의사항은 관리자에게
+							이메일 주소로<br>연락주시면 빠른 시일내에
+							회신드리도록<br>하겠습니다.
+					</a></li>
+				</ul>
+			</div>
+			<div class="footer-data">
+				<h3 class="footer-subtitle">Mohel Information</h3>
+				<ul>
+					<li class="footer-items"><a class="footer-link">(주)모헬
+							Mohel Co.,Ltd</a></li>
+					<li class="footer-items"><a class="footer-link"> 본점 :
+							사업자등록번호 123-45-678910</a></li>
+					<li class="footer-items"><a class="footer-link">지점 :
+							사업자등록번호 987-65-432110 </a></li>
+					<li class="footer-items"><a class="footer-link">통신판매업신고
+							제2022-서울 강남구 언주로 </a></li>
+				</ul>
+			</div>
+			<div class="footer-data">
+				<h3 class="footer-subtitle">SNS</h3>
+				<ul>
+					<li class="footer-item"><a href="" class="footer-link-insta"><i
+							class="bi bi-instagram"></i></a>&nbsp;&nbsp;&nbsp; <a href=""
+						class="footer-link-facebook"><i class="bi bi-facebook"></i></a>&nbsp;&nbsp;&nbsp;
+						<a href="" class="footer-link-twitter"><i
+							class="bi bi-twitter"></i></a></li>
+				</ul>
+			</div>
+		</div>
 
-            
-            <footer class="footer-section">
-                <div class="footer-container container grid">
-                    <div class="footer-content grid">
-                        <div class="footer-data">
-                            <h3 class="footer-title">Customer Service</h3>
-                            <ul>
-                            <li><a href="" class="footer-link"><i class="bi bi-envelope-paper"></i> mohel365@gmail.com</a></li>
-                            <li><a class="footer-link">문의사항은 관리자에게 이메일 주소로<br>연락주시면 빠른 시일내에 회신드리도록<br>하겠습니다. </a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-data">
-                            <h3 class="footer-subtitle">Mohel Information</h3>
-                            <ul>
-                                <li class="footer-items">
-                                    <a class="footer-link">(주)모헬 Mohel Co.,Ltd</a>
-                                </li>
-                                <li class="footer-items">
-                                    <a class="footer-link">
-                                        본점 : 사업자등록번호 123-45-678910</a>
-                                </li>
-                                <li class="footer-items">
-                                    <a class="footer-link">지점 : 사업자등록번호 987-65-432110
-                                    </a>
-                                </li>
-                                <li class="footer-items">
-                                    <a class="footer-link">통신판매업신고 제2022-서울 강남구 언주로
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer-data">
-                            <h3 class="footer-subtitle">SNS
-                            </h3>
-                            <ul>
-                                <li class="footer-item">
-                                    <a href=""  class="footer-link-insta"><i class="bi bi-instagram"></i></a>&nbsp;&nbsp;&nbsp;
-                                    <a href=""  class="footer-link-facebook"><i class="bi bi-facebook"></i></a>&nbsp;&nbsp;&nbsp;
-                                    <a href=""  class="footer-link-twitter"><i class="bi bi-twitter"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+		<div class="footer-rights">
+			<p class="footer-copy">&#169; 2022 Mohel. All rigths reserved.</p>
 
-                    <div class="footer-rights">
-                        <p class="footer-copy">&#169; 2022 Mohel. All rigths reserved.</p>
-       
-                </div>
-				</div>
-            </footer>
+		</div>
+	</div>
+</footer>
 
 </body>
 
