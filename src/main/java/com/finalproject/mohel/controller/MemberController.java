@@ -25,6 +25,8 @@ import com.finalproject.mohel.service.KakaoAPI;
 import com.finalproject.mohel.service.MemberService;
 import com.finalproject.mohel.vo.MemberVO;
 
+
+
 @Controller
 @RequestMapping("/member/")
 public class MemberController {
