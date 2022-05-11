@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/*exerciseList*/
+/*메인텍스트*/
+#main_text {
+	margin: 30px;
+}
+
+/*검색바*/
+#search-box {
+	float: relative;
+	width: 500px;
+	left: 150px;
+	margin: auto;
+}
+
+.search-bar {
+	width: 500px;
+	height: 50px;
+}
+/*나만의 운동기록 버튼*/
+#write {
+	width: 400px;
+	left: 0px;
+	right: 0;
+	margin: auto;
+	position: relative;
+}
+/*나만의 운동기록리스트*/
+#exercise-main-tbl {
+	position: relative;
+	margin-top: 20px;
+}
+
+#exercise-main-tbl {
+	overflow: hidden;
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	border-bottom: 1px solid #bdbdbd;
+	font-weight: 600;
+}
+
+#exercise-head>th:nth-child(6n+2) {
+	overflow: hidden;
+	text-overflow: hidden;
+	width: 20%;
+}
+
+#exercise-head>th:nth-child(6n+3) {
+	overflow: hidden;
+	text-overflow: hidden;
+	width: 45%;
+}
+
+#exercise-contents {
+	color: #ddd;
+}
+
+/*페이징*/
+.paging {
+	margin:auto;
+	height: 30px;
+	overflow: auto;
+	width:500px;
+	position:relative;
+	left:50px;
+	
+}
+
+.paging>li {
+	float: left;
+	padding-right: 30px;
+}
+
+#left-btn{
+	width:20px;
+	height:20px;
+	margin:3px;
+}
+#right-btn{
+	width:20px;
+	height:20px;
+	margin:3px;
+}
