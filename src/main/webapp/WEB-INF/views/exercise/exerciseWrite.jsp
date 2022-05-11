@@ -9,10 +9,8 @@
 	type="text/css" />
 <script type="text/javascript"
 		src="${url}/js/exercise/exerciseWrite.js"></script>
-	
-<!-- Bootstrap CSS by bootswatch -->
- <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-<script type="text/javascript"
+
+ <script type="text/javascript"
 		src="${url}/js/exercise/exerciseWrite.js"></script>
 <meta charset="UTF-8">
 

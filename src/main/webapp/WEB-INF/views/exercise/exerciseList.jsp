@@ -9,10 +9,6 @@
 <head>
 <link href="${url}/css/exercise/exerciseList.css" rel="stylesheet"
 	type="text/css" />
-<!-- Bootstrap CSS by bootswatch -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
-	rel="stylesheet" crossorigin="anonymous" />
 
 <meta charset="UTF-8">
 
