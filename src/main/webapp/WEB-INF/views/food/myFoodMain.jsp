@@ -2,32 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="/css/food/myFoodMain.css" type="text/css"/>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.css" type="text/css"/>
+<link href='/fullcalendar/core/main.css' rel='stylesheet' />
+<link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
+<link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
+<script src='/fullcalendar/core/main.js'></script>
+<script src='/fullcalendar/interaction/main.js'></script>
+<script src='/fullcalendar/daygrid/main.js'></script>
+<script src='/fullcalendar/timegrid/main.js'></script>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			initialView : 'dayGridMonth',
-			plugins: ['interaction', 'dayGrid'],
-			header : {
-				left : 'prevYear,prev,next,nextYear today',
-				center : 'title',
-				right : 'dayGridMonth,dayGridWeek,dayGridDay'
-			},
-			selectable : true,
-			selectMirror : true,
-			select : function(arg) {
-				alert("클릭됨");
-				console.log(arg);
-			}
-		});
-		calendar.render();
-	});
-</script>
-<script>
 	var dateJson = ${dateJson};
+	var today = '${today}';
+	var foodList = ${foodList};
 </script>
 <script src="/js/food/myFoodMain.js"></script>
 
@@ -45,7 +31,7 @@
 		<div id="myFoodMain-input-title">
 			<h1>나만의 식단 입력하기</h1>
 			<span id="selectedDay"></span>
-			<img src="/img/food/calendar.png"/>
+			<img src="/img/food/calendar.png" data-toggle="modal" data-target="#exampleModal"/>
 		</div>
 		
 		<!-- 칼로리 표시 영역 -->
@@ -79,24 +65,16 @@
 					<li>No.</li>
 					<li>음식명</li>
 					<li>칼로리</li>
-					<li>1</li>
-					<li>막창</li>
-					<li>870 kcal</li>
-					<li>2</li>
-					<li>마라탕</li>
-					<li>1024 kcal</li>
-					<li>3</li>
-					<li>탕수육</li>
-					<li>1353 kcal</li>
-					<li>4</li>
-					<li>감바스</li>
-					<li>715 kcal</li>
-					<li>5</li>
-					<li>살라미</li>
-					<li>776 kcal</li>
+					
 				</ul>
 			</div>
 			<div class="myFoodMain-input-selected">
+				<button class="btn btn-success">음식1</button>
+				<button class="btn btn-success">음식2음식2음식2음식2</button>
+				<button class="btn btn-success">음식2음식2음식2음식2</button>
+				<button class="btn btn-success">음식2음식2음식2음식2</button>
+				<button class="btn btn-success">음식2음식2음식2음식2</button>
+				<button class="btn btn-success">음식2음식2음식2음식2</button>
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
@@ -121,21 +99,7 @@
 					<li>No.</li>
 					<li>음식명</li>
 					<li>칼로리</li>
-					<li>1</li>
-					<li>막창</li>
-					<li>870 kcal</li>
-					<li>2</li>
-					<li>마라탕</li>
-					<li>1024 kcal</li>
-					<li>3</li>
-					<li>탕수육</li>
-					<li>1353 kcal</li>
-					<li>4</li>
-					<li>감바스</li>
-					<li>715 kcal</li>
-					<li>5</li>
-					<li>살라미</li>
-					<li>776 kcal</li>
+					
 				</ul>
 			</div>
 			<div class="myFoodMain-input-selected">
@@ -163,21 +127,7 @@
 					<li>No.</li>
 					<li>음식명</li>
 					<li>칼로리</li>
-					<li>1</li>
-					<li>막창</li>
-					<li>870 kcal</li>
-					<li>2</li>
-					<li>마라탕</li>
-					<li>1024 kcal</li>
-					<li>3</li>
-					<li>탕수육</li>
-					<li>1353 kcal</li>
-					<li>4</li>
-					<li>감바스</li>
-					<li>715 kcal</li>
-					<li>5</li>
-					<li>살라미</li>
-					<li>776 kcal</li>
+					
 				</ul>
 			</div>
 			<div class="myFoodMain-input-selected">
@@ -205,21 +155,7 @@
 					<li>No.</li>
 					<li>음식명</li>
 					<li>칼로리</li>
-					<li>1</li>
-					<li>막창</li>
-					<li>870 kcal</li>
-					<li>2</li>
-					<li>마라탕</li>
-					<li>1024 kcal</li>
-					<li>3</li>
-					<li>탕수육</li>
-					<li>1353 kcal</li>
-					<li>4</li>
-					<li>감바스</li>
-					<li>715 kcal</li>
-					<li>5</li>
-					<li>살라미</li>
-					<li>776 kcal</li>
+					
 				</ul>
 			</div>
 			<div class="myFoodMain-input-selected">
@@ -247,21 +183,7 @@
 					<li>No.</li>
 					<li>음식명</li>
 					<li>칼로리</li>
-					<li>1</li>
-					<li>막창</li>
-					<li>870 kcal</li>
-					<li>2</li>
-					<li>마라탕</li>
-					<li>1024 kcal</li>
-					<li>3</li>
-					<li>탕수육</li>
-					<li>1353 kcal</li>
-					<li>4</li>
-					<li>감바스</li>
-					<li>715 kcal</li>
-					<li>5</li>
-					<li>살라미</li>
-					<li>776 kcal</li>
+					
 				</ul>
 			</div>
 			<div class="myFoodMain-input-selected">
@@ -280,4 +202,22 @@
 		</div>
 	</div>
 </div>
-<div id="calendar"></div>
+<!-- 날짜 선택 모달 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">날짜 선택</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="calendar">
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -28,6 +28,8 @@ dependencies {
 	implementation 'javax.servlet:jstl:1.2'
 	// javax Inject
 	implementation 'javax.inject:javax.inject:1'
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation 'com.google.code.gson:gson:2.9.0'
 }
 	
 
