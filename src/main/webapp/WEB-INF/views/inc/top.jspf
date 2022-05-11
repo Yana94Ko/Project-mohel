@@ -39,31 +39,33 @@
 			</div>
 		</div>
 	</div>
-	<div class="top-and-category container">
-		<a href="/" class="top-body-logo"><img src="/img/mohel-logo-11.png" ></a>
-		<div class="top-body-category">
-			<a href="#">모두의 식단</a>
-			<a href="#">모두의 운동</a>
-			<a href="#">커뮤니티</a>
+	<div class="top-body">
+		<div class="top-and-category container">
+			<a href="/" class="top-body-logo"><img src="/img/mohel-logo-11.png" ></a>
+			<div class="top-body-category">
+				<a href="#">모두의 식단</a>
+				<a href="#">모두의 운동</a>
+				<a href="#">커뮤니티</a>
+			</div>
 		</div>
-	</div>
-	<div class="category-list">
-		<div class="container">
-			<div class="category-list-box">
-				<ul>
-					<li><a href="#">나만의 식단</a></li>
-					<li><a href="#">모두의 식단</a></li>
-				</ul>
-				<ul>
-					<li><a href="#">나만의 운동</a></li>
-					<li><a href="#">모두의 운동</a></li>
-				</ul>
-				<ul>
-					<li><a href="#">자유 게시판</a></li>
-					<li><a href="#">챌린지 게시판</a></li>
-					<li><a href="#">Before&amp;After</a></li>
-					<li></li>
-				</ul>
+		<div class="category-list">
+			<div class="container">
+				<div class="category-list-box">
+					<ul>
+						<li><a href="#">나만의 식단</a></li>
+						<li><a href="#">모두의 식단</a></li>
+					</ul>
+					<ul>
+						<li><a href="#">나만의 운동</a></li>
+						<li><a href="#">모두의 운동</a></li>
+					</ul>
+					<ul>
+						<li><a href="#">자유 게시판</a></li>
+						<li><a href="#">챌린지 게시판</a></li>
+						<li><a href="#">Before&amp;After</a></li>
+						<li></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
