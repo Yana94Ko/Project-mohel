@@ -1,3 +1,4 @@
+var foods = new Array(5);
 window.onload=function(){
 	
 	const plusButton = document.querySelectorAll('.myFoodMain-input-menu>img');
@@ -76,7 +77,6 @@ window.onload=function(){
 		selectable: true,
 		selectMirror: true,
 		select: function(arg) {
-			alert("클릭됨");
 			url.set("year", arg.start.getFullYear());
 			url.set("month", arg.start.getMonth()+1);
 			url.set("date", arg.start.getDate());
@@ -88,7 +88,9 @@ window.onload=function(){
 	const searchBtn = document.querySelectorAll(".myFoodMain-input-searchBtn");
 	
 	for(var i=0; i<searchBtn.length; i++){
+		searchBtn[i].idx = i;
 		searchBtn[i].addEventListener("click", function(){
+			var clickIdx = this.idx;
 			var searchWord = this.previousSibling.previousSibling.value;
 			if(searchWord==""){
 				alert('검색어를 입력하세요');
@@ -121,16 +123,20 @@ window.onload=function(){
 					console.log(result.I2790.row);
 					var results = result.I2790.row;
 					var resultLI = "<li>No.</li><li>음식명</li><li>칼로리</li>";
-					for(var i=0; i<results.length; i++){
-						resultLI += `<li>${results[i].NUM}</li><li>${results[i].DESC_KOR}</li>`
-								   +`<li title="[1회 제공량]&nbsp;${results[i].SERVING_SIZE} G">${results[i].NUTR_CONT1} kcal</li>`;
+					
+					for(var j=0; j<results.length; j++){
+						var name = results[j].DESC_KOR;
+						var cal = results[j].NUTR_CONT1;
+						var code = results[j].FOOD_CD;
+						resultLI += `<li>${results[j].NUM}</li><li class="foodSearchResult" onclick="addFood('${code}','${name}',${cal},${clickIdx})">${results[j].DESC_KOR}</li>`
+								   +`<li title="[1회 제공량]&nbsp;${results[j].SERVING_SIZE} G">${results[j].NUTR_CONT1} kcal</li>`;
 					}
 					resultList.innerHTML = resultLI;
 				}
-			});
-		});
+			});//ajax 끝
+			
+		});//addEventListener 끝
 	}
-	var foods = new Array(5);
 	console.log(foodList);
 	foodList.forEach(function(content, idx){
 		var obj = new Object();
@@ -140,14 +146,39 @@ window.onload=function(){
 		obj.foodcalories = JSON.parse(content.foodcalories);
 		foods[content.meals-1] = obj;
 	});
-	console.log(foods);
-	for(var i=0; i<5; i++){
-		console.log(foods[i]==null);
-	}
+	//foods = 각 파트별 음식 정보(아침,오전간식 등)
+	foods.forEach(function(content){
+		var s = document.getElementById("selected"+content.meals);
+		content.foodlist.forEach(function(food){
+			var tag = document.createElement("button");
+			var fname = document.createTextNode(food);
+			tag.appendChild(fname);
+			tag.className = "btn btn-success";
+			s.appendChild(tag);
+		});
+	});
 	
 };
 function clear(parentNode){
 	while (parentNode.hasChildNodes()) {
 		parentNode.firstChild.remove();
 	}
+}
+function addFood(code, name, cal, idx){//각 구역의 식품 정보를 담은 배열에 선택한 음식 정보 추가
+	console.log("---식품 추가 전---");
+	console.log(foods[idx]);
+	foods[idx].foodlist.push(name);
+	foods[idx].foodcodes.push(code);
+	foods[idx].foodcalories.push(cal);
+	console.log("---식품 추가 후---");
+	console.log(foods[idx]);
+	addFoodButton("selected"+(idx+1), name);
+}
+function addFoodButton(targetId, foodName){
+	var target = document.getElementById(targetId);
+	var tag = document.createElement("button");
+	var fname = document.createTextNode(foodName);
+	tag.appendChild(fname);
+	tag.className = "btn btn-success";
+	target.appendChild(tag);
 }

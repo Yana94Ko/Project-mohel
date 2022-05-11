@@ -68,13 +68,7 @@
 					
 				</ul>
 			</div>
-			<div class="myFoodMain-input-selected">
-				<button class="btn btn-success">음식1</button>
-				<button class="btn btn-success">음식2음식2음식2음식2</button>
-				<button class="btn btn-success">음식2음식2음식2음식2</button>
-				<button class="btn btn-success">음식2음식2음식2음식2</button>
-				<button class="btn btn-success">음식2음식2음식2음식2</button>
-				<button class="btn btn-success">음식2음식2음식2음식2</button>
+			<div class="myFoodMain-input-selected" id="selected1">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
@@ -102,7 +96,7 @@
 					
 				</ul>
 			</div>
-			<div class="myFoodMain-input-selected">
+			<div class="myFoodMain-input-selected" id="selected2">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
@@ -130,7 +124,7 @@
 					
 				</ul>
 			</div>
-			<div class="myFoodMain-input-selected">
+			<div class="myFoodMain-input-selected" id="selected3">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
@@ -158,7 +152,7 @@
 					
 				</ul>
 			</div>
-			<div class="myFoodMain-input-selected">
+			<div class="myFoodMain-input-selected" id="selected4">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
@@ -186,7 +180,7 @@
 					
 				</ul>
 			</div>
-			<div class="myFoodMain-input-selected">
+			<div class="myFoodMain-input-selected" id="selected5">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
 				<span>오늘 나의 식단 칼로리</span>
