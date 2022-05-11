@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
 
@@ -32,9 +33,9 @@ public interface ExerciseDAO {
 	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO);
 	
 	public int exerciseMemberInsert(ExerciseVO vo);
-	public int exerciseMemberUpdate(ExerciseVO vo);
+	public int exerciseMemberUpdate(ExerciseMemberVO vo);
 	public List<ExerciseVO> exerciseMemberShow(int no);
-	public int exerciseMemberDelete(ExerciseVO vo);
+	public int exerciseMemberDelete(ExerciseMemberVO vo);
 	
 	public int exerciseStateUpdate(ExerciseVO vo);
 	public int exerciseStateDel(ExerciseVO vo);

@@ -11,6 +11,7 @@ public class ExerciseVO {
 	private int applicantCnt;
 	private int applicantMax;
 	private int hit;
+	private String nickname;
 	
 	public int getNo() {
 		return no;
@@ -71,6 +72,12 @@ public class ExerciseVO {
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	

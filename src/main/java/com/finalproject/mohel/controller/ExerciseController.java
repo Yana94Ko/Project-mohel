@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.ExerciseService;
 import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
 
@@ -70,7 +72,7 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
-		vo.setNickname((String)request.getSession().getAttribute("nickname"));
+		vo.setNickname("ㅇㅇ");// 추후에 (String)request.getSession().getAttribute("nickname")로 수정
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -88,7 +90,6 @@ public class ExerciseController {
         File f = new File(path, System.currentTimeMillis()+"."+ext);
         			
         orgFileName = f.getName();
-        
         //String filename = file.getOriginalFilename();
 		//File uploadFile = new File(path, filename);
         try {
@@ -115,17 +116,19 @@ public class ExerciseController {
 	@GetMapping("/exercise/exerciseView")
 	public ModelAndView exerciseView(@RequestParam("no") int no, BoardVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		service.cntHit(no); // 조회수 증가
 		mav.addObject("vo", service.exerciseSelect(no));
 		service.cntHit(no); // 조회수 증가
-		mav.addObject("nickname",(String)session.getAttribute("nickname"));
+		mav.addObject("nickname","oo");// 추후 (String)session.getAttribute("nickName")로 변경
+
+		//참가자 목록 띄우기
+		
+		
+		//로그인 되어있다면, 참가 신청자들의 참가 확정 여부 보여주기
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
-		}else{
-			mav.addObject("nickname", "ㅇㅇ");
 		}
-
+		
 		mav.setViewName("exercise/exerciseView");
 		return mav;
 	}
@@ -233,7 +236,7 @@ public class ExerciseController {
 	}
 	@PostMapping("/exercise/every_exerciseWriteOk")
     public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request){
-		//vo.setnickname((String)request.getSession().getAttribute("nickname"));
+		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
 		//System.out.println("title>>>"+vo.getTitle());
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
@@ -257,13 +260,12 @@ public class ExerciseController {
 
 	// 모두의 운동 글보기
 	@GetMapping("/exercise/every_exerciseView")
-	public ModelAndView every_exerciseView(String category, String nickname, HttpSession session, int no) {
+	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("category", category);
-		//mav.addObject("nickname", nickname);
+		mav.addObject("nickname", "ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
 		service.cntHit(no); // 조회수 증가
+		
 		mav.addObject("vo", service.every_exerciseSelect(no));
-		session.setAttribute("nickname", nickname);
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -325,5 +327,19 @@ public class ExerciseController {
 		}
 		
 		return mav;
+	}
+	// 모두의 운동 참가신청(작성자 외)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseMemberOk")
+	public void excerciseMemberOk (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
+		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickName")
+		vo.setNo(no);
+		try {
+			System.out.println("함수 실행 전");
+			service.exerciseMemberInsert(vo);
+			System.out.println(mvo.getNo());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

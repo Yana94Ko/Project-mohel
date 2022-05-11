@@ -51,7 +51,7 @@ function placeinfo() { // 현재 글의 댓글을 모두 가져오기
 </head>
 <body>
 	<div class="container" id="every-exercise-mainFrm">
-		<form method="post" action="/exercise/every_exerciseWriteOk"
+		<form id ="everyExerciseFrm" method="post" action="/exercise/every_exerciseWriteOk"
 			id="everyexerciseFrm">
 			<fieldset>
 				<legend id="every-main-title">모두의 운동</legend>
@@ -76,32 +76,29 @@ function placeinfo() { // 현재 글의 댓글을 모두 가져오기
 						rows="3"></textarea>
 				</div>
 
-				<!-- 지도 -->
-				<div class="map_wrap">
-					<div id="map"
-						style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
-
-					<div id="menu_wrap" class="bg_white">
-						<div class="option">
-							<div>
+				<div class="form-group">
+					<label for="location" class="form-label mt-4">장소</label> 
+					<input type="text" class="form-control" id="location">
+					<!-- 지도 -->
+					<div class="map_wrap">
+						<div id="map"
+							style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
+	
+						<div id="menu_wrap" class="bg_white" style="display:none">
+							<div class="option">
 								<div>
-									키워드 : <input type="text" id="keyword" size="15">
-									<button type="button" onclick="searchPlaces()">검색하기</button>
+									<div>
+										<input type="hidden" id="keyword" size="15">
+										<button type="button" onclick="searchPlaces()" style="display:none">검색하기</button>
+									</div>
 								</div>
 							</div>
+							<hr>
+							<ul id="placesList"></ul>
+							<div id="pagination"></div>
 						</div>
-						<hr>
-						<ul id="placesList"></ul>
-						<div id="pagination"></div>
 					</div>
-				</div>
-
-
-
-				<div class="form-group">
-					<label for="location" class="form-label mt-4">장소</label> <input
-						type="" value="${vo.placeinfo}" class="form-control"
-						name="placeinfo" id="location">
+					<input type="hidden" name="placeinfo" id="placeinfo">
 				</div>
 
 				<div class="form-group">
@@ -136,7 +133,7 @@ function placeinfo() { // 현재 글의 댓글을 모두 가져오기
 						class="form-control" type="file" id="formFile" name="img1">
 				</div>
 
-				<button type="submit" class="btn btn-primary">등록하기</button>
+				<button type = "button" onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>
 			</fieldset>
 		</form>
 	</div>

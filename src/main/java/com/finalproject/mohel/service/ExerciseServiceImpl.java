@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalproject.mohel.dao.ExerciseDAO;
 import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
 
@@ -79,7 +80,7 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int exerciseMemberUpdate(ExerciseVO vo) {
+	public int exerciseMemberUpdate(ExerciseMemberVO vo) {
 		return dao.exerciseMemberUpdate(vo);
 	}
 
@@ -89,7 +90,7 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int exerciseMemberDelete(ExerciseVO vo) {
+	public int exerciseMemberDelete(ExerciseMemberVO vo) {
 		return dao.exerciseMemberDelete(vo);
 	}
 
