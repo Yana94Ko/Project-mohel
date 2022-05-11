@@ -25,9 +25,7 @@
 </head>
 <body>
 <div class="top">
-	<a href="/" class="top-body-logo"><img src="/img/mohel-logo-11.png" ></a>
 	<div class="top-head">
-		
 		<div class="container">
 			<div class="top-head-userinfo">
 				<c:if test="${userInfo==null}">
@@ -41,16 +39,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="top-and-category">
-			
-			<div class="top-body-category">
-				<a href="#">모두의 식단</a>
-				<a href="#">모두의 운동</a>
-				<a href="#">커뮤니티</a>
-			</div>
+	<div class="top-and-category container">
+		<a href="/" class="top-body-logo"><img src="/img/mohel-logo-11.png" ></a>
+		<div class="top-body-category">
+			<a href="#">모두의 식단</a>
+			<a href="#">모두의 운동</a>
+			<a href="#">커뮤니티</a>
 		</div>
-		<div class="category-list">
-			<div class="category-list-box container">
+	</div>
+	<div class="category-list">
+		<div class="container">
+			<div class="category-list-box">
 				<ul>
 					<li><a href="#">나만의 식단</a></li>
 					<li><a href="#">모두의 식단</a></li>
