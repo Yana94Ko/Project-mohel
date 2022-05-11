@@ -1,9 +1,5 @@
 <link href="${url}/css/exercise/every_exerciseView.css" rel="stylesheet"
 	type="text/css" />
-<!-- Bootstrap CSS by bootswatch -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
-	rel="stylesheet" crossorigin="anonymous" />
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
@@ -14,7 +10,6 @@
 		if (confirm("삭제하시겠습니까?")) {
 			// 확인버튼 선택시
 			location.href = "/exercise/every_exerciseDel?no=${vo.no}";
-
 		}
 	}
 	/*
