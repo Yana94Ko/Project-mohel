@@ -21,33 +21,7 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-function placeinfo() { // 현재 글의 댓글을 모두 가져오기      
-    var params = "id=" + id; // 32번 글인경우: no=32
-   
-    var url = "/every_exercise/placeinfo?" + params;
-   	 $.ajax({
-             type : 'get',
-             url : url,
-             // data:params,
-             success : function(result) {
-				  var store =result.store;
-				  var tag = "<div>";
-				  	  tag += "<div>"+everyexercise.placeinfo+"</div>";
-				  	  tag +="</div>";
-				  	 let logId='${logId}';
-				  	 
-					$('#location').html(tag);
-            
-             },
-             error : function(e) {
-                console.log(e.responseText);
-             }
-          })
-          
-          
- }
-</script>
+
 </head>
 <body>
 	<div class="container" id="every-exercise-mainFrm">
@@ -99,9 +73,8 @@ function placeinfo() { // 현재 글의 댓글을 모두 가져오기
 
 
 				<div class="form-group">
-					<label for="location" class="form-label mt-4">장소</label> <input
-						type="" value="${vo.placeinfo}" class="form-control"
-						name="placeinfo" id="location">
+					<label for="location" class="form-label mt-4">장소</label> 
+					<input type="" value="${vo.placeinfo}" class="form-control"	name="placeinfo" id="location">
 				</div>
 
 				<div class="form-group">
