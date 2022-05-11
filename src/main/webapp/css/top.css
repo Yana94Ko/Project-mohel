@@ -7,96 +7,95 @@
 
 
 .top {
-	width: 100%;
+    width: 100%;
 }
 
 /* top-head */
 .top-head {
-	width: inherit;
-	height: 25px;
-	line-height: 25px;
+    width: inherit;
+    height: 25px;
+    line-height: 25px;
 }
 .top-head-userinfo {
-	float: right;
-	margin-left:200px;
-	font-size: 14px;
-	color: #ccc;
+    float: right;
+    margin-left:200px;
+    font-size: 14px;
+    color: #ccc;
 }
 .top-head-userinfo:hover {
-	cursor: default;
+    cursor: default;
 }
 .top-head-userinfo > a {
-	color: gray;
+    color: gray;
 }
 .top-head-userinfo > a:hover {
-	color:#01c9c6;
-	cursor: pointer;
+    color:#01c9c6;
+    cursor: pointer;
 }
 
 /* top-and-category */
 .top-and-category {
-	width: inherit;
-	line-height: 100px;
-	overflow: auto;
+    width: inherit;
+    line-height: 100px;
+    overflow: auto;
 }
-	
 .top-body-logo {
-	margin-left: 40px;
-	position: absolute;
+    margin-left: 40px;
+    position: absolute;
 }
 
 .category-list-box,
 .top-body-category {
-	display: flex;
-	justify-content: space-around;
-	width: 830px !important;
-	float: right;
+    display: flex;
+    justify-content: space-around;
+    width: 830px !important;
+    float: right;
 }
 .top-body-category > a {
-	font-size: 20px;
-	font-weight: bold;
-	width: 106px;
-	text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    width: 106px;
+    text-align: center;
 }
 
 .top-body-category a:hover:nth-child(1){
-	color:#01c9c6;
+    color:#01c9c6;
 }
 
 .top-body-category a:hover:nth-child(2){
-	color:#01c9c6;
+    color:#01c9c6;
 }
 
 .top-body-category a:hover:nth-child(3){
-	color:#01c9c6;
+    color:#01c9c6;
 }
 
 /* category-list */
 .category-list {
-	position: absolute;
-	width: inherit;
-	height: 0px;
-	border-top: 1px solid#dedede;
-	border-bottom: 1px solid#dedede;
-	overflow: hidden;
-	z-index:100;
-	background-color: #fff;
+    position: absolute;
+    width: inherit;
+    height: 0px;
+    border-top: 1px solid#dedede;
+    border-bottom: 1px solid#dedede;
+    overflow: hidden;
+    z-index:100;
+    background-color: #fff;
 }
 .category-list-box > ul {
-	width: 106px;
+    width: 106px;
 }
 .category-list-box li {
-	text-align: center;
-	margin: 10px 0;
+    text-align: center;
+    margin: 10px 0;
 }
 .category-list-box li > a {
-	color: gray;
-	font-weight:500;
+    color: gray;
+    font-weight:500;
 }
 .category-list-box li > a:hover {
-	color: #01c9c6;
+    color: #01c9c6;
 }
 
 #topLogo:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
