@@ -4,7 +4,6 @@ package com.finalproject.mohel.controller;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,7 @@ import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
+
 
 @RestController
 public class ExerciseController {

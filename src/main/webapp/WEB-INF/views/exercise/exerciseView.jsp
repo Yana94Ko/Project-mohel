@@ -11,7 +11,6 @@
 		src="${url}/js/exercise/exerciseView.js"></script>
 <meta charset="UTF-8">
 
-
 <!-- <script type="text/javascript" src="${url}/js/exercise/exerciseView.js"></script> -->
 <script>
 function del(){
