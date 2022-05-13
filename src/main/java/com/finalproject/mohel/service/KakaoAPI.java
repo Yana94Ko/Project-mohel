@@ -14,56 +14,35 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KakaoAPI {
-	final String REST_API_KEY = "8299169b3aa46a93e89d0f3fe4ed0583";
-	final String REDIRECT_URI = "http://localhost:8040/member/kakaologin"; 
-	
-	public String getAccessToken(String authorizeCode) {
-		String tokenUrl = "https://kauth.kakao.com/oauth/token";
-		String mothod = "POST";
+	private final String REST_API_KEY = "8299169b3aa46a93e89d0f3fe4ed0583";
+	private final String REDIRECT_URI = "http://localhost:8040/member/kakaologin";
+
+//	토큰 갱신
+//	 -d "grant_type=authorization_code"
+//	 -d "client_id=${REST_API_KEY}"
+//	 --data-urlencode "redirect_uri=${REDIRECT_URI}"
+//	 -d "code=${AUTHORIZE_CODE}"
+	public String getRefreshToken(String authorizeCode) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("grant_type=authorization_code");
+		sb.append("&client_id="+REST_API_KEY);
+		sb.append("&redirect_uri="+REDIRECT_URI);
+		sb.append("&code="+authorizeCode);
 		
-		JSONObject tokenJSON = null;
+		return getTokenJson(sb).getString("refresh_token");
+	}
+
+//	토큰 받기
+//	 -d "grant_type=refresh_token"
+//	 -d "client_id=${REST_API_KEY}"
+//	 -d "refresh_token=${USER_REFRESH_TOKEN}"
+	public String getAccessToken(String refreshToken) {
+		StringBuffer sb = new StringBuffer();
+        sb.append("grant_type=refresh_token");
+		sb.append("&client_id="+REST_API_KEY);
+		sb.append("&refresh_token="+refreshToken);
 		
-		try {
-			URL url = new URL(tokenUrl);
-			
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			con.setDoOutput(true);
-			con.setRequestMethod(mothod);
-			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-			
-            StringBuffer sb = new StringBuffer();
-            sb.append("grant_type=authorization_code");
-			sb.append("&client_id="+REST_API_KEY);
-			sb.append("&redirect_uri="+REDIRECT_URI);
-			sb.append("&code="+authorizeCode);
-			
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
-            bw.write(sb.toString());
-            bw.flush();
-			
-			int responseCode = con.getResponseCode();
-			BufferedReader br = null;
-			if(responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			}else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-//			System.out.println(response.toString());
-			tokenJSON = new JSONObject(response.toString());
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return tokenJSON.getString("access_token");
+		return getTokenJson(sb).getString("access_token");
 	}
 	
 	public HashMap<String, String> getUserInfo(String accessToken) {
@@ -76,22 +55,12 @@ public class KakaoAPI {
 			URL url = new URL(infoUrl);
 			
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setUseCaches(false);
 			con.setRequestMethod(method);
 			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 			con.setRequestProperty("Authorization", "Bearer " + accessToken);
 			
-			int responseCode = con.getResponseCode();
-			BufferedReader br = null;
-			if(responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			}else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			
-			StringBuffer response = new StringBuffer();
-			while(br.ready()) {
-				response.append(br.readLine());
-			}
+			StringBuffer response = getResponse(con);
 			JSONObject userJSON = new JSONObject(response.toString());
 			JSONObject profileJSON = (JSONObject)userJSON.get("properties");
 			
@@ -104,5 +73,50 @@ public class KakaoAPI {
 		}
 		
 		return userInfo;
+	}
+	
+	private JSONObject getTokenJson(StringBuffer sb) {
+		String tokenUrl = "https://kauth.kakao.com/oauth/token";
+		String method = "POST";
+		
+		JSONObject tokenJson = null;
+		try {
+			URL url = new URL(tokenUrl);
+			
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setDoOutput(true);
+			con.setRequestMethod(method);
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+			
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
+	        bw.write(sb.toString());
+	        bw.flush();
+			
+	        StringBuffer response = getResponse(con);
+			
+//			System.out.println(response.toString());
+			tokenJson = new JSONObject(response.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return tokenJson;
+	}
+	
+	private StringBuffer getResponse(HttpURLConnection con) throws IOException {
+		int responseCode = con.getResponseCode();
+		BufferedReader br = null;
+		if(responseCode == 200) {
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		}else {
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		}
+		
+		StringBuffer response = new StringBuffer();
+		while(br.ready()) {
+			response.append(br.readLine());
+		}
+		
+		return response;
 	}
 }

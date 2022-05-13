@@ -10,11 +10,11 @@
 		select count(no) from member where email=#{param1}
 	</select>
 	<insert id="insertMember">
-		insert into member(email, pwd, nickname, tel, profile, birthdate, gender, age, height, weight, BMR, AMR)
-		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{BMR}, #{AMR})
+		insert into member(email, pwd, nickname, tel, profile, birthdate, gender, age, height, weight, active, BMR, AMR)
+		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{active}, #{BMR}, #{AMR})
 	</insert>
 	<select id="selectMember" resultType="MemberVO">
-		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, bmr, amr, verify
+		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active, bmr, amr, verify
 		from member where email=#{email}
 		<if test="pwd!=null">
 			 and pwd=#{pwd}

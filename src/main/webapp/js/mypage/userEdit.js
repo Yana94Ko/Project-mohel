@@ -1,0 +1,138 @@
+// input 숫자만 입력 가능
+function onlyNum(element) {
+	var regOnlyNum = /[^0-9]/g;
+	$(element).val($(element).val().replace(regOnlyNum, ''));
+}
+
+// 글자수 한정
+function inputMaxLength(element, max) {
+	if($(element).val().length>max){
+		$(element).val($(element).val().substring(0, max));
+	}
+}
+
+$(function() {
+	// 프로필사진 선택한 사진으로 변경
+	const fileInput = document.getElementById('imgFile');
+	const handleFiles = () => {
+		const selectedFile = [...fileInput.files];
+		const fileReader = new FileReader();
+		
+		fileReader.readAsDataURL(selectedFile[0]);
+		fileReader.onload = function() {
+			document.getElementById("profileImg").src = fileReader.result;
+		};
+	};
+	fileInput.addEventListener("change", handleFiles);
+	// 이미지제거 클릭시 기본 이미지로 프로필 사진 변경
+	$('#defaultProfile').click(function() {
+		$('#profileImg').attr('src', '/img/profile/defaultProfile.png');
+		$('#imgFile').val('');
+		$('#profile').val('');
+	});
+	
+	// 닉네임 정규식 정보
+	$('.reg-info-icon').on('mouseenter', function() {
+		$(this).removeClass("bi-info-circle");
+		$(this).addClass("bi-info-circle-fill");
+		$('.reg-info').css('display', 'block');
+	});
+	$('.reg-info-icon').on('mouseleave', function() {
+		$(this).removeClass("bi-info-circle-fill");
+		$(this).addClass("bi-info-circle");
+		$('.reg-info').css('display', 'none');
+	});
+	
+	$(height).on('input', function() {
+		onlyNum(this);
+		inputMaxLength(this, 3);
+	});
+	$(weight).on('input', function() {
+		onlyNum(this);
+		inputMaxLength(this, 3);
+	});
+	
+	// 전화번호 인증
+	var tel = $('#tel');
+	tel.on('input', function() {
+		onlyNum(this);
+		inputMaxLength(this, 11);
+	});
+	var telCkNum = "";
+	var telCheck = false;
+	var regTel = /^010|011|016|017|018|019/
+	$('#telCheckNumSend').click(function() {
+		var str = '';
+		if(tel.val().length<10 || !regTel.test(tel.val())){
+			str = '<span style="color: red;">전화번호를 정확히 입력해주세요.</span>';
+		} else {
+			$('#telCk').val('');
+			$(".ck-msg").html('');
+			$(basicTelCk).css('display', 'block');
+			$.ajax({
+				url: "/member/sendSMS",
+				data: "tel="+$('#tel').val(),
+				type: "post",
+				success: function(result) {
+					telCkNum=result;
+				}
+			});
+			str = '<span style="color: green;">인증번호가 발송되었습니다.</span>';
+		}
+		$(telCkMsg).html(str);
+	});
+	$('#telCkBtn').on('click', function() {
+		var str='';
+		if(telCkNum==$('#telCk').val() && $('#telCk').val()!=''){
+			str = '<span style="color: blue;">인증 되었습니다.</span>'
+			telCheck = true;
+		}else {
+			str = '<span style="color: red;">인증번호를 확인해주세요</span>'
+		}
+		$("#telCkMsg").html(str);
+	});
+	$('#tel').on('input', function(){
+		$('#telCk').val('');
+		$("#telCkMsg").html('');
+		$(basicTelCk).css('display', 'none');
+		telCheck = false;
+	});
+	
+	
+	// 닉네임 확인
+    let nicknameMaxLength =10;
+    let regNickname = new RegExp("^[\\w가-힣]{2,"+nicknameMaxLength+"}$");
+    let nickname = $('#nickname');
+    let nicknameCheck = false;
+    const checkNickname = (e) => {
+		inputMaxLength(e, 10);
+		
+		let str = "";
+		if(nickname.val().length<2) {
+			str = '<span style="color: gray;">문자+숫자 사용(2~10글자)</span>';
+		}else if(regNickname.test(nickname.val())) {
+			$.ajax({
+				url: "/member/searchNickname",
+				data: "nickname="+nickname.val(),
+				type: "get",
+				async: false,
+				success: function(result) {
+					if(result==0){
+						str = '<span style="color: blue;">사용이 가능합니다.</span>';
+						nicknameCheck = true;
+					}else {
+						str = '<span style="color: red;">중복된 닉네임이 존재합니다.</span>';
+					}
+				}
+			});
+		}else {
+			str = '<span style="color: red;">사용 불가능한 닉네임입니다.</span>';
+		}
+		$("#nicknameCkMsg").html(str);
+	}
+	checkNickname(nickname);
+    nickname.on('input', function() {
+		nicknameCheck = false;
+		checkNickname(this);
+	});
+});

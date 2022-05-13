@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/mypage/mypageNav.css" type="text/css">
 <div id="contents">
 	<h3>마이 페이지</h3>
 	<nav class="lnb-box">
