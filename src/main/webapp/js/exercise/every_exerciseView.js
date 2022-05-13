@@ -42,6 +42,13 @@ function displayInfowindow(marker, title) {
     infowindow.open(map, marker);
 }
 
+// 장소명+주소 가져오기
+function placeinfo(places){
+var placesinfo =places.place_name; //JSON.stringify(places);
+
+$('#location').append(placesinfo);	
+}
+
 //(작성자 외)참가신청
 function excerciseMember(){
 	//유효성 검사 : 로그인 여부 확인

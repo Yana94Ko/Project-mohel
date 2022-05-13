@@ -54,7 +54,7 @@
 			<div class="container">
 				<div class="category-list-box">
 					<ul>
-						<li><a href="#">나만의 식단</a></li>
+						<li><a href="/myFoodMain">나만의 식단</a></li>
 						<li><a href="#">모두의 식단</a></li>
 					</ul>
 					<ul>
@@ -62,9 +62,9 @@
 						<li><a href="/exercise/every_exerciseList?category=운동">모두의 운동</a></li>
 					</ul>
 					<ul>
-						<li><a href="#">자유 게시판</a></li>
-						<li><a href="#">챌린지 게시판</a></li>
-						<li><a href="#">Before&amp;After</a></li>
+						<li><a href="/board/boardList?category=free">자유 게시판</a></li>
+						<li><a href="/board/boardList?category=challenge">챌린지 게시판</a></li>
+						<li><a href="/board/boardList?category=ba">Before&amp;After</a></li>
 						<li></li>
 					</ul>
 				</div>

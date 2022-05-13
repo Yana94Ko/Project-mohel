@@ -108,11 +108,11 @@
 	<!-- everyexercise list -->
 	<select id="every_exerciseList"
 		resultType="com.finalproject.mohel.vo.ExerciseVO">
-		select no, title, contents,
+		select no, title, hashtag, contents,
 		date_format(startdate, '%Y-%m-%d')as startdate, date_format(enddate, '%Y-%m-%d')as enddate,
 		date_format(writedate, '%Y-%m-%d') as writedate,
 		placeinfo,
-		applicantCnt, applicantMax, hit, nickname
+		applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise
 		<if test='searchWord != null'>
 			where ${searchKey} like '%${searchWord}%'
@@ -121,31 +121,31 @@
 		limit ${onePageRecord} offset ${offsetIndex}
 	</select>
 	<insert id="every_exerciseInsert">
-		insert into everyexercise(no, title, contents,
+		insert into everyexercise(no, title, hashtag, contents,
 		startdate, enddate, writedate, placeinfo, applicantCnt, applicantMax,
-		hit, nickname)
-		values(#{no}, #{title}, #{contents}, #{startdate}, #{enddate},
-		now(), #{placeinfo}, #{applicantCnt}, #{applicantMax}, #{hit}, #{nickname})
+		hit, nickname, img)
+		values(#{no}, #{title}, #{hashtag}, #{contents}, #{startdate}, #{enddate},
+		now(), #{placeinfo}, #{applicantCnt}, #{applicantMax}, #{hit}, #{nickname}, #{img})
 	</insert>
 	<update id="every_cntHit" parameterType="int">
 		update everyexercise set
 		hit = hit+1 where no=#{param1}
 	</update>
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
-		select no, title,
+		select no, title, hashtag,
 		contents,
 		DATE_FORMAT(startdate, '%Y-%m-%d') AS
 		startdate,DATE_FORMAT(enddate, '%Y-%m-%d') AS
 		enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
 		placeinfo,
-		applicantCnt, applicantMax, hit, nickname
+		applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise where no=#{param1}
 	</select>
 	<update id="every_exerciseUpdate">
-		update everyexercise set title=#{title},
+		update everyexercise set title=#{title}, hashtag=#{hashtag}
 		contents=#{contents},
 		startdate=#{startdate}, enddate=#{enddate}, placeinfo=#{placeinfo},
-		applicantMax=#{applicantMax}
+		applicantMax=#{applicantMax}, img=#{img}
 		where no=#{no} and nickname=#{nickname}
 	</update>
 	<delete id="every_exerciseDelete">
@@ -154,7 +154,7 @@
 		<select id="totalRecord1" resultType="int">
 		select count(no) cnt from everyexercise
 		<if test='searchWord !=null'>
-			where ${searchKey} like '%${searchWord}%'
+		where ${searchKey} like '%${searchWord}%'
 		</if>
 	</select>
 </mapper>

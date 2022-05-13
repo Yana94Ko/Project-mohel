@@ -22,21 +22,21 @@
 <body>
 	<div class="container" id="every-exercise-mainFrm">
 		<form id ="everyExerciseFrm" method="post" action="/exercise/every_exerciseWriteOk"
-			id="everyexerciseFrm">
+			id="everyexerciseFrm"  enctype="multipart/form-data">
 			<fieldset>
 				<legend id="every-main-title">모두의 운동</legend>
 				<h5>운동 함께할 사람 모집</h5>
 				<div class="form-group row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="title"
+						<input type="text" class="form-control" name="title" id="title"
 							placeholder="글의 제목을 입력하세요">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="today-keyword" class="form-label mt-4">오늘의 키워드</label>
 					<input type="text" class="form-control" id="today-keyword"
-						placeholder="#하체 #스쿼트"> <small id="keywordhelp"
+						placeholder="#하체 #스쿼트" name="hashtag"> <small id="keywordhelp"
 						class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
 
@@ -48,7 +48,8 @@
 
 				<div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label> 
-					<input type="text" class="form-control" id="location">
+					<input type="text" class="form-control" id="location" name="location">
+				
 					<!-- 지도 -->
 					<div class="map_wrap">
 						<div id="map"
@@ -75,24 +76,21 @@
 					<label for="exercise-date" class="form-label mt-4">운동날짜</label><br />
 					<div id="exercise-date">
 						<label for="exercise-sdate" class="form-label mt-4"
-							id="sdate-text">운동시작일</label> <input type="date"
+							id="sdate-text">운동시작일</label> <input type="datetime-local"
 							class="form-control" id="exercise-sdate" name="startdate">
 						<label for="exercise-edate" class="form-label mt-4"
-							id="edate-text">운동종료일</label> <input type="date"
-							class="form-control" id="exercise-edate" name="enddate">
+							id="edate-text">운동종료일</label> <input type="datetime-local"
+							class="form-control" id="exercise-edate" name="enddate" onchange="setMinValue()">
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<label for="exampleSelect1" class="form-label mt-4">참가인원수</label>
-					<select class="form-select" id="exampleSelect1" name="applicantMax">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
+					<label for="exampleSelect1" class="form-label mt-4">최대 참가자 수</label>
+					<input type="text" class="form-control" id="applicantMax" name="applicantMax">
+					<small id="keywordhelp"
+						class="form-text text-muted">최대 참가자 수는 숫자만 입력가능합니다</small>
+						
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
@@ -100,7 +98,7 @@
 				</div>
 				<div class="form-group">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label> <input
-						class="form-control" type="file" id="formFile" name="img1">
+						class="form-control" type="file" id="formFile" name="filename">
 				</div>
 
 				<button type = "button" onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>

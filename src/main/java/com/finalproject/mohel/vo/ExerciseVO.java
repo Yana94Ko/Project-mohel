@@ -3,6 +3,8 @@ package com.finalproject.mohel.vo;
 public class ExerciseVO {
 	private int no;
 	private String title;
+	private String nickname;
+	private String hashtag;
 	private String contents;
 	private String startdate;
 	private String enddate;
@@ -11,7 +13,7 @@ public class ExerciseVO {
 	private int applicantCnt;
 	private int applicantMax;
 	private int hit;
-	private String nickname;
+	private String img;
 	
 	public int getNo() {
 		return no;
@@ -24,6 +26,18 @@ public class ExerciseVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHashtag() {
+		return hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
 	}
 	public String getContents() {
 		return contents;
@@ -73,12 +87,11 @@ public class ExerciseVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getImg() {
+		return img;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setImg(String img) {
+		this.img = img;
 	}
-	
 	
 }

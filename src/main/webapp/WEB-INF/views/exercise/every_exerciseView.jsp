@@ -11,7 +11,6 @@
 		if (confirm("삭제하시겠습니까?")) {
 			// 확인버튼 선택시
 			location.href = "/exercise/every_exerciseDel?no=${vo.no}";
-
 		}
 	}
 	/*
@@ -162,26 +161,20 @@
 
 				<div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label>
-					<input value="${vo.placeinfo}" class="form-control" readonly id="location">
+					<input value="${placeinfo}" class="form-control" readonly id="location">
 				</div>
 				<div class="form-group">
 					<label for="exercise-date" class="form-label mt-4">운동날짜</label><br />
 					<div id="exercise-date">
 						<label for="exercise-sdate" class="form-label mt-4" id="sdate-text">운동시작일</label> 
-						<input type="date" class="form-control" id="exercise-sdate" name="startdate" value="${vo.startdate}" readonly> 
+						<input type="datetime-local" class="form-control" id="exercise-sdate" name="startdate" value="${vo.startdate}" readonly> 
 						<label for="exercise-edate" class="form-label mt-4" id="edate-text">운동종료일</label>
-						<input type="date" class="form-control" id="exercise-edate" name="enddate" value="${vo.enddate}" readonly>
+						<input type="datetime-local" class="form-control" id="exercise-edate" name="enddate" value="${vo.enddate}" readonly>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="exampleSelect1" class="form-label mt-4">참가인원수</label> 
-					<select class="form-select" id="exampleSelect1" disabled="disabled">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
+					<label for="exampleSelect1" class="form-label mt-4">최대 참가자 수</label> 
+					<input type="text" class="form-control" id="exampleSelect1" name="applicantMax" value="${vo.applicantMax}" readonly>
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>

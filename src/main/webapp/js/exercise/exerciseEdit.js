@@ -16,3 +16,16 @@ function setImage(input, preview) {
 		reader.readAsDataURL(input.files[0]);
 	}
 };
+// 나만의 운동 수정 유효성 검사
+$(function(){
+	$("#exerciseFrm").submit(function(){
+		if($("#title").val()==''){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		if($("#contents").val()==''){
+			alert("내용을 입력하세요.");
+			return false;
+		}
+	});
+});
