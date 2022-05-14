@@ -1,10 +1,9 @@
-<!-- CSS -->
 <link rel="stylesheet" href="/css/mypage/userEdit.css" type="text/css">
 <script type="module" src="/js/mypage/userEdit.js"></script>
 <div class="mypage-main container">
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 	
-	<form method="post" class="info-box" enctype="multipart/form-data">
+	<form id="userEditFrm" class="info-box" enctype="multipart/form-data">
 		<div class="info-basic">
 			<div class="basic-img-box">
 				<input id="imgFile" name="profileImg" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
@@ -24,9 +23,9 @@
 				</c:if>
 				<li>닉네임</li>
 				<li class="basic-list-nickname">
-					<input class="basic-info-input" type="text" value="${userInfo.nickname }">
+					<input id="nickname" name="nickname" class="basic-info-input" type="text" value="${userInfo.nickname }">
 					<i class="reg-info-icon bi bi-info-circle"></i>
-					<div class="ck-msg"><span>사용 가능합니다.</span></div>
+					<div id="nicknameCkMsg" class="ck-msg"></div>
 					<div class="reg-info"><span>문자+숫자 사용(2~10글자)</span></div>
 				</li>
 				<li>연락처</li>
@@ -47,7 +46,10 @@
 			<h4>기초/활동 대사량</h4>
 			<ul class="metabolic-rate-values">
 				<li>
-					<input id="birthdate" name="birthdate" type="date" value="${userInfo.birthdate }">
+					<div>
+						생년월일 <input id="birthdate" name="birthdate" type="date" value="${userInfo.birthdate }">
+						<input id="age" name="age" type="hidden">
+					</div>
 					<div class="gender-box">
 						<label for="man">남</label>
 						<input id="man" name="gender" type="radio" value="m" <c:if test="${userInfo.gender=='m' }">checked</c:if>>
@@ -93,7 +95,7 @@
 		</div>
 		<button class="info-edit-pw-btn btn btn-info btn-sm">수정</button>
 		<c:if test="${kakao!=true }">
-			<input id="editCkPw" class="info-edit-pw-btn" type="password" placeholder="Password">
+			<input id="editCkPwd" name=pwd class="info-edit-pw-btn" type="password" placeholder="Password">
 		</c:if>
 	</form>
 </div>

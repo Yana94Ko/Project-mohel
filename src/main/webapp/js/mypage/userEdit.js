@@ -59,7 +59,8 @@ $(function() {
 		inputMaxLength(this, 11);
 	});
 	var telCkNum = "";
-	var telCheck = false;
+	var nowTel = tel.val();
+	var telCheck = true;
 	var regTel = /^010|011|016|017|018|019/
 	$('#telCheckNumSend').click(function() {
 		var str = '';
@@ -92,25 +93,30 @@ $(function() {
 		$("#telCkMsg").html(str);
 	});
 	$('#tel').on('input', function(){
-		$('#telCk').val('');
-		$("#telCkMsg").html('');
-		$(basicTelCk).css('display', 'none');
-		telCheck = false;
+		if(nowTel==tel.val()){
+			telCheck = true;
+		}else {
+			$('#telCk').val('');
+			$("#telCkMsg").html('');
+			$(basicTelCk).css('display', 'none');
+			telCheck = false;
+		}
 	});
 	
 	
 	// 닉네임 확인
+	let nicknameCheck = true;
     let nicknameMaxLength =10;
     let regNickname = new RegExp("^[\\w가-힣]{2,"+nicknameMaxLength+"}$");
     let nickname = $('#nickname');
-    let nicknameCheck = false;
+    let nowNickname = nickname.val();
     const checkNickname = (e) => {
-		inputMaxLength(e, 10);
-		
+		inputMaxLength(e, nicknameMaxLength);
 		let str = "";
-		if(nickname.val().length<2) {
-			str = '<span style="color: gray;">문자+숫자 사용(2~10글자)</span>';
-		}else if(regNickname.test(nickname.val())) {
+		if(nickname.val() == nowNickname){
+			$("#nicknameCkMsg").html('');
+			nicknameCheck = true;
+		}else if(nickname.val().length>1 && regNickname.test(nickname.val())) {
 			$.ajax({
 				url: "/member/searchNickname",
 				data: "nickname="+nickname.val(),
@@ -130,9 +136,38 @@ $(function() {
 		}
 		$("#nicknameCkMsg").html(str);
 	}
-	checkNickname(nickname);
-    nickname.on('input', function() {
+    nickname.on('change', function() {
 		nicknameCheck = false;
 		checkNickname(this);
+	});
+	
+	// 나이
+	var today = new Date();
+	var age = 0;
+	const setAge = (e) => {
+		var birthdateArr = $(e).val().split('-');
+		var birthdate = new Date(birthdateArr[0], birthdateArr[1]-1, birthdateArr[2]);
+		
+		if(new Date(today.getFullYear(), today.getMonth(), today.getDate()) < birthdate){
+			$(e).val(today.toISOString().split('T')[0]);
+			age = 0;
+		}else {
+			age = today.getFullYear() - birthdate.getFullYear();
+			var subMonth = today.getMonth()-birthdate.getMonth();
+			if(age!=0 && (subMonth<0 || (subMonth === 0 && today.getDate()<birthdate.getDate()))){
+				age--;
+			}
+		}
+		$('#age').val(age);
+	}
+	setAge(birthdate);
+	$('#birthdate').on('input', function() {
+		setAge(this);
+	});
+	
+	$('#userEditFrm').submit(function() {
+		if(!(nicknameCheck && telCheck) || (age * $(height).val() * $(weight).val() * $('input[name=active]:checked').val()==0)) {
+			return false;
+		}
 	});
 });
