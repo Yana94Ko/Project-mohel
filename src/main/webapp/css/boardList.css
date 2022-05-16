@@ -1,0 +1,168 @@
+@charset "UTF-8"; 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+ul {
+  list-style: none;
+}
+
+/* notice */
+.notice {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 30px; 
+}
+.notice h3 {
+  padding: 8px;
+  text-align : center; 
+}
+.notice table {
+  border-top: 1.5px solid #aaa;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.notice table th {
+  padding: 12px 0 ;
+  border-bottom: 1px solid #ddd;
+  text-align : center;
+}
+.notice table td {
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+.notice table td:first-child {
+  text-align: left;
+  padding-left: 8px;
+}
+th:first-child, td:first-child {
+  width: 65%;
+}
+th:nth-child(2), td:nth-child(2) {
+  width: 15%;
+}
+th:nth-child(3), td:nth-child(3) {
+  width: 10%;
+}
+th:last-child, td:last-child {
+  width: 10%;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+tr.post:hover {
+  background-color: #fafafa;
+}
+
+/* notice brnBox */
+.btn-Box {
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+  height : 10vh;
+}
+
+/* form */
+.btn-Box form {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33.3%;
+}
+.btn-Box form select {
+  margin-right: 8px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  outline: none;
+}
+.btn-Box form select option {
+  border: #aaa;
+}
+.btn-Box form .searchWord {
+  border: 1px solid #aaa;
+  display:flex; 
+  border-radius: 5px;
+  padding :0 3px;
+}
+.btn-Box form .searchWord div{
+  border-right: 1px solid #aaa; 
+  padding: 5px 8px 0 5px;    
+}
+.btn-Box form .searchWord label {
+  display: inline-block;
+  height: 100%;
+  width : 15%; 
+  
+}
+.btn-Box form .searchWord input {
+  border: none;
+  padding: 5px 8px;
+  outline: none;
+  width: 85%; 
+}
+
+/* paging */
+.btn-Box .paging {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  
+}
+.btn-Box .paging ul {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.btn-Box .paging ul li {
+  margin: 0 3px;
+}
+.btn-Box .paging ul li span{
+  display: block;
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 600;   
+	
+}
+.btn-Box .paging ul li .selected{
+  background-color: #aaa;
+  color:#fff;
+  font-weight:600; 
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.btn-Box .paging ul li a {
+  display: block;
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 600; 
+}
+.btn-Box .paging ul li a:hover {
+  background-color: #ddd;
+}
+
+/* button */
+.btn-Box .boardwrite { 
+  display : block; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #007bff; 
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+}
