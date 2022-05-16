@@ -101,6 +101,7 @@
 	font-size: 12px;
 }
 
+/* info-metabolic-rate */
 .info-metabolic-rate>* {
 	width: 300px;
 	margin: 0 auto;
@@ -142,16 +143,14 @@ h4{
 	float: right;
 	margin-right: 5px;
 }
-#editCkPw {
+#editCkPwd {
 	border: none;
 	border-bottom: 1px solid #ccc;
 	width: 100px;
 	transition: all ease 0.5s;
 }
-#editCkPw:focus {
+#editCkPwd:focus {
 	border: none;
 	outline: none;
 	border-bottom: 1px solid black;
 }
-
-/* info-metabolic-rate */

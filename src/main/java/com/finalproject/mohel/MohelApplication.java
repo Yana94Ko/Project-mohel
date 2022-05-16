@@ -19,7 +19,7 @@ public class MohelApplication {
 		SpringApplication.run(MohelApplication.class, args);
 	}
 	
-	public static void fileUpload(MemberVO vo, HttpServletRequest request) {
+	public static void profileImgUpload(MemberVO vo, HttpServletRequest request) {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
 		
 		String profilePath = "/img/profile/";
@@ -33,7 +33,7 @@ public class MohelApplication {
 			String ext = orgFileName.substring(point+1);
 			
 			orgFileName = System.currentTimeMillis()+"."+ext;
-			File f = new File(path, orgFileName);
+			File f = new File(path+orgFileName);
 			
 			try {
 				file.transferTo(f);

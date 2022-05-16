@@ -22,8 +22,9 @@ $(function() {
 		fileReader.onload = function() {
 			document.getElementById("profileImg").src = fileReader.result;
 		};
+		$(profile).val('');
 	};
-	fileInput.addEventListener("change", handleFiles);
+	fileInput.addEventListener("input", handleFiles);
 	// 이미지제거 클릭시 기본 이미지로 프로필 사진 변경
 	$('#defaultProfile').click(function() {
 		$('#profileImg').attr('src', '/img/profile/defaultProfile.png');
@@ -165,8 +166,30 @@ $(function() {
 		setAge(this);
 	});
 	
+	const setABMR = () => {
+		var BMR = 0;
+		if($('input[name="gender"]:checked').val()=='m'){
+			BMR = 66.47+(13.75*$(weight).val())+(5*$(height).val())-(6.76*age);
+		}else if($('input[name="gender"]:checked').val()=='w'){
+			BMR = 655.1+(9.56*$(weight).val())+(1.85*$(height).val())-(4.68*age);
+		}
+		var AMR = BMR*$('input[name=active]:checked').val();
+		$('#BMR>span').text(Math.round(BMR * 100)/100+'kcal');
+		$('#AMR>span').text(Math.round(AMR * 100)/100+'kcal');
+	}
+	setABMR();
+	$('input[name=active], #birthdate, input[name=gender], #height, #weight').on('change', function() {
+		setABMR();
+	});
+	
 	$('#userEditFrm').submit(function() {
-		if(!(nicknameCheck && telCheck) || (age * $(height).val() * $(weight).val() * $('input[name=active]:checked').val()==0)) {
+		let userInfo = nicknameCheck && telCheck;
+		let metabolicRate = age * $(height).val() * $(weight).val() * $('input[name=active]:checked').val()!=0
+		if(!userInfo){
+			alert("회원정보를 확인해주세요.");
+			return false;
+		}else if(!metabolicRate){
+			alert("대사량 측정 입력란을 확인해주세요.");
 			return false;
 		}
 	});

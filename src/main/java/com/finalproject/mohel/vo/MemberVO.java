@@ -30,7 +30,7 @@ public class MemberVO {
 				+ ", getNickname()=" + getNickname() + ", getTel()=" + getTel() + ", getProfile()=" + getProfile()
 				+ ", getBirthdate()=" + getBirthdate() + ", getGender()=" + getGender() + ", getAge()=" + getAge()
 				+ ", getHeight()=" + getHeight() + ", getWeight()=" + getWeight() + ", getActive()=" + getActive()
-				+ ", getBRM()=" + getBMR() + ", getARM()=" + getAMR() + ", getVerify()=" + getVerify()
+				+ ", getBMR()=" + getBMR() + ", getAMR()=" + getAMR() + ", getVerify()=" + getVerify()
 				+ ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()=" + getJoindate() + "]";
 	}
 	

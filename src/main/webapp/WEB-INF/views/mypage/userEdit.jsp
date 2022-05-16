@@ -3,7 +3,7 @@
 <div class="mypage-main container">
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 	
-	<form id="userEditFrm" class="info-box" enctype="multipart/form-data">
+	<form id="userEditFrm" class="info-box" method="post" action="/mypage/userEditOk" enctype="multipart/form-data">
 		<div class="info-basic">
 			<div class="basic-img-box">
 				<input id="imgFile" name="profileImg" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
@@ -92,6 +92,10 @@
 					<input id="select5" name="active" type="radio" value="0.9" <c:if test="${userInfo.active==0.9 }">checked</c:if>>
 				</li>
 			</ul>
+			<div class="calc-metabolic-rate">
+				<div id="BMR">기초대사량 <span style="color:black;"></span></div>
+				<div id="AMR">활동대사량 <span style="color:black;"></span></div>
+			</div>
 		</div>
 		<button class="info-edit-pw-btn btn btn-info btn-sm">수정</button>
 		<c:if test="${kakao!=true }">

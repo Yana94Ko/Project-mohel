@@ -47,7 +47,7 @@ public class MemberController {
 	
 	@PostMapping("signupOk")
 	public String signupOk(MemberVO vo, HttpServletRequest request) {
-		MohelApplication.fileUpload(vo, request);
+		MohelApplication.profileImgUpload(vo, request);
 		service.insertMember(vo);
 		
 		return "redirect:login";

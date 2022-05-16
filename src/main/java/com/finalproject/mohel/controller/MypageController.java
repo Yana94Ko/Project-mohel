@@ -1,23 +1,38 @@
 package com.finalproject.mohel.controller;
 
-import java.util.HashMap;
+import java.io.File;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.function.ServerRequest.Headers;
 
+import com.finalproject.mohel.MohelApplication;
+import com.finalproject.mohel.service.MemberService;
+import com.finalproject.mohel.service.MypageService;
 import com.finalproject.mohel.vo.MemberVO;
 
 @Controller
 @RequestMapping("/mypage/")
 public class MypageController {
+	
+	@Inject
+	MypageService service;
+	@Inject
+	MemberService memberService;
+	
+	ModelAndView mav = new ModelAndView();
+	HttpHeaders headers = new HttpHeaders();
+	ResponseEntity<String> entity = null;
 
 	@GetMapping("userEdit")
 	public String userEdit() {
@@ -25,23 +40,43 @@ public class MypageController {
 	}
 	
 	@PostMapping("userEditOk")
-	@ResponseBody
-	public String userEditOk(MemberVO vo, HttpServletRequest request) {
+	public ResponseEntity<String> userEditOk(MemberVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		vo.setEmail(userInfo.getEmail());
 		
-		return "redirect:login";
-	}
-	
-	@PostMapping("checkPwd")
-	@ResponseBody
-	public int checkPwd(@RequestParam HashMap<String, Object> vo, HttpSession session, MultipartFile profileImg) {
-//		vo.setEmail((String)session.getAttribute(""));
-		MemberVO mem = (MemberVO)session.getAttribute("userInfo");
-		System.out.println(mem);
-		System.out.println(vo);
+		MohelApplication.profileImgUpload(vo, request);
 		
-		System.out.println(profileImg.getOriginalFilename());
+		headers.add("content-Type", "text/html;charset=utf-8");
 		
-		return 0;
+		String imgRealPath = null;
+		if(service.updateUserInfo(vo)==1) {
+			if(!((MemberVO)session.getAttribute("userInfo")).getProfile().equals(vo.getProfile())) {
+				imgRealPath = session.getServletContext().getRealPath(((MemberVO)session.getAttribute("userInfo")).getProfile());
+			}
+			session.setAttribute("userInfo", memberService.selectMember(vo));
+			
+			String body = "<script>";
+			body += "alert('회원 정보가 수정되었습니다.');";
+			body += "location.href='/mypage/userEdit';";
+			body += "</script>";
+			entity = new ResponseEntity<String>(body, headers, HttpStatus.OK);
+		}else {
+			imgRealPath = session.getServletContext().getRealPath(vo.getProfile());
+			
+			String body = "<script>";
+			body += "alert('회원 정보 수정에 실패하였습니다.\\n비밀번호를 확인해주세요.');";
+			body += "history.back();";
+			body += "</script>";
+			entity = new ResponseEntity<String>(body, headers, HttpStatus.BAD_REQUEST);
+		}
+		
+		File f = new File(imgRealPath);
+		if(f.exists()) {
+			f.delete();
+		}
+		
+		return entity;
 	}
 	
 	@GetMapping("myComment")
