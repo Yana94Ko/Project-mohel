@@ -7,6 +7,7 @@
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 
 	<div class="board-box">
+		<h3>참여한 운동</h3>
 		<table>
 			<thead>
 				<tr>

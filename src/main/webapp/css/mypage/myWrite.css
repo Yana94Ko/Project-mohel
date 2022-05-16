@@ -110,30 +110,38 @@
 	
 } */
 
+.switch{
+	width:750px;
+}
 .switch a:nth-child(1){
-	width: 30px;
+	width: 75px;
+	padding:5px 13px 13px 13px;
 	height: 15px;
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 500;
 	font-size: 17px;
 	color: #01c9c6;
+	border:1px solid gray;
 	border-bottom: 4px solid #01c9c6;
-	margin-right:10px;
+	border-radius: 8px 8px 0px 0px;
+	margin-right:0px;
 }
 .switch a:nth-child(2){
-	width: 30px;
+	width: 60px;
+	padding:5px 13px 17px 13px;
 	height: 15px;
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 500;
 	font-size: 17px;
-	color: gray;
+	color:black;
+	border:1px solid gray;
 	border-bottom: none;
+	border-radius: 8px 8px 0px 0px;
 }
 .switch-select{
-	margin-left:485px;
+	margin-left:425px;
 	width:165px;
 }
-
 .board-box{
 	width: 750px;
 	display:block;
@@ -144,24 +152,41 @@
 	border: none;
 	color: rgb(102,102,102);
 	text-align: center;
-	line-height: 55px;
-	
+	line-height: 55px;	
+}
+
+.board-box h3{
+	text-align:left;
+	width:800px;
+	height:30px;
+	color: black;
+	font-size:30px;
+	font-weight:500;
+	margin-bottom:40px;
 }
 table{
 	
     width: 100%;
     border-collapse: collapse;
-    line-height: 24px;
+    line-height: 20px;
 }
 table td,th {
     font-family: "Noto Sans KR", sans-serif;
-	border: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-    color:black;
+    color:gray;
+    font-weight:500;
 }
+table{
+	border:none;
+}
+
+
 th {
-	background: rgb(238,238,238);
+	border:1px solid gray;
+	background:white;
+	color:black;
 	
 }

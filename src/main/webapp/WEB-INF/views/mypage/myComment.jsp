@@ -7,6 +7,7 @@
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 
 	<div class="board-box">
+		<h3>나의 활동</h3>
 		<nav class="switch">
 			<a href="/mypage/myWrite">게시글</a> <a href="/mypage/myComment">댓글</a> <select class="switch-select">
 				<option>전체</option>
