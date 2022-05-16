@@ -3,7 +3,7 @@
 <!-- CSS -->
 <link rel="stylesheet" href="/css/mypage/myWrite.css" type="text/css">
 
-<div class="mypage-main">
+<div class="mypage-main container">
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 
 	<div class="board-box">

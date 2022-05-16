@@ -9,7 +9,6 @@
 <head>
 <link href="${url}/css/exercise/exerciseList.css" rel="stylesheet"
 	type="text/css" />
-
 <meta charset="UTF-8">
 
 <script type="text/javascript" src="${url}/js/exercise/exerciseList.js"></script>

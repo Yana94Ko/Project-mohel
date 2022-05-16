@@ -9,7 +9,6 @@
 	type="text/css" />
 <script type="text/javascript"
 		src="${url}/js/exercise/exerciseEdit.js"></script>
-
 <meta charset="UTF-8">
 <style>
 
