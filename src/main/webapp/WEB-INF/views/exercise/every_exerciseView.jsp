@@ -185,7 +185,7 @@
                          	<li class="author-view-label">번호</li>
                          	<li class="author-view-label">참가 상태</li>
                          	<li class="author-view-label">닉네임</li>
-                         	<li class="author-view-label">승낙/거절</li>
+                         	<li class="author-view-label">승낙/as거절</li>
                          	<c:forEach var="vo" items="${lst2}" varStatus="st">
                          		<c:if test="${vo.ridingNo == vo.ridingNo}">
                          			<li><span id="ridingState${st.index}">

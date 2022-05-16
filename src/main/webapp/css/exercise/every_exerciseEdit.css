@@ -10,6 +10,11 @@
 	position: relative;
 	font-size: 30px;
 }
+h5 {
+	position: relative;
+	left: 43%;
+	margin-bottom: 40px;
+}
 /*every_exerciseWrite*/
 #exercise-date{
 	width:100%;
@@ -41,7 +46,7 @@
 }
 #every-exerciselist-btn {
 	position: relative;
-	left: 66%;
+	left: 77%;
 }
 /*지도*/
 

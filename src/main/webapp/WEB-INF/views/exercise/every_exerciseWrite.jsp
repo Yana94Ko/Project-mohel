@@ -21,8 +21,7 @@
 </head>
 <body>
 	<div class="container" id="every-exercise-mainFrm">
-		<form id ="everyExerciseFrm" method="post" action="/exercise/every_exerciseWriteOk"
-			id="everyexerciseFrm"  enctype="multipart/form-data">
+		<form id ="everyExerciseFrm" method="post" action="/exercise/every_exerciseWriteOk" enctype="multipart/form-data">
 			<fieldset>
 				<legend id="every-main-title">모두의 운동</legend>
 				<h5>운동 함께할 사람 모집</h5>
@@ -75,12 +74,10 @@
 				<div class="form-group">
 					<label for="exercise-date" class="form-label mt-4">운동날짜</label><br />
 					<div id="exercise-date">
-						<label for="exercise-sdate" class="form-label mt-4"
-							id="sdate-text">운동시작일</label> <input type="datetime-local"
-							class="form-control" id="exercise-sdate" name="startdate">
-						<label for="exercise-edate" class="form-label mt-4"
-							id="edate-text">운동종료일</label> <input type="datetime-local"
-							class="form-control" id="exercise-edate" name="enddate" onchange="setMinValue()">
+						<label for="exercise-sdate" class="form-label mt-4" id="sdate-text">운동시작일</label> 
+						<input type="datetime-local" class="form-control" id="exercise-sdate" name="startdate">
+						<label for="exercise-edate" class="form-label mt-4" id="edate-text">운동종료일</label> 
+						<input type="datetime-local" class="form-control" id="exercise-edate" name="enddate" onchange="setMinValue()">
 					</div>
 				</div>
 

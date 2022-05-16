@@ -216,7 +216,7 @@ function every_del() {
 				</div>
 				<div class="form-group">
 					<label for="exampleSelect1" class="form-label mt-4">최대 참가자 수</label> 
-					<input type="text" class="form-control" id="exampleSelect1" name="applicantMax" value="${vo.applicantMax}">
+					<input type="text" class="form-control" id="applicantMax" name="applicantMax" value="${vo.applicantMax}">
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
@@ -252,22 +252,21 @@ function every_del() {
 				</div>
 				<div class="form-group">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label>
-					<input class="form-control" type="file" id="formFile">
+					<input class="form-control" type="file" id=filename>
 				</div>
 			</div>
 		</fieldset>
-	</form>
+	
 	<div>
 		<!-- 로그인 아이디와 글쓴이가 같을 경우 수정삭제 표시 -->
-		<button type="button" class="btn btn-warning"
-			onclick="location.href='/exercise/every_exerciseEdit?no=${vo.no }' ">수정하기</button>
-		<button type="button" class="btn btn-danger"
-			onclick="javascript:every_del()" id="delete-btn">삭제하기</button>
+		<button type="submit" class="btn btn-warning">수정완료</button>
+		
 
-		<button type="submit" class="btn btn-primary"
+		<button type="button" class="btn btn-primary"
 			onclick="location.href='/exercise/every_exerciseList' "
 			id="every-exerciselist-btn">모두의 운동목록</button>
 	</div>
+	</form>
 
 	<!-- 댓글쓰기 -->
 	<c:if test="${nickname!=null}">

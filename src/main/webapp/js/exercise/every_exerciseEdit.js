@@ -272,15 +272,16 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-function everyExerciseWriteOk(){
-	$("#everyExerciseFrm").submit();
+function everyExerciseEditOk(){
+	$("#every-exerciseFrm").submit();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
 // 모두의 운동 글쓰기 유효성 검사
 $(function(){
-	$("#everyExerciseFrm").submit(function(){
+	$("#every-exerciseFrm").submit(function(){
+		alert('a')
 		if($("#title").val()==''){
 			alert("제목을 입력하세요.");
 			return false;
@@ -318,7 +319,7 @@ $(function(){
     let sdate = document.getElementById('exercise-sdate');
     let edate = document.getElementById('exercise-edate');
     let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -5);
-
+	
 	function setMinValue(){
             if(sdate.value > edate.value) {
                 alert('운동 시작 일자보다 이전의 날짜는 설정할 수 없습니다.');

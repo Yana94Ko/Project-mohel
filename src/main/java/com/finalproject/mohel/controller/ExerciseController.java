@@ -320,6 +320,7 @@ public class ExerciseController {
 		System.out.println(addr);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
+		//int sdate = vo.getStartdate().split("");
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -354,17 +355,22 @@ public class ExerciseController {
 	        System.out.println(path);
 	        
 	    	MultipartFile file = mr.getFile("filename");
-	        
-	    	String orgFileName = file.getOriginalFilename();
-	        int point = orgFileName.lastIndexOf(".");
-	        String ext = orgFileName.substring(point+1);
-	        			
-	        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
-	        			
-	        orgFileName = f.getName();
+	    	String orgFileName=null;
+	    	File f=null;
+	        if(file!=null && !file.isEmpty()) {
+		    	orgFileName = file.getOriginalFilename();
+		        int point = orgFileName.lastIndexOf(".");
+		        String ext = orgFileName.substring(point+1);
+		        			
+		        f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
+		        			
+		        orgFileName = f.getName();
+	        }
 	        
 		try {
-			file.transferTo(f);
+			 if(file!=null&&!file.isEmpty()) {
+				 file.transferTo(f);
+			 }
 			vo.setImg(orgFileName);
 			
 			int result =service.every_exerciseUpdate(vo);
