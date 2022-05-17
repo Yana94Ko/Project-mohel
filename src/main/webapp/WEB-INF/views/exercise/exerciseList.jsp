@@ -30,7 +30,7 @@
 			</form>
 			<div id='write-box'>
 				<button type="button" class="btn btn-primary" id='write'
-					onclick="location.href='/exercise/exerciseWrite?category=운동&nickname=ㅇㅇ' ">나만의
+					onclick="location.href='/exercise/exerciseWrite?category=exercise' ">나만의
 					운동 글쓰기</button>
 			</div>
 		</div>

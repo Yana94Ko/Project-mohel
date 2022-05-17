@@ -190,7 +190,7 @@ function every_del() {
 				 <div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label> 
 					<input value="" type="text" class="form-control" id="location" name="location" >
-				 	<input type="hidden" name="placeinfo" id="placeinfo">
+				 	<input type="hidden" name="placeinfo" id="placeinfo" value='${vo.placeinfo}'>
 				 <div class="map_wrap">
 						<div id="map"
 							style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>

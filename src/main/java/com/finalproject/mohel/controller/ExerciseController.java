@@ -28,6 +28,7 @@ import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
+import com.finalproject.mohel.vo.MemberVO;
 
 
 @RestController
@@ -39,13 +40,14 @@ public class ExerciseController {
 //	ExerciseService ExerciseService;
 
 	@GetMapping("/exercise/exerciseList")
-	public ModelAndView exerciseList(ExercisePagingVO pVO, String category) {
+	public ModelAndView exerciseList(ExercisePagingVO pVO, String category, String nickname, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		pVO.setTotalRecord(service.totalRecord(pVO));
 		
 		mav.addObject("lst", service.exerciseList(pVO));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
+		mav.addObject("nickname", nickname);
 		
 		mav.setViewName("exercise/exerciseList");
 		return mav;
@@ -73,7 +75,10 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
-		vo.setNickname("ㅇㅇ");// 추후에 (String)request.getSession().getAttribute("nickname")로 수정
+		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
+
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -124,12 +129,8 @@ public class ExerciseController {
 		mav.addObject("vo",service.exerciseSelect(no));
 	
 		service.cntHit(no); // 조회수 증가
-		mav.addObject("nickname","oo");// 추후 (String)session.getAttribute("nickName")로 변경
+		//mav.addObject("nickName",(String)session.getAttribute("nickName"));
 
-		//참가자 목록 띄우기
-		
-		
-		//로그인 되어있다면, 참가 신청자들의 참가 확정 여부 보여주기
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
@@ -151,7 +152,7 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "ㅇㅇ");
+			mav.addObject("nickname", nickname);
 		}
 		mav.setViewName("exercise/exerciseEdit");
 		return mav;
@@ -159,7 +160,7 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseEditOk")
 	public ResponseEntity<String> exerciseEditOk(BoardVO vo, HttpSession session, HttpServletRequest request,MultipartHttpServletRequest mr) {
-		//vo.setNickname((String)session.getAttribute("nickName"));
+		vo.setNickname((String)session.getAttribute("nickName"));
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -246,6 +247,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseWrite")
 	public ModelAndView every_exerciseWrite() {
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("exercise/every_exerciseWrite");
 		return mav;
 	}
@@ -261,8 +263,8 @@ public class ExerciseController {
 	}
 	@PostMapping("/exercise/every_exerciseWriteOk")
     public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
-		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
-		//System.out.println("title>>>"+vo.getTitle());
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -308,9 +310,12 @@ public class ExerciseController {
 
 	// 모두의 운동 글보기
 	@GetMapping("/exercise/every_exerciseView")
-	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no) {
+	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("nickname", "ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
+		
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
+		
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
 		String jsonStr=vo2.getPlaceinfo();
@@ -320,7 +325,6 @@ public class ExerciseController {
 		System.out.println(addr);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
-		//int sdate = vo.getStartdate().split("");
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -336,7 +340,7 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "ㅇㅇ");
+			mav.addObject("nickname", nickname);
 		}
 		mav.setViewName("exercise/every_exerciseEdit");
 		return mav;
@@ -344,8 +348,10 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/every_exerciseEditOk")
 	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mr) {
+		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		
-		vo.setNickname((String)session.getAttribute("nickName"));
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));

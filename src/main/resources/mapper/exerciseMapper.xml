@@ -11,7 +11,7 @@
 		select no, title, contents, nickname, date_format(writedate,
 		'%Y-%m-%d') as writedate,hit
 		from board
-		where category='운동'
+		where category='exercise'
 		<if test='searchWord != null'>
 			where ${searchKey} like '%${searchWord}%'
 		</if>
@@ -135,16 +135,17 @@
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
 		select no, title, hashtag,
 		contents, DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate
-		,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
-		placeinfo,
+		,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,placeinfo,
 		applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise where no=#{param1}
 	</select>
 	<update id="every_exerciseUpdate">
 		update everyexercise set title=#{title}, hashtag=#{hashtag},
 		contents=#{contents},startdate= DATE_FORMAT(startdate, '%Y-%m-%d %H:%i:%S') ,  enddate=DATE_FORMAT(enddate, '%Y-%m-%d %H:%i:%S') ,writedate =now(),	 
+		 <if test="placeinfo != null and placeinfo != ''">
 		 placeinfo=#{placeinfo},
-		applicantMax=#{applicantMax}, img=#{img}
+		 </if>
+		 applicantMax=#{applicantMax}, img=#{img}
 		where no=#{no} and nickname=#{nickname}
 	</update>
 	<delete id="every_exerciseDelete">
