@@ -12,7 +12,7 @@
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script> 
 	$(function(){
-		CKEDITOR.replace("content");
+		CKEDITOR.replace("contents");
 		
 		$("#boardFrm").submit(function(){
 			if($("#subject").val()==''){
@@ -30,6 +30,7 @@
 	<h1>글 수정 폼</h1>
 	<form method="post" action="/board/boardEditOk" id="boardFrm">
 		<input type="hidden" name="no" value="${vo.no}"/>
+		<input type="hidden" name="category" value="${category}"/>
 		<ul>
 			<li>제목</li>
 			<li><input type="text" name="title" id="title" value="${vo.title}"/></li>

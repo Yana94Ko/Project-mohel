@@ -58,10 +58,10 @@ public class BoardController {
 	//글 등록
 	@PostMapping("boardWriteOk")
 	public ResponseEntity<String> boardWriteOk(BoardVO vo, HttpServletRequest request){
-		vo.setNickname("ㅇㅇ"); 
+		//vo.setNickname("ㅇㅇ"); 
 		//vo.setNickname(request.getRemoteAddr()); 
 		//글쓴이-session로그인 아이디를 구한다
-		//vo.setNickname((String)request.getSession().getAttribute("logId"));
+		vo.setNickname((String)request.getSession().getAttribute("logId"));
 		
 		ResponseEntity<String> entity = null; //데이터와 처리 상태를 가진다
 		HttpHeaders header = new HttpHeaders();
@@ -106,15 +106,16 @@ public class BoardController {
 		}
 	//글 수정
 	@GetMapping("boardEdit")
-	public ModelAndView boardEdit(int no) {
+	public ModelAndView boardEdit(int no, String category) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", service.boardSelect(no));
+		mav.addObject("category",category);
 		mav.setViewName("board/boardEdit");
 		return mav;
 	}
 	//글 수정
 	@PostMapping("boardEditOk")
-	public ResponseEntity<String> boardEditOk(BoardVO vo, HttpSession session) {
+	public ResponseEntity<String> boardEditOk(BoardVO vo,String category, HttpSession session) {
 		ResponseEntity<String> entity = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
@@ -123,7 +124,7 @@ public class BoardController {
 		try {
 			int result = service.boardUpdate(vo);
 			if(result>0) {//수정 성공
-				entity = new ResponseEntity<String>(getEditSuccessMessage(vo.getNo()), headers, HttpStatus.OK);
+				entity = new ResponseEntity<String>(getEditSuccessMessage(vo.getNo(),category), headers, HttpStatus.OK);
 			}else {//수정 실패
 				entity = new ResponseEntity<String>(getEditFailMessage(), headers, HttpStatus.BAD_REQUEST);
 			}
@@ -140,10 +141,10 @@ public class BoardController {
 		       msg += "</script>";
 		return msg;
 	}
-	public String getEditSuccessMessage(int no) {
+	public String getEditSuccessMessage(int no, String category) {
 		String msg = "<script>";
 			   msg += "alert('글 수정에 성공했습니다.\\n글 상세보기로 이동합니다.');";
-			   msg += "location.href='/board/boardView?no="+no+"';"; 
+			   msg += "location.href='/board/boardView?no="+no+"&category="+category+"'"; 
 			   msg += "</script>";
 		return msg;
 	}
