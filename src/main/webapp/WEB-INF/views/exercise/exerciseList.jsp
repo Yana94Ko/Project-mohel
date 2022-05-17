@@ -10,6 +10,7 @@
 <link href="${url}/css/exercise/exerciseList.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="${url}/js/exercise/exerciseList.js"></script>
+
 <meta charset="UTF-8">
 
 <title>나만의 운동</title>

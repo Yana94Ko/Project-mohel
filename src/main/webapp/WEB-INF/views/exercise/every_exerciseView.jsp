@@ -1,6 +1,5 @@
 <link href="${url}/css/exercise/every_exerciseView.css" rel="stylesheet"
 	type="text/css" />
-
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"

@@ -311,7 +311,7 @@ public class ExerciseController {
 	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nickname", "ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
-		service.cntHit(no); // 조회수 증가
+		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
 		String jsonStr=vo2.getPlaceinfo();
 		System.out.println(jsonStr);
@@ -344,7 +344,8 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/every_exerciseEditOk")
 	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mr) {
-		//vo.setNickname((String)session.getAttribute("nickName"));
+		
+		vo.setNickname((String)session.getAttribute("nickName"));
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -368,16 +369,22 @@ public class ExerciseController {
 	        }
 	        
 		try {
-			 if(file!=null&&!file.isEmpty()) {
+			 if(file!=null && !file.isEmpty()) {
 				 file.transferTo(f);
 			 }
 			vo.setImg(orgFileName);
-			
+			System.out.println(vo.toString());
 			int result =service.every_exerciseUpdate(vo);
-			System.out.println(result);
+			System.out.println("result ="+result);
+			
 			//System.out.println(vo.getApplicantMax());
+			if(result>0) {
 			String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/every_exerciseView?no="+vo.getNo()+"';</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+			}else {
+				String msg = "<script>alert('글 수정 실패 하였습니다.'); history.go(-1);</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

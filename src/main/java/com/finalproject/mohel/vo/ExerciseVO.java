@@ -15,6 +15,14 @@ public class ExerciseVO {
 	private int hit;
 	private String img;
 	
+	@Override
+	public String toString() {
+		return "ExerciseVO [no=" + no + ", title=" + title + ", nickname=" + nickname + ", hashtag=" + hashtag
+				+ ", contents=" + contents + ", startdate=" + startdate + ", enddate=" + enddate + ", writedate="
+				+ writedate + ", placeinfo=" + placeinfo + ", applicantCnt=" + applicantCnt + ", applicantMax="
+				+ applicantMax + ", hit=" + hit + ", img=" + img + "]";
+	}
+	
 	public int getNo() {
 		return no;
 	}

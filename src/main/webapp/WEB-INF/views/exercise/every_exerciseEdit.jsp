@@ -140,16 +140,23 @@ function every_del() {
 	 replyListAll();
 	 });
 	 */
+	// 장소명+주소 가져오기
+	 function placeinfo(){
+		var placeinfoJson = ${vo.placeinfo};
+	 	var placesinfo =placeinfoJson.place_name; //JSON.stringify(places);
+		var address_name = placeinfoJson.address_name;
+	 	$('#location').val(placesinfo+' '+address_name);	
+	 }
 </script>
 <style>
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="placeinfo()">
 	<div class="container" id="every-exercise-mainFrm">
 	<form method="post" id="every-exerciseFrm" action="/exercise/every_exerciseEditOk" enctype="multipart/form-data">
-		<input type="hidden" id ="no" value=${vo.no }>
+		<input type="hidden" name="no" id ="no" value='${vo.no }'>
 		<fieldset>
 			<legend id="every-main-title">모두의 운동</legend>
 			<h5>운동 함께할 사람 모집</h5>
@@ -157,12 +164,12 @@ function every_del() {
 				<div class="form-group row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="${vo.title}">
+						<input type="text" name="title" class="form-control" placeholder="${vo.title}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label>
-					<input type="text" class="form-control" id="keyword" placeholder="#하체 #스쿼트"> 
+					<input type="text" class="form-control" name="hashtag" id="keyword" placeholder="#하체 #스쿼트"> 
 					<small id="keywordhelp"	class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
 				<div class="form-group">
@@ -182,8 +189,8 @@ function every_del() {
 				 -->
 				 <div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label> 
-					<input type="text" class="form-control" id="location" name="location">
-				
+					<input value="" type="text" class="form-control" id="location" name="location" >
+				 	<input type="hidden" name="placeinfo" id="placeinfo">
 				 <div class="map_wrap">
 						<div id="map"
 							style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
@@ -202,7 +209,8 @@ function every_del() {
 							<div id="pagination"></div>
 						</div>
 					</div>
-					<input type="hidden" name="placeinfo" id="placeinfo">
+					
+				 
 				</div>
 				 
 				<div class="form-group">
@@ -262,12 +270,12 @@ function every_del() {
 		<button type="submit" class="btn btn-warning">수정완료</button>
 		
 
-		<button type="button" class="btn btn-primary"
-			onclick="location.href='/exercise/every_exerciseList' "
-			id="every-exerciselist-btn">모두의 운동목록</button>
 	</div>
 	</form>
 
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='/exercise/every_exerciseList' "
+			id="every-exerciselist-btn">모두의 운동목록</button>
 	<!-- 댓글쓰기 -->
 	<c:if test="${nickname!=null}">
 		<form method="post" id="replyFrm">

@@ -59,4 +59,5 @@ public interface ExerciseDAO {
 	public int every_exerciseDelete(int no, String nickname);
 	
 	public void every_cntHit (int no);
+	
 }

@@ -44,9 +44,8 @@ function displayInfowindow(marker, title) {
 
 // 장소명+주소 가져오기
 function placeinfo(places){
-var placesinfo =places.place_name; //JSON.stringify(places);
-
-$('#location').append(placesinfo);	
+	var placesinfo =places.place_name; //JSON.stringify(places);   로....
+	$('#location').append(placesinfo);	
 }
 
 //(작성자 외)참가신청

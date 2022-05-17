@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("mypageNav.css");
 
 /* Nav */
 .lnb-box a:nth-child(3) {
@@ -114,12 +113,22 @@
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 200;
 	font-size: 16px;
-	border: 1px solid gray;
+	border: none;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;
-	
 }
+
+.board-box h3{
+	text-align:left;
+	width:800px;
+	height:30px;
+	color: black;
+	font-size:30px;
+	font-weight:500;
+	margin-bottom:40px;
+}
+
 table{
 	
     width: 100%;
@@ -128,11 +137,12 @@ table{
 }
 table td,th {
     font-family: "Noto Sans KR", sans-serif;
-	border: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-    color:black;
+    color:rgb(102,102,102);
+    font-weight:500;
 }
 th {
 	background: rgb(238,238,238);

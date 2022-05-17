@@ -131,6 +131,7 @@
 		update everyexercise set
 		hit = hit+1 where no=#{param1}
 	</update>
+	
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
 		select no, title, hashtag,
 		contents, DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate
@@ -140,9 +141,9 @@
 		from everyexercise where no=#{param1}
 	</select>
 	<update id="every_exerciseUpdate">
-		update everyexercise set title=#{title}, hashtag=#{hashtag}
-		contents=#{contents},
-		startdate=str_to_date(#{startdate},'%Y-%m-%dT%H:%i:%S')as startdate, enddate=str_to_date(#{enddate},'%Y-%m-%dT%H:%i:%S')as enddate, placeinfo=#{placeinfo},
+		update everyexercise set title=#{title}, hashtag=#{hashtag},
+		contents=#{contents},startdate= DATE_FORMAT(startdate, '%Y-%m-%d %H:%i:%S') ,  enddate=DATE_FORMAT(enddate, '%Y-%m-%d %H:%i:%S') ,writedate =now(),	 
+		 placeinfo=#{placeinfo},
 		applicantMax=#{applicantMax}, img=#{img}
 		where no=#{no} and nickname=#{nickname}
 	</update>
