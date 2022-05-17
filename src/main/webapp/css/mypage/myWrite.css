@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("mypageNav.css");
 
 /* Nav */
 .lnb-box a:nth-child(2) {
@@ -41,7 +40,7 @@
 	position: relative;
 	top: 0;
 	left: 0;
-	font-family: "Noto Sans KR", sans-serif;
+	
 	font-weight: 400;
 	font-size: 15px;
 	color: rgb(102,102,102);
@@ -57,7 +56,7 @@
 	position: relative;
 	top: 0;
 	left: 0;
-	font-family: "Noto Sans KR", sans-serif;
+	
 	font-weight: 600;
 	font-size: 17px;
 	color: #01c9c6;
@@ -85,7 +84,7 @@
 	left: 0;
 	border-bottom: none;
 	box-sizing: border-box;
-	font-family: "Noto Sans KR", sans-serif;
+	
 }
 
 .lnb-box a:hover:nth-child(1):after {
@@ -114,30 +113,28 @@
 .switch{
 	width:750px;
 }
-.switch a:nth-child(1){
-	width: 75px;
-	padding:5px 13px 13px 13px;
+.switch a{
 	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
+	padding:5px 13px;
 	font-weight: 500;
 	font-size: 17px;
-	color: #01c9c6;
 	border:1px solid gray;
-	border-bottom: 4px solid #01c9c6;
 	border-radius: 8px 8px 0px 0px;
+	position: relative;
+	bottom: -9px;
+	background-color: white;
+}
+.switch a:nth-child(1){
+	width: 75px;
+	color: #01c9c6;
+	border-bottom: 4px solid #01c9c6;
 	margin-right:0px;
 }
 .switch a:nth-child(2){
 	width: 60px;
-	padding:5px 13px 17px 13px;
-	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 500;
-	font-size: 17px;
+	padding-bottom: 9px;
 	color:black;
-	border:1px solid gray;
 	border-bottom: none;
-	border-radius: 8px 8px 0px 0px;
 }
 .switch-select{
 	margin-left:425px;
@@ -147,7 +144,6 @@
 	width: 750px;
 	display:block;
 	position: relative;
-	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 200;
 	font-size: 16px;
 	border: none;
@@ -166,13 +162,11 @@
 	margin-bottom:40px;
 }
 table{
-	
     width: 100%;
     border-collapse: collapse;
     line-height: 20px;
 }
 table td,th {
-    font-family: "Noto Sans KR", sans-serif;
 	border-bottom: 1px solid #dedede;
     border-collapse: collapse;
     text-align: center;

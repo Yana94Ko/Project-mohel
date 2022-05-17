@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("mypageNav.css");
 
 /* Nav */
 .lnb-box a:nth-child(2) {
@@ -14,29 +13,27 @@
 .switch{
 	width:750px;
 }
-.switch a:nth-child(1){
-	width: 60px;
-	padding:5px 13px 17px 13px;
+.switch a{
 	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
+	padding:5px 13px;
 	font-weight: 500;
 	font-size: 17px;
-	color:black;
 	border:1px solid gray;
-	border-bottom: none;
 	border-radius: 8px 8px 0px 0px;
+	position: relative;
+	bottom: -9px;
+	background-color: white;
+}
+.switch a:nth-child(1){
+	width: 60px;
+	padding-bottom: 9px;
+	color:black;
+	border-bottom: none;
 }
 .switch a:nth-child(2){
 	width: 75px;
-	padding:5px 13px 13px 13px;
-	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 500;
-	font-size: 17px;
 	color: #01c9c6;
-	border:1px solid gray;
 	border-bottom: 4px solid #01c9c6;
-	border-radius: 8px 8px 0px 0px;
 	margin-right:0px;
 }
 .switch-select{
@@ -49,7 +46,6 @@
 	width: 750px;
 	display:block;
 	position: relative;
-	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 200;
 	font-size: 16px;
 	border: none;
@@ -69,13 +65,11 @@
 }
 
 table{
-	
     width: 100%;
     border-collapse: collapse;
     line-height: 20px;
 }
 table td,th {
-    font-family: "Noto Sans KR", sans-serif;
 	border-bottom: 1px solid #dedede;
     border-collapse: collapse;
     text-align: center;
