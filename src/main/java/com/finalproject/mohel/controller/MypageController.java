@@ -1,6 +1,8 @@
 package com.finalproject.mohel.controller;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.MohelApplication;
 import com.finalproject.mohel.service.MemberService;
 import com.finalproject.mohel.service.MypageService;
+import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MemberVO;
 
 @Controller
@@ -43,8 +47,6 @@ public class MypageController {
 		HttpSession session = request.getSession();
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		vo.setEmail(userInfo.getEmail());
-		System.out.println(vo);
-		System.out.println(session.getAttribute("userInfo"));
 		
 		MohelApplication.profileImgUpload(vo, request);
 		
@@ -82,6 +84,47 @@ public class MypageController {
 		return entity;
 	}
 	
+	@GetMapping("myWrite")
+	@ResponseBody
+	public ModelAndView myWrite(HttpSession session) {
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+
+//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), null);
+		List<BoardVO> allBoardList = service.selectMyBoardList("ㅇㅇ", "");
+		
+		LocalDate now = LocalDate.now();
+		for (BoardVO boardVO : allBoardList) {
+			String[] writeDateTime = boardVO.getWritedate().split(" ");
+			String[] writeDate = writeDateTime[0].split("-");
+			String[] writeTime = writeDateTime[1].split(":");
+			
+			if(!now.toString().split("-")[0].equals(writeDate[0])) {
+				boardVO.setWritedate(writeDateTime[0]);
+			}else if(!writeDateTime[0].equals(now.toString())) {
+				boardVO.setWritedate(writeDate[1]+"-"+writeDate[2]);
+			}else {
+				boardVO.setWritedate(writeTime[0]+":"+writeTime[1]);
+			}
+		}
+		
+//		for (BoardVO boardVO : allBoardList) {
+//			System.out.println(boardVO);
+//		}
+		
+		mav.addObject("myAllBoardList", allBoardList);
+		mav.setViewName("/mypage/myWrite");
+		
+		return mav;
+	}
+	
+	@GetMapping("selectCategoryMyBoardList")
+	@ResponseBody
+	public List<BoardVO> selectCategoryMyBoardList(String category, HttpSession session) {
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+//		return service.selectMyBoardList(userInfo.getNickname(), category);
+		return service.selectMyBoardList("ㅇㅇ", category);
+	}
+	
 	@GetMapping("myComment")
 	public String myComment() {
 		return "/mypage/myComment";
@@ -90,11 +133,6 @@ public class MypageController {
 	@GetMapping("myExercise")
 	public String myExercise() {
 		return "/mypage/myExercise";
-	}
-	
-	@GetMapping("myWrite")
-	public String myWrite() {
-		return "/mypage/myWrite";
 	}
 	
 	@GetMapping("userDel")
