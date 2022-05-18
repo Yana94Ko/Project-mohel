@@ -164,12 +164,12 @@ function every_del() {
 				<div class="form-group row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" name="title" class="form-control" placeholder="${vo.title}">
+						<input type="text" id="title" name="title" class="form-control" value="${vo.title}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label>
-					<input type="text" class="form-control" name="hashtag" id="keyword" placeholder="#하체 #스쿼트"> 
+					<input type="text" class="form-control" name="hashtag" id="hashtag" value="${vo.hashtag }"> 
 					<small id="keywordhelp"	class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
 				<div class="form-group">

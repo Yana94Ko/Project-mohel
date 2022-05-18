@@ -287,6 +287,10 @@ $(function(){
 			alert("제목을 입력하세요.");
 			return false;
 		}
+		if($("#hashtag").val()==''){
+			alert("키워드를 입력하세요.");
+			return false;
+		}
 		if($("#contents").val()==''){
 			alert("내용을 입력하세요.");
 			return false;

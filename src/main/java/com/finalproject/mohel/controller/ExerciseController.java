@@ -160,7 +160,8 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseEditOk")
 	public ResponseEntity<String> exerciseEditOk(BoardVO vo, HttpSession session, HttpServletRequest request,MultipartHttpServletRequest mr) {
-		vo.setNickname((String)session.getAttribute("nickName"));
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
