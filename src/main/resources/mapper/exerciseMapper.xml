@@ -9,7 +9,7 @@
 	<select id="exerciseList"
 		resultType="com.finalproject.mohel.vo.BoardVO">
 		select no, title, contents, nickname, date_format(writedate,
-		'%Y-%m-%d') as writedate,hit
+		'%Y-%m-%d') as writedate, hit
 		from board
 		where category='운동'
 		<if test='searchWord != null'>
@@ -77,25 +77,24 @@
 
 	<!-- view페이지에 보여주기 -->
 
-	<select id="exerciseMemberShow" resultType="ExerciseMemberVO">
+	<select id="exerciseMemberShow" resultType="com.finalproject.mohel.vo.ExerciseMemberVO">
 		select no,
 		exerciseNo, nickname, status
-		from exercise_member where no=#{no}
+		from exercise_member where exerciseNo=#{param1}
 	</select>
 	<delete id="exerciseMemberDelete">
-		delete from exercise_member where no=#{no} and
-		nickname=#{nickname}
+		delete from exercise_member 
+		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</delete>
 
-
-	<!-- exerciseMember 승낙시 Update -->
-
-	<update id="exerciseStateUpdate"
-		parameterType="ExerciseMemberVO">
+	<update id="exerciseMemberUpdate">
 		update exercise_member set status=1
-		where no=#{no} and
-		nickname=#{nickname}
+		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</update>
+	
+	
+	
+	
 	<delete id="exerciseStateDel">
 		delete from exercise_member where no=#{no} and
 		nickname=#{nickname}

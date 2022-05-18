@@ -75,13 +75,13 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int exerciseMemberInsert(ExerciseVO vo) {
-		return dao.exerciseMemberInsert(vo);
+	public int exerciseMemberInsert(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberInsert(mvo);
 	}
 
 	@Override
-	public int exerciseMemberUpdate(ExerciseMemberVO vo) {
-		return dao.exerciseMemberUpdate(vo);
+	public int exerciseMemberUpdate(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberUpdate(mvo);
 	}
 
 	@Override
@@ -90,8 +90,8 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int exerciseMemberDelete(ExerciseMemberVO vo) {
-		return dao.exerciseMemberDelete(vo);
+	public int exerciseMemberDelete(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberDelete(mvo);
 	}
 
 	@Override

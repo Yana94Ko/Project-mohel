@@ -141,7 +141,8 @@
 			<h5>운동 함께할 사람 모집</h5>
 			<div>
 				<div class="form-group row">
-					<label for="title" class="col-sm-2 col-form-label">제목</label>
+					<label for="title" class="col-sm-2 col-form-label">${vo.no}제목</label>
+					<input type='hidden' id='dbExerciseNo' value='${vo.no }'>
 					<div class="col-sm-10">
 						<input readonly type="text" class="form-control" placeholder="${vo.title}">
 					</div>
@@ -185,31 +186,57 @@
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
+					${vo.nickname }랑${nickname }
 					<!-- 신청 신청취소 구현 후 다시하기-->
 					<!-- START : 작성자 화면 -->
-					<c:if test="${nickName == vo.nickname}">
+					<c:if test="${nickname == vo.nickname}">
 						 <ul class="author-view">
                          	<li class="author-view-label">번호</li>
                          	<li class="author-view-label">참가 상태</li>
                          	<li class="author-view-label">닉네임</li>
                          	<li class="author-view-label">승낙/거절</li>
-                         	<c:forEach var="vo" items="${lst2}" varStatus="st">
-                         		<c:if test="${vo.ridingNo == vo.ridingNo}">
-                         			<li><span id="ridingState${st.index}">
-                         				<a href="/member/loginForm">열람하기</a></span>
+                         	<c:forEach var="vo" items="${emvo}" varStatus="st">
+                         		<c:if test="${vo.exerciseNo == vo.exerciseNo}">
+                         			<li>${vo.no }</li>
+                         			<li>
+                         				<span id="exerciseState${st.index}">
+                         					<input type='hidden' id='exerciseStatus' value=${vo.status}>
+                         					<a href="/member/loginForm">열람하기</a>
+                         				</span>
                          			</li>
                          			<li>${vo.nickname }</li>
-                         			<li>${vo.gender }</li>
-                         			<li>${vo.ridingCount }</li>
-                         			<li>${vo.userScore }</li>
+                         			<li>
+                                    	<input type='button' id="stateUpdateBtn" class="applicantSave" value="승낙">
+                                    	<input type='button' id="stateDeleteBtn" class="applicantDel" value="거절">
+                                    	<span id="exerciseTogether${st.index}"></span>
+                                    </li>
                          		</c:if>
                          	</c:forEach>
                          </ul>
 					</c:if>
+                   	<form id="nicknameTest">
+						<input type="text" name="applicantNickName" id="applicantNickName"style="display:none;" >
+					</form>
 					<!-- 작성자 화면 : END -->
 					<!-- START : 작성자가 아닐 때 화면 추후에 조건식을 !=로 변경 -->
-					<c:if test="${nickname == vo.nickname}">
-                        <input type="hidden" id="loginNickName" value=${nickName}/>
+					<c:if test="${nickname != vo.nickname}">
+						 <ul class="author-view">
+                         	<li class="author-view-label">번호</li>
+                         	<li class="author-view-label">참가 상태</li>
+                         	<li class="author-view-label">닉네임</li>
+                         	<c:forEach var="vo" items="${emvo}" varStatus="st">
+                         		<c:if test="${vo.exerciseNo == vo.exerciseNo}">
+                         			<li>${vo.no }</li>
+                         			<li>
+                         				<span id="exerciseState${st.index}">
+                         					<a href="/member/loginForm">열람하기</a>
+                         				</span>
+                         			</li>
+                         			<li>${vo.nickname }</li>
+                         		</c:if>
+                         	</c:forEach>
+                         </ul>
+                        <input type="hidden" id="loginNickName" value=${nickname}>
 						<input type="button" onclick="excerciseMember()" value="참가 신청하기"/>
 						<input type="button" onclick="excerciseMemberCancel()" value="참가 신청취소"/>
 					</c:if>

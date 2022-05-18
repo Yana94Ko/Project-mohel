@@ -27,6 +27,7 @@ import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.ExerciseMemberVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
+import com.finalproject.mohel.vo.MemberVO;
 
 
 @RestController
@@ -73,13 +74,13 @@ public class ExerciseController {
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
 		vo.setNickname("ㅇㅇ");// 추후에 (String)request.getSession().getAttribute("nickname")로 수정
+		
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
        
         mr = (MultipartHttpServletRequest) request;
 		MultipartFile file = mr.getFile("filename");
-		
 		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
         System.out.println(path);
        
@@ -260,12 +261,17 @@ public class ExerciseController {
 
 	// 모두의 운동 글보기
 	@GetMapping("/exercise/every_exerciseView")
-	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no) {
+	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("nickname", "ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		if(mvo!=null) {
+			mav.addObject("nickname",mvo.getNickname());
+		}
 		service.cntHit(no); // 조회수 증가
 		
 		mav.addObject("vo", service.every_exerciseSelect(no));
+		mav.addObject("emvo",service.exerciseMemberShow(no));
+		System.out.println(service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -331,15 +337,56 @@ public class ExerciseController {
 	// 모두의 운동 참가신청(작성자 외)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseMemberOk")
-	public void excerciseMemberOk (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
-		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickName")
-		vo.setNo(no);
+	public int excerciseMemberOk (int no, ExerciseMemberVO mvo, HttpServletRequest request) {
+		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		mvo.setNickname(logMvo.getNickname());
+		mvo.setNo(no);
+		int result = 0;
 		try {
-			System.out.println("함수 실행 전");
-			service.exerciseMemberInsert(vo);
-			System.out.println(mvo.getNo());
+			result = service.exerciseMemberInsert(mvo);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return result;
+	}
+	//모두의 운동 참가신청 취소(작성자 외)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseMemberCancel")
+	public void excerciseMemberCancel (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
+		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		mvo.setNickname(logMvo.getNickname());
+		mvo.setExerciseNo(no);
+		try {
+			service.exerciseMemberDelete(mvo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//모두의 운동 참가신청 수락(작성자)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseStateOk")
+	public boolean ridingStateOk(ExerciseVO vo,ExerciseMemberVO mvo) { 
+		try { 
+			System.out.println(mvo.getExerciseNo()+mvo.getNickname());
+			service.exerciseMemberUpdate(mvo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	//모두의 운동 참가신청 거절(작성자)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseStateDel")
+	public boolean ridingStateDel(int no, ExerciseVO vo,ExerciseMemberVO mvo) {
+		service.every_exerciseSelect(no);
+		try { 
+			service.exerciseMemberDelete(mvo);
+			return true;
+		} catch (Exception e) { 
+			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		}
 	}
 }
