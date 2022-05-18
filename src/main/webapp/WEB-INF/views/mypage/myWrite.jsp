@@ -57,9 +57,9 @@
 					<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">prev</a>
 				</li>
 			</c:if>
+			
 			<!-- 페이지 번호 -->
 			<c:forEach var="p" begin="${pVO.startPage}" end="${pVO.startPage+pVO.onePageCount-1}">
-				<!-- 총 페이지 수 보다 출력할 페이지 번호가 작을 때 -->
 				<c:if test="${p<=pVO.totalPage }">
 					<c:if test="${p==pVO.pageNum}">
 						<li>${p}</li>
@@ -68,14 +68,12 @@
 						<li>
 							<a href="/mypage/myWrite?pageNum=${p}
 							<c:if test="${category!=null}">&category=${category}</c:if>
-							<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">
-								${p}
-							</a>
+							<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">${p}</a>
 						</li>
 					</c:if>
 				</c:if>
 			</c:forEach>
-			<!-- totalPage%startPage<5 -->
+			
 			<!-- 다음 페이지 -->
 			<c:if test="${pVO.totalPage-pVO.startPage<pVO.onePageCount }">
 				<li>next</li>
