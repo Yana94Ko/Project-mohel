@@ -23,6 +23,7 @@ import com.finalproject.mohel.service.MemberService;
 import com.finalproject.mohel.service.MypageService;
 import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MemberVO;
+import com.finalproject.mohel.vo.PagingVO;
 
 @Controller
 @RequestMapping("/mypage/")
@@ -86,11 +87,15 @@ public class MypageController {
 	
 	@GetMapping("myWrite")
 	@ResponseBody
-	public ModelAndView myWrite(HttpSession session) {
+	public ModelAndView myWrite(String category, PagingVO pVO, HttpSession session) {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
-
-//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), null);
-		List<BoardVO> allBoardList = service.selectMyBoardList("ㅇㅇ", "");
+		
+		pVO.setOnePageRecord(10);
+		pVO.setTotalRecord(service.totalRecord("ㅇㅇ", category, pVO));
+		
+		if(category!=null && category.equals("")) category=null;
+//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), category);
+		List<BoardVO> allBoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
 		
 		LocalDate now = LocalDate.now();
 		for (BoardVO boardVO : allBoardList) {
@@ -107,22 +112,12 @@ public class MypageController {
 			}
 		}
 		
-//		for (BoardVO boardVO : allBoardList) {
-//			System.out.println(boardVO);
-//		}
-		
 		mav.addObject("myAllBoardList", allBoardList);
+		mav.addObject("pVO", pVO);
+		mav.addObject("category", category);
 		mav.setViewName("/mypage/myWrite");
 		
 		return mav;
-	}
-	
-	@GetMapping("selectCategoryMyBoardList")
-	@ResponseBody
-	public List<BoardVO> selectCategoryMyBoardList(String category, HttpSession session) {
-		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
-//		return service.selectMyBoardList(userInfo.getNickname(), category);
-		return service.selectMyBoardList("ㅇㅇ", category);
 	}
 	
 	@GetMapping("myComment")
