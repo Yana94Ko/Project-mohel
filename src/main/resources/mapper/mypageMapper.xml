@@ -27,13 +27,13 @@
 	</select>
 	
 	<select id="totalRecord" resultType="int">
-  		select count(no) cnt from board
-  		where nickname=#{param1}
-  		<if test="param2!=null">
-			and category=#{param2}
+  		select count(no) cnt from ${param1}
+  		where nickname=#{param2}
+  		<if test="param3!=null">
+			and category=#{param3}
 		</if>
-		<if test="param3.searchWord!=null">
-			and ${param3.searchKey} like "%${param3.searchWord}%"
+		<if test="param4.searchWord!=null">
+			and ${param4.searchKey} like "%${param4.searchWord}%"
 		</if>
   	</select>
 </mapper>

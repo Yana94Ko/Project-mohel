@@ -72,7 +72,7 @@ public class MypageController {
 			
 			String body = "<script>";
 			body += "alert('회원 정보 수정에 실패하였습니다.\\n비밀번호를 확인해주세요.');";
-			body += "history.back();";
+			body += "location.href='/mypage/userEdit';";
 			body += "</script>";
 			entity = new ResponseEntity<String>(body, headers, HttpStatus.BAD_REQUEST);
 		}
@@ -86,30 +86,19 @@ public class MypageController {
 	}
 	
 	@GetMapping("myWrite")
-	@ResponseBody
 	public ModelAndView myWrite(String category, PagingVO pVO, HttpSession session) {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
-		pVO.setTotalRecord(service.totalRecord("ㅇㅇ", category, pVO));
+		pVO.setTotalRecord(service.totalRecord("board", "ㅇㅇ", category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
-//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), category);
+//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
 		List<BoardVO> allBoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
 		
 		LocalDate now = LocalDate.now();
 		for (BoardVO boardVO : allBoardList) {
-			String[] writeDateTime = boardVO.getWritedate().split(" ");
-			String[] writeDate = writeDateTime[0].split("-");
-			String[] writeTime = writeDateTime[1].split(":");
-			
-			if(!now.toString().split("-")[0].equals(writeDate[0])) {
-				boardVO.setWritedate(writeDateTime[0]);
-			}else if(!writeDateTime[0].equals(now.toString())) {
-				boardVO.setWritedate(writeDate[1]+"-"+writeDate[2]);
-			}else {
-				boardVO.setWritedate(writeTime[0]+":"+writeTime[1]);
-			}
+			setDate(now, boardVO);
 		}
 		
 		mav.addObject("myAllBoardList", allBoardList);
@@ -121,7 +110,7 @@ public class MypageController {
 	}
 	
 	@GetMapping("myComment")
-	public String myComment() {
+	public String myComment(String category, PagingVO pVO, HttpSession session) {
 		return "/mypage/myComment";
 	}
 	
@@ -133,5 +122,19 @@ public class MypageController {
 	@GetMapping("userDel")
 	public String userDel() {
 		return "/mypage/userDel";
+	}
+	
+	void setDate(LocalDate now, BoardVO boardVO) {
+		String[] writeDateTime = boardVO.getWritedate().split(" ");
+		String[] writeDate = writeDateTime[0].split("-");
+		String[] writeTime = writeDateTime[1].split(":");
+		
+		if(!now.toString().split("-")[0].equals(writeDate[0])) {
+			boardVO.setWritedate(writeDateTime[0]);
+		}else if(!writeDateTime[0].equals(now.toString())) {
+			boardVO.setWritedate(writeDate[1]+"-"+writeDate[2]);
+		}else {
+			boardVO.setWritedate(writeTime[0]+":"+writeTime[1]);
+		}
 	}
 }

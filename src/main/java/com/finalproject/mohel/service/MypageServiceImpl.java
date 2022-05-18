@@ -28,9 +28,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int totalRecord(String nickname, String category, PagingVO pVO) {
-		return dao.totalRecord(nickname, category, pVO);
+	public int totalRecord(String table, String nickname, String category, PagingVO pVO) {
+		return dao.totalRecord(table, nickname, category, pVO);
 	}
-
-
 }

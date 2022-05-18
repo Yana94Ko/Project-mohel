@@ -28,7 +28,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="bList" items="${myAllBoardList }">
+				<c:forEach var="bList" items="${myAllBoardList }" varStatus="i">
 					<tr>
 						<td>
 							<c:if test="${bList.category=='everyMeal' }">모두의 식단</c:if>
@@ -37,7 +37,13 @@
 							<c:if test="${bList.category=='challenge' }">챌린지 게시판</c:if>
 							<c:if test="${bList.category=='ba' }">Before&After</c:if>
 						</td>
-						<td><a href="#">${bList.title }</a></td>
+						
+						<td>
+							<a <c:if test="${bList.category=='everyMeal'}">href="/mypage/everyFoodView?no=${bList.no}"</c:if>
+								<c:if test="${bList.category=='myExercise'}">href="/exercise/exerciseView?no=${bList.no}"</c:if>
+								<c:if test="${bList.category!='everyMeal' && bList.category!='myExercise'}">href="/board/boardView?no=${bList.no}&category=${bList.category }"</c:if>
+							>${bList.title }</a>
+						</td>
 						<td>${bList.writedate }</td>
 						<td>${bList.hit }</td>
 					</tr>

@@ -14,5 +14,5 @@ import com.finalproject.mohel.vo.PagingVO;
 public interface MypageDAO {
 	public int updateUserInfo(MemberVO vo);
 	public List<BoardVO> selectMyBoardList(String nickname, String category, PagingVO pVO);
-	public int totalRecord(String nickname, String category, PagingVO pVO);
+	public int totalRecord(String table, String nickname, String category, PagingVO pVO);
 }
