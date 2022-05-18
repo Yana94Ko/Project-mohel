@@ -348,21 +348,21 @@ public class ExerciseController {
 	}
 	
 	@PostMapping("/exercise/every_exerciseEditOk")
-	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mr) {
+	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session,@RequestParam("filename") MultipartFile file ) {
 		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
-		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
 		vo.setNickname(mvo.getNickname());
 		
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
-		mr = (MultipartHttpServletRequest) request;
+		//MultipartHttpServletRequest mr  = (MultipartHttpServletRequest) request;
 			
 			
-			String path = request.getSession().getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
+			String path = session.getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
 	        System.out.println(path);
 	        
-	    	MultipartFile file = mr.getFile("filename");
+	    	//MultipartFile file = mr.getFile("filename");
 	    	String orgFileName=null;
 	    	File f=null;
 	        if(file!=null && !file.isEmpty()) {
@@ -371,14 +371,16 @@ public class ExerciseController {
 		        String ext = orgFileName.substring(point+1);
 		        			
 		        f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
-		        			
+            		        			
 		        orgFileName = f.getName();
+		        
 	        }
 	        
 		try {
 			 if(file!=null && !file.isEmpty()) {
 				 file.transferTo(f);
 			 }
+			 
 			vo.setImg(orgFileName);
 			System.out.println(vo.toString());
 			int result =service.every_exerciseUpdate(vo);

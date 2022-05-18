@@ -145,7 +145,10 @@
 		 <if test="placeinfo != null and placeinfo != ''">
 		 placeinfo=#{placeinfo},
 		 </if>
-		 applicantMax=#{applicantMax}, img=#{img}
+		 applicantMax=#{applicantMax}
+		 <if test="img != null and img != ''">
+		 ,img=#{img}
+		 </if>
 		where no=#{no} and nickname=#{nickname}
 	</update>
 	<delete id="every_exerciseDelete">

@@ -42,6 +42,7 @@ container{
 #exercise-main-tbl {
 	position: relative;
 	margin-top: 20px;
+	/*box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 #A7FAEB;*/
 }
 
 #exercise-main-tbl {
@@ -52,7 +53,9 @@ container{
 	border-bottom: 1px solid #bdbdbd;
 	font-weight: 600;
 }
-
+#exercise-tbl{
+	font-size:17px;		
+}
 #exercise-head>th:nth-child(6n+2) {
 	overflow: hidden;
 	text-overflow: hidden;

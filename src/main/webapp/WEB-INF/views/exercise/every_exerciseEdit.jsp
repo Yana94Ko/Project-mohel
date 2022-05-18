@@ -133,7 +133,7 @@
 				</div>
 				<div class="form-group">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label>
-					<input class="form-control" type="file" id=filename>
+					<input class="form-control" type="file" name="filename" id=filename>
 				</div>
 			</div>
 		</fieldset>
