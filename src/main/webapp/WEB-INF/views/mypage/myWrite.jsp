@@ -42,30 +42,6 @@
 						<td>${bList.hit }</td>
 					</tr>
 				</c:forEach>
-				<!-- <tr>
-					<td>모두의 식단</td>
-					<td>글제목 글제목 글제목 글제목 글제목</td>
-					<td>2022-05-06</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>자유 게시판</td>
-					<td>글제목 글제목 글제목 글제목 글제목</td>
-					<td>2022-05-06</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>모두의 운동</td>
-					<td>글제목 글제목 글제목 글제목 글제목</td>
-					<td>2022-05-06</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>모두의 식단</td>
-					<td>글제목 글제목 글제목 글제목 글제목</td>
-					<td>2022-05-06</td>
-					<td>2</td>
-				</tr> -->
 			</tbody>
 		</table>
 		<!-- 페이징 -->
@@ -105,12 +81,6 @@
 				<li>next</li>
 			</c:if>
 			<c:if test="${pVO.totalPage-pVO.startPage>=pVO.onePageCount }">
-				<%-- <c:if test="${pVO.pageNum+pVO.onePageCount>pVO.totalPage}">
-					<li><a href="/mypage/myWrite?pageNum=${pVO.totalPage}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">next</a></li>
-				</c:if>
-				<c:if test="${pVO.pageNum+pVO.onePageCount==pVO.totalPage}">
-					<li><a href="/mypage/myWrite?pageNum=${pVO.pageNum+pVO.onePageCount}<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">next</a></li>
-				</c:if> --%>
 				<li>
 					<a href="/mypage/myWrite?pageNum=${pVO.startPage+pVO.onePageCount}
 					<c:if test="${category!=null}">&category=${category}</c:if>
