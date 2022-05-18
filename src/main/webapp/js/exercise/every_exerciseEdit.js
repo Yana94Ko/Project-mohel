@@ -272,8 +272,6 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-
-
 function everyExerciseEditOk(){
 	$("#every-exerciseFrm").submit();
 }

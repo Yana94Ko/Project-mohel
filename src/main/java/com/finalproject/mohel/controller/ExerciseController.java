@@ -389,7 +389,7 @@ public class ExerciseController {
 			String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/every_exerciseView?no="+vo.getNo()+"';</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
 			}else {
-				String msg = "<script>alert('글 수정 실패 하였습니다.'); history.go(-1);</script>";
+				String msg = "<script>alert('글 수정 실패!'); history.go(-1);</script>";
 				entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
 			}
 			

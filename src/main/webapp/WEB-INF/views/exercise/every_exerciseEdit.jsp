@@ -12,134 +12,6 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
 <script>
-function every_del() {
-	// 사용자가 yes(true)와 no(false)를 선택할 수 있는 대화상자
-	if (confirm("삭제하시겠습니까?")) {
-		// 확인버튼 선택시
-		location.href = "/exercise/every_exerciseDel?no=${vo.no}";
-
-	}
-}
-</script>
-<script>
-	/*
-	 // 댓글----------------------------------------------------------
-	 $(function(){
-	 // 댓글 목록을 가져오는 함수
-	 function replyListAll(){ // 현재 글의 댓글을 모두 가져오기
-	 var url = "/myapp/reply/list";
-	 var params = "no=${vo.no}"; // 32번 글인경우: no=32 
-	 $.ajax({
-	 url:url,
-	 data:params,
-	 success:function(result){
-	 var $result = $(result); // vo, vo, vo, vo...
-	
-	 var tag = "<ul>";
-	
-	 $result.each(function(idx, vo){
-	 tag += "<li><div>"+vo.userid;
-	 tag += "("+vo.writedate+")";
-	 //  'goguma' ==  'goguma'
-	 if(vo.userid == '${logId}'){
-	
-	 tag +="<input type='button' value='Edit'/>";
-	 tag +="<input type='button' value='Del' title='"+vo.replyno+"'/>";
-	 }
-	
-	 tag += "<br/>"+vo.coment+"</div>";
-	
-	 // 본인글일때 수정폼이 있어야 한다.
-	 if(vo.userid=='${logId}'){
-	 tag += "<div style='display:none;'><form method='post'>";
-	 tag += "<input type='hidden' name='replyno' value='"+vo.replyno+"'/>";
-	 tag += "<textarea name='coment' style='width:400px;height:50px;'>"+vo.coment+"</textarea>";
-	 tag += "<input type='submit' value='수정'/>";
-	 tag += "</form></div>";
-	
-	 }
-	 tag +="<hr/></li>"; // vo의 개수만큼 순환
-	 });
-	
-	 tag += "</ul>";
-	
-	 $("#replyList").html(tag);
-	
-	 }, error:function(e){
-	 console.log(e.responseText);
-	 }
-	 })
-	 }
-	
-	 // 댓글등록
-	 $("#replyFrm").submit(function(){
-	 event.preventDefault(); // form 기본이벤트 제거
-	 if($("#coment").val()==''){
-	 alert("댓글 입력 후 등록하세요.");
-	 return;
-	 }else{ // 댓글을 입력한 경우
-	 var params = $("#replyFrm").serialize(); // form에 있는 데이터가 담김
-	
-	 $.ajax({
-	 url:'/myapp/reply/writeOk',
-	 data: params,
-	 type:'POST',
-	 success: function(r){
-	 $("coment").val("");
-	 // 에러가 안난다면 => 댓글목록이 refresh되어야 한다. 
-	 replyListAll();
-	 }, error:function(e){
-	 console.log(e.responseText);
-	 }
-	 });
-	 }
-	 });
-	 // 댓글 수정(Edit)버튼 선택 시 해당 폼 보여주기
-	 $(document).on('click', '#replyList input[value=Edit]', function(){
-	 $(this).parent().css("display","none"); // 숨기기
-	 // 보여주기
-	 $(this).parent().next().css("display", "block");
-	 });
-	 // 댓글 수정(DB)
-	 $(document).on('submit','#replyList form',function(){
-	 event.preventDefault();
-	 // 데이터
-	 var params = $(this).serialize();
-	 var url = '/myapp/reply/editOk';
-	 $.ajax({
-	 url:url,
-	 data:params,
-	 type:"POST",
-	 success:function(result){
-	 console.log(result);
-	 replyListAll();
-	 },error:function(){
-	 console.log('수정에러발생');
-	 }
-	 });
-	 });
-	
-	 // 댓글 삭제
-	 $(document).on('click','#replyList input[value=Del]',function(){
-	 if(confirm('댓글을 삭제하시겠습니까?')){
-	 var params = "replyno="+$(this).attr("title");
-	 $.ajax({
-	 url:'/myapp/reply/del',
-	 data:params,
-	 success:function(result){
-	 console.log(result);
-	 replyListAll();
-	 }, error:function(){
-	 console.log("댓글삭제에러...");
-	 }
-	 })
-	 }
-	 });
-	
-	 // 현재글의 댓글
-	 replyListAll();
-	 });
-	 */
 	// 장소명+주소 가져오기
 	 function placeinfo(){
 		var placeinfoJson = ${vo.placeinfo};
@@ -189,8 +61,9 @@ function every_del() {
 				 -->
 				 <div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label> 
-					<input value="" type="text" class="form-control" id="location" name="location" >
-				 	<input type="hidden" name="placeinfo" id="placeinfo" value='${vo.placeinfo}'>
+					<input type="text" class="form-control" id="location" name="location" >
+				 	<input type="hidden" name="placeinfo" id="placeinfo">
+				 	
 				 <div class="map_wrap">
 						<div id="map"
 							style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
@@ -267,7 +140,7 @@ function every_del() {
 	
 	<div>
 		<!-- 로그인 아이디와 글쓴이가 같을 경우 수정삭제 표시 -->
-		<button type="submit" class="btn btn-warning">수정완료</button>
+		<input type="button" class="btn btn-warning" value="수정완료" onclick="everyExerciseEditOk()">
 		
 
 	</div>
