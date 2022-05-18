@@ -26,14 +26,42 @@
 		limit ${param3.onePageRecord} offset ${param3.offsetIndex}
 	</select>
 	
-	<select id="totalRecord" resultType="int">
-  		select count(no) cnt from ${param1}
-  		where nickname=#{param2}
-  		<if test="param3!=null">
-			and category=#{param3}
+	<select id="boardTotalRecord" resultType="int">
+  		select count(no) cnt from board
+  		where nickname=#{param1}
+  		<if test="param2!=null">
+			and category=#{param2}
 		</if>
-		<if test="param4.searchWord!=null">
-			and ${param4.searchKey} like "%${param4.searchWord}%"
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+  	</select>
+  	
+	<select id="selectMyReplyList" resultType="map">
+		select r.no, r.boardNo, b.category, b.title, r.contents, r.writedate
+		from boardreply r join board b
+		on r.boardNo=b.no
+		where r.nickname=#{param1}
+		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+		order by no desc
+		limit ${param3.onePageRecord} offset ${param3.offsetIndex}
+	</select>
+	
+	<select id="replyTotalRecord" resultType="int">
+  		select count(r.no)
+		from boardreply r join board b
+		on r.boardNo=b.no
+  		where r.nickname=#{param1}
+  		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
 		</if>
   	</select>
 </mapper>

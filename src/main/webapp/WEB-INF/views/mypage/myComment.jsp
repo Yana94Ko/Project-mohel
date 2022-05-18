@@ -1,23 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="/css/mypage/myComment.css" type="text/css">
+<script src="/js/mypage/myComment.js"></script>
 
 <div class="mypage-main container">
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 
 	<div class="board-box">
 		<h3>나의 활동</h3>
-		<nav class="switch">
-			<a href="/mypage/myWrite">게시글</a>
-			<a href="/mypage/myComment">댓글</a>
-			<select id="selectCategory" class="switch-select">
-				<option value="" <c:if test="${category==null}">selected</c:if>>전체</option>
-				<option value="everyMeal" <c:if test="${category=='everyMeal'}">selected</c:if>>모두의 식단</option>
-				<option value="myExercise" <c:if test="${category=='myExercise'}">selected</c:if>>나만의 운동</option>
-				<option value="free" <c:if test="${category=='free'}">selected</c:if>>자유 게시판</option>
-				<option value="challenge" <c:if test="${category=='challenge'}">selected</c:if>>챌린지 게시판</option>
-				<option value="ba" <c:if test="${category=='ba'}">selected</c:if>>Before&After</option>
-			</select>
-		</nav>
+		
+		<%@include file="/WEB-INF/views/inc/mypage/myActivitySwitchAndSelectBox.jsp" %>
+		
 		<table>
 			<thead>
 				<tr>
@@ -28,53 +20,29 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>모두의 식단</td>
-					<td>제목</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-					<td>05-16</td>
-				</tr>
-				<tr>
-					<td>자유 게시판</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>모두의 운동</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>모두의 식단</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>자유 게시판</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>Before&After</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>챌린지 게시판</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>모두의 운동</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>모두의 식단</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>자유 게시판</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
-				<tr>
-					<td>챌린지 게시판</td>
-					<td>댓글내용 댓글내용 댓글내용 댓글내용</td>
-				</tr>
+				<c:forEach var="reply" items="${myReplyList }">
+					<tr>
+						<td>
+							<c:if test="${reply.category=='everyMeal'}">모두의 식단</c:if>
+							<c:if test="${reply.category=='myExercise'}">나만의 운동</c:if>
+							<c:if test="${reply.category=='free'}">자유 게시판</c:if>
+							<c:if test="${reply.category=='challenge'}">챌린지 게시판</c:if>
+							<c:if test="${reply.category=='ba'}">Before&After</c:if>
+						</td>
+						<td>
+							<a <c:if test="${reply.category=='everyMeal'}">href="/mypage/everyFoodView?no=${reply.boardNo}"</c:if>
+								<c:if test="${reply.category=='myExercise'}">href="/exercise/exerciseView?no=${reply.boardNo}"</c:if>
+								<c:if test="${reply.category!='everyMeal' && reply.category!='myExercise'}">href="/board/boardView?no=${reply.boardNo}&category=${reply.category }"</c:if>
+							>${reply.title }</a>
+						</td>
+						<td>${reply.contents}</td>
+						<td>${reply.writedate }</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${myReplyList.size()!=0 }">
+			<%@include file="/WEB-INF/views/inc/mypage/myActivityPaging.jsp" %>
+		</c:if>
 	</div>
 </div>

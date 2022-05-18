@@ -2,6 +2,8 @@ package com.finalproject.mohel.controller;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +26,7 @@ import com.finalproject.mohel.service.MypageService;
 import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.PagingVO;
+import com.finalproject.mohel.vo.ReplyVO;
 
 @Controller
 @RequestMapping("/mypage/")
@@ -90,18 +93,28 @@ public class MypageController {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
-		pVO.setTotalRecord(service.totalRecord("board", "ㅇㅇ", category, pVO));
+		pVO.setTotalRecord(service.boardTotalRecord("ㅇㅇ", category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
 //		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
-		List<BoardVO> allBoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
+		List<BoardVO> BoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
 		
 		LocalDate now = LocalDate.now();
-		for (BoardVO boardVO : allBoardList) {
-			setDate(now, boardVO);
+		for (BoardVO boardVO : BoardList) {
+			String[] writeDateTime = boardVO.getWritedate().split(" ");
+			String[] writeDate = writeDateTime[0].split("-");
+			String[] writeTime = writeDateTime[1].split(":");
+			
+			if(!now.toString().split("-")[0].equals(writeDate[0])) {
+				boardVO.setWritedate(writeDateTime[0]);
+			}else if(!writeDateTime[0].equals(now.toString())) {
+				boardVO.setWritedate(writeDate[1]+"-"+writeDate[2]);
+			}else {
+				boardVO.setWritedate(writeTime[0]+":"+writeTime[1]);
+			}
 		}
 		
-		mav.addObject("myAllBoardList", allBoardList);
+		mav.addObject("myBoardList", BoardList);
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
 		mav.setViewName("/mypage/myWrite");
@@ -110,9 +123,39 @@ public class MypageController {
 	}
 	
 	@GetMapping("myComment")
-	public String myComment(String category, PagingVO pVO, HttpSession session) {
-		return "/mypage/myComment";
+	public ModelAndView myComment(String category, PagingVO pVO, HttpSession session) {
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		
+		pVO.setOnePageRecord(10);
+		pVO.setTotalRecord(service.replyTotalRecord("ㅇㅇ", category, pVO));
+		
+		if(category!=null && category.equals("")) category=null;
+		List<HashMap<String, Object>> replyList = service.selectMyReplyList("ㅇㅇ", category, pVO);
+		
+		LocalDate now = LocalDate.now();
+		for (HashMap<String, Object> reply : replyList) {
+			String[] writeDateTime = reply.get("writedate").toString().split("T");
+			String[] writeDate = writeDateTime[0].split("-");
+			String[] writeTime = writeDateTime[1].split(":");
+			
+			if(!now.toString().split("-")[0].equals(writeDate[0])) {
+				reply.put("writedate", writeDateTime[0]);
+			}else if(!writeDateTime[0].equals(now.toString())) {
+				reply.put("writedate", writeDate[1]+"-"+writeDate[2]);
+			}else {
+				reply.put("writedate", writeTime[0]+":"+writeTime[1]);
+			}
+		}
+		
+		mav.addObject("myReplyList", replyList);
+		mav.addObject("pVO", pVO);
+		mav.addObject("category", category);
+		mav.setViewName("/mypage/myComment");
+		
+		return mav;
 	}
+	
+	
 	
 	@GetMapping("myExercise")
 	public String myExercise() {
@@ -122,19 +165,5 @@ public class MypageController {
 	@GetMapping("userDel")
 	public String userDel() {
 		return "/mypage/userDel";
-	}
-	
-	void setDate(LocalDate now, BoardVO boardVO) {
-		String[] writeDateTime = boardVO.getWritedate().split(" ");
-		String[] writeDate = writeDateTime[0].split("-");
-		String[] writeTime = writeDateTime[1].split(":");
-		
-		if(!now.toString().split("-")[0].equals(writeDate[0])) {
-			boardVO.setWritedate(writeDateTime[0]);
-		}else if(!writeDateTime[0].equals(now.toString())) {
-			boardVO.setWritedate(writeDate[1]+"-"+writeDate[2]);
-		}else {
-			boardVO.setWritedate(writeTime[0]+":"+writeTime[1]);
-		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.finalproject.mohel.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +29,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int totalRecord(String table, String nickname, String category, PagingVO pVO) {
-		return dao.totalRecord(table, nickname, category, pVO);
+	public int boardTotalRecord(String nickname, String category, PagingVO pVO) {
+		return dao.boardTotalRecord(nickname, category, pVO);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectMyReplyList(String nickname, String category, PagingVO pVO) {
+		return dao.selectMyReplyList(nickname, category, pVO);
+	}
+
+	@Override
+	public int replyTotalRecord(String nickname, String category, PagingVO pVO) {
+		return dao.replyTotalRecord(nickname, category, pVO);
+	}
+	
+	
+
+	
 }
