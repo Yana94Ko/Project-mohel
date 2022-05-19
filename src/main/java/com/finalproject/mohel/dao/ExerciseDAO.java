@@ -32,10 +32,10 @@ public interface ExerciseDAO {
 	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO);
 	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO);
 	
-	public int exerciseMemberInsert(ExerciseVO vo);
-	public int exerciseMemberUpdate(ExerciseMemberVO vo);
-	public List<ExerciseVO> exerciseMemberShow(int no);
-	public int exerciseMemberDelete(ExerciseMemberVO vo);
+	public int exerciseMemberInsert(ExerciseMemberVO mvo);
+	public int exerciseMemberUpdate(ExerciseMemberVO mvo);
+	public List<ExerciseMemberVO> exerciseMemberShow(int no);
+	public int exerciseMemberDelete(ExerciseMemberVO mvo);
 	
 	public int exerciseStateUpdate(ExerciseVO vo);
 	public int exerciseStateDel(ExerciseVO vo);

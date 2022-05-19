@@ -239,3 +239,59 @@ h5 {
 	cursor: default;
 	color: #777;
 }
+
+.author-view {
+	overflow: auto;
+	border-top: 2px solid #BDBDBD;
+}
+
+.author-view>li {
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #ddd;
+	width: 10%;
+	color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
+.author-view>li:nth-child(4n+3) {
+	width: 60%;
+	text-align: left;
+}
+
+.author-view>li:nth-child(4n+4) {
+	width: 20%;
+}
+
+.author-view-label {
+	background-color: rgba(234, 234, 234);
+}
+
+.applier-view {
+	overflow: auto;
+	border-top: 2px solid #BDBDBD;
+}
+
+.applier-view>li {
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #ddd;
+	width: 15%;
+	color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
+.applier-view>li:nth-child(3n+3) {
+	width: 70%;
+	text-align: left;
+}
+
+.applier-view-label {
+	background-color: rgba(234, 234, 234);
+}

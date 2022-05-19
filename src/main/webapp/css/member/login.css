@@ -1,0 +1,77 @@
+@charset "UTF-8";
+footer {
+	display: none;
+}
+.login-main {
+	text-align: center;
+}
+.login-logo {
+	width: 300px;
+	margin: 40px 0;
+}
+#loginFrm {
+	width: 500px;
+	margin: 0 auto;
+	padding: 30px;
+	border: 1px solid #D8D8D8;
+	background-color: #F9F9F9;
+	border-radius: 12px;
+}
+#loginFrm > * {
+	display: block;
+}
+
+.info-input {
+	margin: 5px auto;
+	border: 1px solid #D8D8D8;
+	text-align: left;
+	height: 45px;
+	line-height:40px;
+	width: 300px;
+	background-color: #fff;
+	border-radius: 5px;
+}
+.info-input>i {
+	margin-left: 8px;
+	font-size: 22px;
+	color: #ccc;
+}
+#loginBtn,
+.kakao-login-img,
+.check-msg {
+	width: 300px;
+}
+.kakao-login-img {
+	margin-bottom: 20px;
+}
+
+.info-input > input {
+	border: none;
+	background-color: rgba(0,0,0,0);
+	position: relative;
+	top: -3px;
+	width: 250px;
+	height: 25px;
+}
+.info-input > input:focus {
+	outline: none;
+}
+#loginBtn{
+	border: none;
+	background-color: #01C9C6;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 5px;
+	height: 40px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+.search-and-signup:hover {
+	text-decoration: underline;
+}
+
+.check-msg {
+	text-align: left;
+	font-size: 12px;
+	margin: 0 auto;
+}

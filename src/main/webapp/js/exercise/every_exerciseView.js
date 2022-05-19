@@ -25,7 +25,7 @@ function addMarker(position, idx, title) {
         markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
             marker = new kakao.maps.Marker({
             position: position, // 마커의 위치
-            image: markerImage 
+            image: markerImage
         });
 
     marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -41,28 +41,112 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
-
+var loginNickName = $("#loginNickName").val();
 //(작성자 외)참가신청
 function excerciseMember(){
 	//유효성 검사 : 로그인 여부 확인
-	if($("#loginNickName").val()==null ) {
+	if(loginNickName=="" ) {
 		alert("로그인 후 참가신청 해주세요..!")
 		location.href = "/member/login";
 		return false;
 	}
-	if (confirm('참가 신청하시겠습니까? \n ※단, 라이딩은 개설자에 의해 취소될 수 있습니다.※')) {
+	if (confirm('참가 신청하시겠습니까?')) {
 		let url = "/exercise/excerciseMemberOk";
 		let params = "no=" + $("#no").val();
-		console.log(params)
 		$.ajax({
 			url: url,
 			data :params,
 			success: function() {
-				alert("라이딩 신청 완료! 안전한 라이딩 되세요!");
+				alert("함께 운동하기 신청 완료! \n오늘도 건강한 하루 되세요!");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
 			},
 			error: function(e) {
-				alert("라이딩 신청에 실패했어요..");
+				alert("운동 신청에 실패했어요..");
 			}
 		});
 	}
 }
+function excerciseMemberCancel(){
+	//유효성 검사 : 로그인 여부 확인
+	if($("#loginNickName").val()==null ) {
+		alert("로그인 후 참가취소 해주세요..!")
+		location.href = "/member/login";
+		return false;
+	}
+	if(confirm('참가신청 취소하시겠습니까?')) {
+		let url = "/exercise/excerciseMemberCancel";
+		let params = "no=" + $("#no").val();
+		$.ajax({
+			url: url,
+			data :params,
+			success: function() {
+				alert("함께 운동하기가 취소되었습니다. 다음에 뵈어요!");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
+			},
+			error: function(e) {
+				alert("운동 취소에 실패했어요..");
+			}
+		});
+	}
+}
+var exerciseNo =  $("#dbExerciseNo").val();
+//작성자 : 참가자 수락
+$(".applicantSave").on("click", function(event) {
+	if (confirm($(this).parent().prev().text()+'님과 함께 운동하시겠습니까?')) {
+		$('input[name=applicantNickName]').val($(this).parent().prev().text());
+		let applicantNickName = $('input[name=applicantNickName]').val();
+		console.log(exerciseNo+"dhk"+applicantNickName)
+		$.ajax({
+			url: "/exercise/excerciseStateOk",
+			type: "GET",
+			data:  "exerciseNo="+exerciseNo+"&nickname="+applicantNickName,
+			success: function(result) {
+				alert(applicantNickName+"님과 함께 운동합니다.");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
+			}, error: function(request, status, error) {
+				console.log("code=" + request.status + "message=" + request.responseText + "error=" + errors);
+			}
+		});
+	}
+});
+
+//작성자 : 참가자 거절
+$(".applicantDel").on("click", function(event) {
+	if (confirm('다음에 함께하시겠습니까?')) {
+		$('input[name=applicantNickName]').val($(this).parent().prev().text());
+		let applicantNickName = $('input[name=applicantNickName]').val();
+		$.ajax({
+			url: "/exercise/excerciseStateDel",
+			type: "GET",
+			data:  "exerciseNo="+exerciseNo+"&nickname="+applicantNickName,
+			success: function(result) {
+				alert(applicantNickName+"님의 신청을 거절하였습니다.");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
+			}, error: function(request, status, error) {
+				console.log("code=" + request.status + "message=" + request.responseText + "error=" + errors);
+			}
+		});
+	}
+});
+function exerciseStateCheck(){
+	let statesCnt = $('span[id^=exerciseStatusShow]').length;
+	for(let i= 0; i <statesCnt; i++ ){
+		let exerciseStatus = document.getElementById('exerciseStatus'+i).innerHTML;
+		//(작성자 외)기존에 신청되어 있을 경우, 신청하기 버튼 숨기기
+		if(document.getElementById('applierNickname'+i).innerText==loginNickName){
+			$('#excerciseMemberApply').css('display', 'none');
+			$('#excerciseMemberApplyDel').css('display', 'none');
+		}
+		//(작성자, 작성자 외) : 로그인 되어 있을 시, 참가자 리스트 내의 참가자의 확정 상태를 보여줌
+		if(exerciseStatus==1){
+			document.getElementById('exerciseStatusShow'+i).innerText = "참가확정"
+			if($('.applicantSave').length!=0){
+				$('.applicantSave').css('display', 'none');
+				$('.applicantDel').css('display', 'none');
+			}
+		}else if(exerciseStatus==0){
+			document.getElementById('exerciseStatusShow'+i).innerText = "수락대기"
+		}
+	}
+}
+exerciseStateCheck();

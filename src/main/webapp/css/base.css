@@ -1,4 +1,9 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&display=swap');
+body {
+	font-family: "Noto Sans KR", sans-serif !important;
+}
+
 body,
 div,
 ul,
@@ -6,6 +11,7 @@ li{
 	margin:0;
 	padding:0;
 	list-style-type:none;
+	
 }
 
 a,
@@ -16,7 +22,14 @@ a:active {
 	color: black;
 }
 
-.container {
-	width: 1000px;
-	margin: 0 auto;
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+
+.profile-img {
+	object-fit: cover;
+	width: 7rem;
+	height: 7rem;
+	border-radius: 50%;
+	display: block;
 }

@@ -1,9 +1,6 @@
 <link href="${url}/css/exercise/every_exerciseView.css" rel="stylesheet"
 	type="text/css" />
-<!-- Bootstrap CSS by bootswatch -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
-	rel="stylesheet" crossorigin="anonymous" />
+
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
@@ -14,7 +11,6 @@
 		if (confirm("삭제하시겠습니까?")) {
 			// 확인버튼 선택시
 			location.href = "/exercise/every_exerciseDel?no=${vo.no}";
-
 		}
 	}
 	/*
@@ -144,7 +140,8 @@
 			<h5>운동 함께할 사람 모집</h5>
 			<div>
 				<div class="form-group row">
-					<label for="title" class="col-sm-2 col-form-label">제목</label>
+					<label for="title" class="col-sm-2 col-form-label">${vo.no}제목</label>
+					<input type='hidden' id='dbExerciseNo' value='${vo.no }'>
 					<div class="col-sm-10">
 						<input readonly type="text" class="form-control" placeholder="${vo.title}">
 					</div>
@@ -188,33 +185,56 @@
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
+					게시자 ${vo.nickname } / 현재 로그인아이디${nickname }
 					<!-- 신청 신청취소 구현 후 다시하기-->
 					<!-- START : 작성자 화면 -->
-					<c:if test="${nickName == vo.nickname}">
+					<c:if test="${nickname == vo.nickname}">
 						 <ul class="author-view">
                          	<li class="author-view-label">번호</li>
                          	<li class="author-view-label">참가 상태</li>
                          	<li class="author-view-label">닉네임</li>
                          	<li class="author-view-label">승낙/거절</li>
-                         	<c:forEach var="vo" items="${lst2}" varStatus="st">
-                         		<c:if test="${vo.ridingNo == vo.ridingNo}">
-                         			<li><span id="ridingState${st.index}">
-                         				<a href="/member/loginForm">열람하기</a></span>
+                         	<c:forEach var="emvo" items="${emvo}" varStatus="st">
+                         		<c:if test="${vo.no == emvo.exerciseNo}">
+                         			<li>${vo.no }</li>
+                         			<li>
+                         				<span style = "display:none" id="exerciseStatus${st.index}">${emvo.status}</span>
+                         				<span id="exerciseStatusShow${st.index}"><a href="/member/login">열람하기</a></span>
                          			</li>
-                         			<li>${vo.nickname }</li>
-                         			<li>${vo.gender }</li>
-                         			<li>${vo.ridingCount }</li>
-                         			<li>${vo.userScore }</li>
+                         			<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
+                         			<li>
+                                    	<input type='button' id="stateUpdateBtn" class="applicantSave" value="승낙">
+                                    	<input type='button' id="stateDeleteBtn" class="applicantDel" value="거절">
+                                    	<span id="exerciseTogether${st.index}"></span>
+                                    </li>
                          		</c:if>
                          	</c:forEach>
                          </ul>
 					</c:if>
+                   	<form id="nicknameTest">
+						<input type="text" name="applicantNickName" id="applicantNickName"style="display:none;" >
+					</form>
 					<!-- 작성자 화면 : END -->
 					<!-- START : 작성자가 아닐 때 화면 추후에 조건식을 !=로 변경 -->
-					<c:if test="${nickname == vo.nickname}">
-                        <input type="hidden" id="loginNickName" value=${nickName}/>
-						<input type="button" onclick="excerciseMember()" value="참가 신청하기"/>
-						<input type="button" onclick="excerciseMemberCancel()" value="참가 신청취소"/>
+					<c:if test="${nickname != vo.nickname}">
+						 <ul class="applier-view">
+                         	<li class="applier-view-label">번호</li>
+                         	<li class="applier-view-label">참가 상태</li>
+                         	<li class="applier-view-label">닉네임</li>
+                         	<c:forEach var="emvo" items="${emvo}" varStatus="st">
+                         		<c:if test="${vo.no == emvo.exerciseNo}">
+                         			<li>${emvo.no }</li>
+                         			<li>
+                         				<span style = "display:none" id="exerciseStatus${st.index}">${emvo.status}</span>
+                         				<span id="exerciseStatusShow${st.index}"><a href="/member/login">열람하기</a></span>
+                         			</li>
+                         			<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
+                         		</c:if>
+                         	</c:forEach>
+                         </ul>
+                        <input type="hidden" id="loginNickName" value=${nickname}>
+						<input type="button" id="excerciseMemberApply" onclick="excerciseMember()" value="참가 신청하기"/>
+						<input type="button" id="excerciseMemberApplyDel" onclick="excerciseMemberCancel()" value="참가 신청취소"/>
 					</c:if>
 					<!-- 작성자가 아닐 때 화면 : END-->
 				</div>
