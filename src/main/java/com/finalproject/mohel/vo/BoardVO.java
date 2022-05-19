@@ -1,7 +1,5 @@
 package com.finalproject.mohel.vo;
 
-import java.util.List;
-
 public class BoardVO {
 	private int no;
 	private String title;

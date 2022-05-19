@@ -41,7 +41,14 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
+// 장소명+주소 가져오기
+function placeinfo(places){
+	var placesinfo =places.place_name; //JSON.stringify(places);   로....
+	$('#location').append(placesinfo);	
+}
+
 var loginNickName = $("#loginNickName").val();
+
 //(작성자 외)참가신청
 function excerciseMember(){
 	//유효성 검사 : 로그인 여부 확인
@@ -130,13 +137,14 @@ $(".applicantDel").on("click", function(event) {
 });
 function exerciseStateCheck(){
 	let statesCnt = $('span[id^=exerciseStatusShow]').length;
-	for(let i= 0; i <statesCnt; i++ ){
-		let exerciseStatus = document.getElementById('exerciseStatus'+i).innerHTML;
-		//(작성자 외)기존에 신청되어 있을 경우, 신청하기 버튼 숨기기
-		if(document.getElementById('applierNickname'+i).innerText==loginNickName){
-			$('#excerciseMemberApply').css('display', 'none');
-			$('#excerciseMemberApplyDel').css('display', 'none');
-		}
+	if(loginNickName!=""){
+		for(let i= 0; i <statesCnt; i++ ){
+			let exerciseStatus = document.getElementById('exerciseStatus'+i).innerHTML;
+			//(작성자 외)기존에 신청되어 있을 경우, 신청하기 버튼 숨기기
+			if(document.getElementById('applierNickname'+i).innerText==loginNickName){
+				$('#excerciseMemberApply').css('display', 'none');
+			}
+		
 		//(작성자, 작성자 외) : 로그인 되어 있을 시, 참가자 리스트 내의 참가자의 확정 상태를 보여줌
 		if(exerciseStatus==1){
 			document.getElementById('exerciseStatusShow'+i).innerText = "참가확정"
@@ -146,6 +154,7 @@ function exerciseStateCheck(){
 			}
 		}else if(exerciseStatus==0){
 			document.getElementById('exerciseStatusShow'+i).innerText = "수락대기"
+		}
 		}
 	}
 }

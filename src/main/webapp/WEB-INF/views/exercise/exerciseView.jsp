@@ -9,9 +9,7 @@
 	type="text/css" />
 <script type="text/javascript"
 		src="${url}/js/exercise/exerciseView.js"></script>
-
 <meta charset="UTF-8">
-
 
 <!-- <script type="text/javascript" src="${url}/js/exercise/exerciseView.js"></script> -->
 <script>
@@ -26,7 +24,7 @@ function del(){
 <body>
 	<div class="container" id="exercise-mainFrm">
 		<form method="post" id="exerciseFrm" enctype="multipart/form-data">
-			<fieldset>
+			<fieldset id="exercise-fieldset">
 				<legend id="main-title">나만의 운동 기록</legend>
 				<div class="form-group row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>

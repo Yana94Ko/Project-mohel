@@ -1,6 +1,5 @@
 <link href="${url}/css/exercise/every_exerciseView.css" rel="stylesheet"
 	type="text/css" />
-
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
@@ -148,7 +147,7 @@
 				</div>
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label>
-					<input type="text" class="form-control" id="keyword" readonly placeholder="#하체 #스쿼트"> 
+					<input type="text" class="form-control" id="keyword" readonly placeholder="${vo.hashtag }"> 
 					<small id="keywordhelp"	class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
 				<div class="form-group">
@@ -162,26 +161,20 @@
 
 				<div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label>
-					<input value="${vo.placeinfo}" class="form-control" readonly id="location">
+					<input value="${placeinfo}" class="form-control" readonly id="location">
 				</div>
 				<div class="form-group">
 					<label for="exercise-date" class="form-label mt-4">운동날짜</label><br />
 					<div id="exercise-date">
 						<label for="exercise-sdate" class="form-label mt-4" id="sdate-text">운동시작일</label> 
-						<input type="date" class="form-control" id="exercise-sdate" name="startdate" value="${vo.startdate}" readonly> 
+						<input type="datetime-local" class="form-control" id="exercise-sdate" name="startdate" value="${vo.startdate}" readonly> 
 						<label for="exercise-edate" class="form-label mt-4" id="edate-text">운동종료일</label>
-						<input type="date" class="form-control" id="exercise-edate" name="enddate" value="${vo.enddate}" readonly>
+						<input type="datetime-local" class="form-control" id="exercise-edate" name="enddate" value="${vo.enddate}" readonly>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="exampleSelect1" class="form-label mt-4">참가인원수</label> 
-					<select class="form-select" id="exampleSelect1" disabled="disabled">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
+					<label for="exampleSelect1" class="form-label mt-4">최대 참가자 수</label> 
+					<input type="text" class="form-control" id="exampleSelect1" name="applicantMax" value="${vo.applicantMax}" readonly>
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
@@ -196,7 +189,7 @@
                          	<li class="author-view-label">승낙/거절</li>
                          	<c:forEach var="emvo" items="${emvo}" varStatus="st">
                          		<c:if test="${vo.no == emvo.exerciseNo}">
-                         			<li>${vo.no }</li>
+                         			<li>${emvo.no }</li>
                          			<li>
                          				<span style = "display:none" id="exerciseStatus${st.index}">${emvo.status}</span>
                          				<span id="exerciseStatusShow${st.index}"><a href="/member/login">열람하기</a></span>

@@ -4,12 +4,12 @@ package com.finalproject.mohel.controller;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,13 +40,14 @@ public class ExerciseController {
 //	ExerciseService ExerciseService;
 
 	@GetMapping("/exercise/exerciseList")
-	public ModelAndView exerciseList(ExercisePagingVO pVO, String category) {
+	public ModelAndView exerciseList(ExercisePagingVO pVO, String category, String nickname, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		pVO.setTotalRecord(service.totalRecord(pVO));
 		
 		mav.addObject("lst", service.exerciseList(pVO));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
+		mav.addObject("nickname", nickname);
 		
 		mav.setViewName("exercise/exerciseList");
 		return mav;
@@ -74,31 +75,38 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
-		vo.setNickname("ㅇㅇ");// 추후에 (String)request.getSession().getAttribute("nickname")로 수정
-		
+
+		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
+
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
        
         mr = (MultipartHttpServletRequest) request;
-		MultipartFile file = mr.getFile("filename");
+
 		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
         System.out.println(path);
-       
-        String orgFileName = file.getOriginalFilename();
+        
+    	MultipartFile file = mr.getFile("filename");
+        
+    	String orgFileName = file.getOriginalFilename();
         int point = orgFileName.lastIndexOf(".");
         String ext = orgFileName.substring(point+1);
         			
-        File f = new File(path, System.currentTimeMillis()+"."+ext);
+        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
         			
         orgFileName = f.getName();
+
         //String filename = file.getOriginalFilename();
 		//File uploadFile = new File(path, filename);
         try {
         	file.transferTo(f);
-			vo.setImg1(file.getOriginalFilename());
-        	//글등록 성공
-			
+			//vo.setImg1(file.getOriginalFilename());
+        	vo.setImg1(orgFileName);
+        	
+			//글등록 성공
         	service.exerciseInsert(vo);
 			
 			
@@ -118,14 +126,11 @@ public class ExerciseController {
 	@GetMapping("/exercise/exerciseView")
 	public ModelAndView exerciseView(@RequestParam("no") int no, BoardVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", service.exerciseSelect(no));
+		mav.addObject("vo",service.exerciseSelect(no));
+	
 		service.cntHit(no); // 조회수 증가
-		mav.addObject("nickname","oo");// 추후 (String)session.getAttribute("nickName")로 변경
+		//mav.addObject("nickName",(String)session.getAttribute("nickName"));
 
-		//참가자 목록 띄우기
-		
-		
-		//로그인 되어있다면, 참가 신청자들의 참가 확정 여부 보여주기
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
@@ -147,20 +152,40 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "ㅇㅇ");
+			mav.addObject("nickname", nickname);
 		}
 		mav.setViewName("exercise/exerciseEdit");
 		return mav;
 	}
 	
 	@PostMapping("/exercise/exerciseEditOk")
-	public ResponseEntity<String> exerciseEditOk(BoardVO vo, HttpSession session) {
-		//vo.setNickname((String)session.getAttribute("nickName"));
+	public ResponseEntity<String> exerciseEditOk(BoardVO vo, HttpSession session, HttpServletRequest request,MultipartHttpServletRequest mr) {
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "text/html; charset=UTF-8");
-		try {
+        headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
+        
+        mr = (MultipartHttpServletRequest) request;
+	
+		
+		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
+        System.out.println(path);
+        
+    	MultipartFile file = mr.getFile("filename");
+        
+    	String orgFileName = file.getOriginalFilename();
+        int point = orgFileName.lastIndexOf(".");
+        String ext = orgFileName.substring(point+1);
+        			
+        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
+        			
+        orgFileName = f.getName();
 
+		try {
+			file.transferTo(f);
+			vo.setImg1(orgFileName);
+			
 			int result =service.exerciseUpdate(vo);
 			System.out.println(result);
 			//System.out.println(vo.getApplicantMax());
@@ -223,6 +248,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseWrite")
 	public ModelAndView every_exerciseWrite() {
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("exercise/every_exerciseWrite");
 		return mav;
 	}
@@ -237,15 +263,43 @@ public class ExerciseController {
 		return mav;
 	}
 	@PostMapping("/exercise/every_exerciseWriteOk")
-    public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request){
-		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickname")로 변경
-		//System.out.println("title>>>"+vo.getTitle());
+    public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr, ExerciseMemberVO emvo){
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
+       
+
+        mr = (MultipartHttpServletRequest) request;
+		MultipartFile file = mr.getFile("filename");
+		
+		String path = request.getSession().getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
+        System.out.println(path);
+       
+        String orgFileName = file.getOriginalFilename();
+        int point = orgFileName.lastIndexOf(".");
+        String ext = orgFileName.substring(point+1);
+        
+        String filename = System.currentTimeMillis()+"."+ext;
+        
+        
         try {
+        	if(!file.getOriginalFilename().equals("")) {
+        		File f = new File(path, filename);
+                orgFileName = f.getName();
+            	file.transferTo(f);
+            	vo.setImg(filename);
+        	}
+			
 			//글등록 성공
-			service.every_exerciseInsert(vo);
+        	service.every_exerciseInsert(vo);
+        	//ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
+			//emvo.setExerciseNo(vo2.getNo());
+			//emvo.setNickname(vo.getNickname());
+			//System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getNo());
+			//service.exerciseMemberInsert(emvo);
+			//service.exerciseMemberUpdate(emvo);
 			
 			//글 목록으로 이동
 			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/every_exerciseList';</script>";
@@ -259,18 +313,29 @@ public class ExerciseController {
 		}
 		return entity;
 	}
+	
 
 	// 모두의 운동 글보기
 	@GetMapping("/exercise/every_exerciseView")
-	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no,HttpServletRequest request) {
+	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		if(mvo!=null) {
 			mav.addObject("nickname",mvo.getNickname());
+			vo.setNickname(mvo.getNickname());
 		}
-		service.cntHit(no); // 조회수 증가
 		
-		mav.addObject("vo", service.every_exerciseSelect(no));
+		
+		service.every_cntHit(no); // 조회수 증가
+		ExerciseVO vo2 =service.every_exerciseSelect(no);
+		String jsonStr=vo2.getPlaceinfo();
+		System.out.println(jsonStr);
+		JSONObject obj=new JSONObject(jsonStr);
+		String addr=obj.getString("address_name");
+		System.out.println(addr);
+		mav.addObject("vo", vo2);
+		mav.addObject("placeinfo",addr);
 		mav.addObject("emvo",service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
@@ -287,25 +352,59 @@ public class ExerciseController {
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
 		}else{
-			mav.addObject("nickname", "ㅇㅇ");
+			mav.addObject("nickname", nickname);
 		}
 		mav.setViewName("exercise/every_exerciseEdit");
 		return mav;
 	}
 	
 	@PostMapping("/exercise/every_exerciseEditOk")
-	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session) {
-		//vo.setNickname((String)session.getAttribute("nickName"));
+	public ResponseEntity<String> every_exerciseEditOk(ExerciseVO vo, HttpSession session,@RequestParam("filename") MultipartFile file ) {
+		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
+		
 		ResponseEntity<String> entity =null;
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "text/html; charset=UTF-8");
+		headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
+		//MultipartHttpServletRequest mr  = (MultipartHttpServletRequest) request;
+			
+			
+			String path = session.getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
+	        System.out.println(path);
+	        
+	    	//MultipartFile file = mr.getFile("filename");
+	    	String orgFileName=null;
+	    	File f=null;
+	        if(file!=null && !file.isEmpty()) {
+		    	orgFileName = file.getOriginalFilename();
+		        int point = orgFileName.lastIndexOf(".");
+		        String ext = orgFileName.substring(point+1);
+		        			
+		        f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
+            		        			
+		        orgFileName = f.getName();
+		        
+	        }
+	        
 		try {
-
+			 if(file!=null && !file.isEmpty()) {
+				 file.transferTo(f);
+			 }
+			 
+			vo.setImg(orgFileName);
+			System.out.println(vo.toString());
 			int result =service.every_exerciseUpdate(vo);
-			System.out.println(result);
+			System.out.println("result ="+result);
+			
 			//System.out.println(vo.getApplicantMax());
+			if(result>0) {
 			String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/every_exerciseView?no="+vo.getNo()+"';</script>";
 			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+			}else {
+				String msg = "<script>alert('글 수정 실패!'); history.go(-1);</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

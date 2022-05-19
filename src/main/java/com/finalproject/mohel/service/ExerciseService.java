@@ -51,6 +51,7 @@ public interface ExerciseService {
 	
 	public List<ExerciseVO> every_exerciseList(ExercisePagingVO pVO);
 	public int every_exerciseInsert(ExerciseVO vo); 
+	public ExerciseVO every_exerciseLastWriteNo(String nickname);
 	public ExerciseVO every_exerciseSelect(int no);
 	public int every_exerciseUpdate(ExerciseVO vo);
 	public int every_exerciseDelete(int no, String nickname);

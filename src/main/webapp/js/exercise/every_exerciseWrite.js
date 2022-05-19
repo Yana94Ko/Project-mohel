@@ -263,3 +263,58 @@ function removeAllChildNods(el) {
 function everyExerciseWriteOk(){
 	$("#everyExerciseFrm").submit();
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// 모두의 운동 글쓰기 유효성 검사
+$(function(){
+	$("#everyExerciseFrm").submit(function(){
+		if($("#title").val()==''){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		if($("#contents").val()==''){
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		if($("#location").val()==''){
+			alert("장소를 입력하세요.");
+			return false;
+		}
+		if($("#exercise-sdate").val()==''){
+			alert("운동 시작일자를 입력하세요.");
+			return false;
+		}
+		if($("#exercise-edate").val()==''){
+			alert("운동 종료일자를 입력하세요.");
+			return false;
+		}
+		if($("#applicantMax").val()==''){
+			alert("최대 참가자수를 입력하세요.");
+			return false;
+		}
+		
+ });
+
+	var regOnlyNum = /[^0-9]/g;
+	$('#applicantMax').on('input', function() {
+		$(this).val($(this).val().replace(regOnlyNum, ''));
+	});
+	
+});
+
+// 운동 시작 날짜 기본값 지정
+    let sdate = document.getElementById('exercise-sdate');
+    let edate = document.getElementById('exercise-edate');
+    let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    sdate.value = date;
+    sdate.setAttribute("min", date);
+
+	function setMinValue(){
+            if(sdate.value > edate.value) {
+                alert('운동 시작 일자보다 이전의 날짜는 설정할 수 없습니다.');
+                sdate.value = date;
+            }
+        }
+
+

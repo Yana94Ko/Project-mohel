@@ -3,6 +3,8 @@ package com.finalproject.mohel.vo;
 public class ExerciseVO {
 	private int no;
 	private String title;
+	private String nickname;
+	private String hashtag;
 	private String contents;
 	private String startdate;
 	private String enddate;
@@ -11,7 +13,15 @@ public class ExerciseVO {
 	private int applicantCnt;
 	private int applicantMax;
 	private int hit;
-	private String nickname;
+	private String img;
+	
+	@Override
+	public String toString() {
+		return "ExerciseVO [no=" + no + ", title=" + title + ", nickname=" + nickname + ", hashtag=" + hashtag
+				+ ", contents=" + contents + ", startdate=" + startdate + ", enddate=" + enddate + ", writedate="
+				+ writedate + ", placeinfo=" + placeinfo + ", applicantCnt=" + applicantCnt + ", applicantMax="
+				+ applicantMax + ", hit=" + hit + ", img=" + img + "]";
+	}
 	
 	public int getNo() {
 		return no;
@@ -24,6 +34,18 @@ public class ExerciseVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHashtag() {
+		return hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
 	}
 	public String getContents() {
 		return contents;
@@ -73,12 +95,11 @@ public class ExerciseVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getImg() {
+		return img;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setImg(String img) {
+		this.img = img;
 	}
-	
 	
 }

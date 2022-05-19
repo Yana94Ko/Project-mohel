@@ -9,9 +9,6 @@
 	type="text/css" />
 <script type="text/javascript"
 		src="${url}/js/exercise/exerciseWrite.js"></script>
-	
-<script type="text/javascript"
-		src="${url}/js/exercise/exerciseWrite.js"></script>
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
@@ -24,7 +21,7 @@
     <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">제목</label>
       <div class="col-sm-10">
-        <input type="text"  class="form-control" name="title" placeholder="글의 제목을 입력하세요">
+        <input type="text"  class="form-control" id="title" name="title" placeholder="글의 제목을 입력하세요">
       </div>
     </div>
     <div class="form-group">

@@ -129,6 +129,12 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.every_exerciseInsert(vo);
 	}
 
+	
+	@Override
+	public ExerciseVO every_exerciseLastWriteNo(String nickname) {
+		return dao.every_exerciseLastWriteNo(nickname);
+	}
+
 	@Override
 	public ExerciseVO every_exerciseSelect(int no) {
 		return dao.every_exerciseSelect(no);

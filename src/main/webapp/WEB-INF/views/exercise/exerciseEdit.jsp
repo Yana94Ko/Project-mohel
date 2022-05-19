@@ -9,7 +9,6 @@
 	type="text/css" />
 <script type="text/javascript"
 		src="${url}/js/exercise/exerciseEdit.js"></script>
-
 <meta charset="UTF-8">
 <style>
 
@@ -21,14 +20,14 @@
 <body>
 	<div class="container" id="exercise-mainFrm">
 		<form method="post" action="/exercise/exerciseEditOk"
-			id="exerciseFrm">
+			id="exerciseFrm" enctype="multipart/form-data">
 			<fieldset>
 				<legend id="main-title">나만의 운동 기록</legend>
 				<div class="form-group row">
 					<label for="title" class="col-sm-2 col-form-label">제목</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="title"
-							placeholder="${vo.title }">
+						<input type="text" class="form-control" name="title" id="title"
+							value="${vo.title }">
 					</div>
 				</div>
 				<div class="form-group">
@@ -45,14 +44,14 @@
 				</div>
 				<div class="form-group">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label> <input
-						class="form-control" type="file" id="formFile" name="img1">
+						class="form-control" type="file" id="formFile" name="filename">
 					<input type='hidden' name='category' id='category'
 						value='${category}' /> 
 
 					<input type='hidden' name='nickname'
 						id='nickname' value='${nickname}' />
 						<input type='hidden' name='no' value='${vo.no }'/>
-					<img src='${url}/img/exercise/${vo.img1}' id="preview" style="display: none" class="rounded"/>
+					<img src='/img/exercise/${vo.img1}' id="preview" name="img1" class="rounded"/>
 				</div>
 
 

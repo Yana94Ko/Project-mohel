@@ -1,5 +1,15 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /*exerciseList*/
+container{
+	width:1000px;
+	margin:auto;
+}
 /*메인텍스트*/
 #main_text {
 	margin: 30px;
@@ -25,11 +35,14 @@
 	right: 0;
 	margin: auto;
 	position: relative;
+	background:#01c9c6;
+	border-color:#01c9c6;
 }
 /*나만의 운동기록리스트*/
 #exercise-main-tbl {
 	position: relative;
 	margin-top: 20px;
+	/*box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 #A7FAEB;*/
 }
 
 #exercise-main-tbl {
@@ -40,7 +53,9 @@
 	border-bottom: 1px solid #bdbdbd;
 	font-weight: 600;
 }
-
+#exercise-tbl{
+	font-size:17px;		
+}
 #exercise-head>th:nth-child(6n+2) {
 	overflow: hidden;
 	text-overflow: hidden;
@@ -54,7 +69,7 @@
 }
 
 #exercise-contents {
-	color: #ddd;
+	color: #787878;
 }
 
 /*페이징*/
