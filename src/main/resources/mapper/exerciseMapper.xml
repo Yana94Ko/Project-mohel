@@ -9,7 +9,7 @@
 	<select id="exerciseList"
 		resultType="com.finalproject.mohel.vo.BoardVO">
 		select no, title, contents, nickname, date_format(writedate,
-		'%Y-%m-%d') as writedate,hit
+		'%Y-%m-%d') as writedate, hit
 		from board
 		where category='exercise'
 		<if test='searchWord != null'>
@@ -77,25 +77,24 @@
 
 	<!-- view페이지에 보여주기 -->
 
-	<select id="exerciseMemberShow" resultType="ExerciseMemberVO">
+	<select id="exerciseMemberShow" resultType="com.finalproject.mohel.vo.ExerciseMemberVO">
 		select no,
 		exerciseNo, nickname, status
-		from exercise_member where no=#{no}
+		from exercise_member where exerciseNo=#{param1}
 	</select>
 	<delete id="exerciseMemberDelete">
-		delete from exercise_member where no=#{no} and
-		nickname=#{nickname}
+		delete from exercise_member 
+		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</delete>
 
-
-	<!-- exerciseMember 승낙시 Update -->
-
-	<update id="exerciseStateUpdate"
-		parameterType="ExerciseMemberVO">
+	<update id="exerciseMemberUpdate">
 		update exercise_member set status=1
-		where no=#{no} and
-		nickname=#{nickname}
+		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</update>
+	
+	
+	
+	
 	<delete id="exerciseStateDel">
 		delete from exercise_member where no=#{no} and
 		nickname=#{nickname}
@@ -120,7 +119,7 @@
 		order by no desc
 		limit ${onePageRecord} offset ${offsetIndex}
 	</select>
-	<insert id="every_exerciseInsert">
+	<insert id="every_exerciseInsert" >
 		insert into everyexercise(no, title, hashtag, contents,
 		startdate, enddate, writedate, placeinfo, applicantCnt, applicantMax,
 		hit, nickname, img)
@@ -131,7 +130,12 @@
 		update everyexercise set
 		hit = hit+1 where no=#{param1}
 	</update>
-	
+	<select id="every_exerciseLastWriteNo" resultType="ExerciseVO">
+		select no
+		from everyexercise where nickname = #{param1}
+		order by no desc
+		limit 1
+	</select>
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
 		select no, title, hashtag,
 		contents, DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate

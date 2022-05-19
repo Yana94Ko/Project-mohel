@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="/js/boardList.js"></script> 
-<link href="/css/boardList.css" rel="stylesheet" type="text/css">
+<script src="/js/board/boardList.js"></script> 
+<link href="/css/board/boardList.css" rel="stylesheet" type="text/css">
 <div class="notice">
     <h3>${title}</h3>
     <table>

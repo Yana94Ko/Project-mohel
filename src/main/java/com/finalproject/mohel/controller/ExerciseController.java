@@ -75,6 +75,7 @@ public class ExerciseController {
 	
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
+
 		//vo.setNickname((String)request.getSession().getAttribute("nickname"));
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		vo.setNickname(mvo.getNickname());
@@ -84,8 +85,7 @@ public class ExerciseController {
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
        
         mr = (MultipartHttpServletRequest) request;
-	
-		
+
 		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
         System.out.println(path);
         
@@ -263,7 +263,7 @@ public class ExerciseController {
 		return mav;
 	}
 	@PostMapping("/exercise/every_exerciseWriteOk")
-    public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
+    public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr, ExerciseMemberVO emvo){
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity = null;
@@ -293,7 +293,13 @@ public class ExerciseController {
         	}
 			
 			//글등록 성공
-			service.every_exerciseInsert(vo);
+        	service.every_exerciseInsert(vo);
+        	//ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
+			//emvo.setExerciseNo(vo2.getNo());
+			//emvo.setNickname(vo.getNickname());
+			//System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getNo());
+			//service.exerciseMemberInsert(emvo);
+			//service.exerciseMemberUpdate(emvo);
 			
 			//글 목록으로 이동
 			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/every_exerciseList';</script>";
@@ -315,7 +321,11 @@ public class ExerciseController {
 		ModelAndView mav = new ModelAndView();
 		
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
-		vo.setNickname(mvo.getNickname());
+		if(mvo!=null) {
+			mav.addObject("nickname",mvo.getNickname());
+			vo.setNickname(mvo.getNickname());
+		}
+		
 		
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
@@ -326,6 +336,7 @@ public class ExerciseController {
 		System.out.println(addr);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
+		mav.addObject("emvo",service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -425,15 +436,55 @@ public class ExerciseController {
 	// 모두의 운동 참가신청(작성자 외)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseMemberOk")
-	public void excerciseMemberOk (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
-		vo.setNickname("ㅇㅇ");//추후에 (String)request.getSession().getAttribute("nickName")
-		vo.setNo(no);
+	public int excerciseMemberOk (int no, ExerciseMemberVO mvo, HttpServletRequest request) {
+		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		mvo.setNickname(logMvo.getNickname());
+		mvo.setNo(no);
+		int result = 0;
 		try {
-			System.out.println("함수 실행 전");
-			service.exerciseMemberInsert(vo);
-			System.out.println(mvo.getNo());
+			result = service.exerciseMemberInsert(mvo);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return result;
+	}
+	//모두의 운동 참가신청 취소(작성자 외)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseMemberCancel")
+	public void excerciseMemberCancel (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
+		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		mvo.setNickname(logMvo.getNickname());
+		mvo.setExerciseNo(no);
+		try {
+			service.exerciseMemberDelete(mvo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//모두의 운동 참가신청 수락(작성자)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseStateOk")
+	public boolean ridingStateOk(ExerciseVO vo,ExerciseMemberVO mvo) { 
+		try { 
+			System.out.println(mvo.getExerciseNo()+mvo.getNickname());
+			service.exerciseMemberUpdate(mvo);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} 
+	}
+	//모두의 운동 참가신청 거절(작성자)
+	@ResponseBody
+	@GetMapping("/exercise/excerciseStateDel")
+	public boolean ridingStateDel(ExerciseVO vo,ExerciseMemberVO mvo) {
+		try { 
+			service.exerciseMemberDelete(mvo);
+			return true;
+		} catch (Exception e) { 
+			System.out.println(e);
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

@@ -32,10 +32,10 @@ public interface ExerciseDAO {
 	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO);
 	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO);
 	
-	public int exerciseMemberInsert(ExerciseVO vo);
-	public int exerciseMemberUpdate(ExerciseMemberVO vo);
-	public List<ExerciseVO> exerciseMemberShow(int no);
-	public int exerciseMemberDelete(ExerciseMemberVO vo);
+	public int exerciseMemberInsert(ExerciseMemberVO mvo);
+	public int exerciseMemberUpdate(ExerciseMemberVO mvo);
+	public List<ExerciseMemberVO> exerciseMemberShow(int no);
+	public int exerciseMemberDelete(ExerciseMemberVO mvo);
 	
 	public int exerciseStateUpdate(ExerciseVO vo);
 	public int exerciseStateDel(ExerciseVO vo);
@@ -54,6 +54,7 @@ public interface ExerciseDAO {
 	
 	public List<ExerciseVO> every_exerciseList(ExercisePagingVO pVO);
 	public int every_exerciseInsert(ExerciseVO vo); 
+	public ExerciseVO every_exerciseLastWriteNo(String nickname);
 	public ExerciseVO every_exerciseSelect(int no);
 	public int every_exerciseUpdate(ExerciseVO vo);
 	public int every_exerciseDelete(int no, String nickname);
