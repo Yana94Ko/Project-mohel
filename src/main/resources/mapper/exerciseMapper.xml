@@ -63,7 +63,7 @@
 
 	<insert id="exerciseMemberInsert">
 		insert into exercise_member (exerciseNo, nickname)
-		values(#{no}, #{nickname})
+		values(#{exerciseNo}, #{nickname})
 	</insert>
 
 	<!-- 참가신청여부 확인용 -->
@@ -132,8 +132,9 @@
 	</update>
 	<select id="every_exerciseLastWriteNo" resultType="ExerciseVO">
 		select no
-		from everyexercise where nickname = #{param1}
-		order by no desc
+		from everyexercise 
+		where nickname = #{param1}
+		order by no DESC
 		limit 1
 	</select>
 	<select id="every_exerciseSelect" resultType="ExerciseVO">

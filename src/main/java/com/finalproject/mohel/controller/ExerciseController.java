@@ -265,7 +265,9 @@ public class ExerciseController {
 	@PostMapping("/exercise/every_exerciseWriteOk")
     public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr, ExerciseMemberVO emvo){
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
-		vo.setNickname(mvo.getNickname());
+		if(mvo!=null) {
+			vo.setNickname(mvo.getNickname());
+		}
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -294,12 +296,12 @@ public class ExerciseController {
 			
 			//글등록 성공
         	service.every_exerciseInsert(vo);
-        	//ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
-			//emvo.setExerciseNo(vo2.getNo());
-			//emvo.setNickname(vo.getNickname());
-			//System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getNo());
-			//service.exerciseMemberInsert(emvo);
-			//service.exerciseMemberUpdate(emvo);
+        	ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
+			emvo.setExerciseNo(vo2.getNo());
+			emvo.setNickname(vo.getNickname());
+			service.exerciseMemberInsert(emvo);
+			System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getExerciseNo());
+			service.exerciseMemberUpdate(emvo);
 			
 			//글 목록으로 이동
 			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/every_exerciseList';</script>";
@@ -319,7 +321,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseView")
 	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		
+		System.out.println("뷰로 왔어요");
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		if(mvo!=null) {
 			mav.addObject("nickname",mvo.getNickname());
@@ -436,10 +438,10 @@ public class ExerciseController {
 	// 모두의 운동 참가신청(작성자 외)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseMemberOk")
-	public int excerciseMemberOk (int no, ExerciseMemberVO mvo, HttpServletRequest request) {
+	public int excerciseMemberOk (int exerciseNo, ExerciseMemberVO mvo, HttpServletRequest request) {
 		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		mvo.setNickname(logMvo.getNickname());
-		mvo.setNo(no);
+		mvo.setExerciseNo(exerciseNo);
 		int result = 0;
 		try {
 			result = service.exerciseMemberInsert(mvo);
