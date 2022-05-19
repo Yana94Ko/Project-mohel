@@ -4,6 +4,7 @@ package com.finalproject.mohel.controller;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -271,7 +272,6 @@ public class ExerciseController {
 		
 		mav.addObject("vo", service.every_exerciseSelect(no));
 		mav.addObject("emvo",service.exerciseMemberShow(no));
-		System.out.println(service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
 	}
@@ -378,8 +378,7 @@ public class ExerciseController {
 	//모두의 운동 참가신청 거절(작성자)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseStateDel")
-	public boolean ridingStateDel(int no, ExerciseVO vo,ExerciseMemberVO mvo) {
-		service.every_exerciseSelect(no);
+	public boolean ridingStateDel(ExerciseVO vo,ExerciseMemberVO mvo) {
 		try { 
 			service.exerciseMemberDelete(mvo);
 			return true;

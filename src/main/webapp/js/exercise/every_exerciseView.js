@@ -41,12 +41,11 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
-
+var loginNickName = $("#loginNickName").val();
 //(작성자 외)참가신청
 function excerciseMember(){
-	console.log($("#loginNickName").val())
 	//유효성 검사 : 로그인 여부 확인
-	if($("#loginNickName").val()=="" ) {
+	if(loginNickName=="" ) {
 		alert("로그인 후 참가신청 해주세요..!")
 		location.href = "/member/login";
 		return false;
@@ -59,6 +58,7 @@ function excerciseMember(){
 			data :params,
 			success: function() {
 				alert("함께 운동하기 신청 완료! \n오늘도 건강한 하루 되세요!");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
 			},
 			error: function(e) {
 				alert("운동 신청에 실패했어요..");
@@ -81,6 +81,7 @@ function excerciseMemberCancel(){
 			data :params,
 			success: function() {
 				alert("함께 운동하기가 취소되었습니다. 다음에 뵈어요!");
+				location.href = "/exercise/every_exerciseView?no=" + exerciseNo;
 			},
 			error: function(e) {
 				alert("운동 취소에 실패했어요..");
@@ -128,11 +129,24 @@ $(".applicantDel").on("click", function(event) {
 	}
 });
 function exerciseStateCheck(){
-	let statesCnt = $('input[id=stateUpdateBtn]').length
-	for(let i= 0; i )
-	if($('exerciseStatus').val==1){
-		
+	let statesCnt = $('span[id^=exerciseStatusShow]').length;
+	for(let i= 0; i <statesCnt; i++ ){
+		let exerciseStatus = document.getElementById('exerciseStatus'+i).innerHTML;
+		//(작성자 외)기존에 신청되어 있을 경우, 신청하기 버튼 숨기기
+		if(document.getElementById('applierNickname'+i).innerText==loginNickName){
+			$('#excerciseMemberApply').css('display', 'none');
+			$('#excerciseMemberApplyDel').css('display', 'none');
+		}
+		//(작성자, 작성자 외) : 로그인 되어 있을 시, 참가자 리스트 내의 참가자의 확정 상태를 보여줌
+		if(exerciseStatus==1){
+			document.getElementById('exerciseStatusShow'+i).innerText = "참가확정"
+			if($('.applicantSave').length!=0){
+				$('.applicantSave').css('display', 'none');
+				$('.applicantDel').css('display', 'none');
+			}
+		}else if(exerciseStatus==0){
+			document.getElementById('exerciseStatusShow'+i).innerText = "수락대기"
+		}
 	}
 }
 exerciseStateCheck();
-}

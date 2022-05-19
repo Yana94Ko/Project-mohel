@@ -34,7 +34,7 @@ public interface ExerciseDAO {
 	
 	public int exerciseMemberInsert(ExerciseMemberVO mvo);
 	public int exerciseMemberUpdate(ExerciseMemberVO mvo);
-	public List<ExerciseVO> exerciseMemberShow(int no);
+	public List<ExerciseMemberVO> exerciseMemberShow(int no);
 	public int exerciseMemberDelete(ExerciseMemberVO mvo);
 	
 	public int exerciseStateUpdate(ExerciseVO vo);

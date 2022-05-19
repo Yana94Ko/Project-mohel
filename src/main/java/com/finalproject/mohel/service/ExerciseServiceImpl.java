@@ -85,7 +85,7 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public List<ExerciseVO> exerciseMemberShow(int no) {
+	public List<ExerciseMemberVO> exerciseMemberShow(int no) {
 		return dao.exerciseMemberShow(no);
 	}
 
