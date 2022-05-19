@@ -17,7 +17,7 @@
 
 th:nth-child(2),
 td:nth-child(2){
-	width: 32%;
+	width: 35%;
 	max-width: 0;
 	white-space: nowrap;
 	overflow: hidden;
@@ -25,7 +25,7 @@ td:nth-child(2){
 }
 th:nth-child(3),
 td:nth-child(3){
-	width: 32%;
+	width: 29%;
 	max-width: 0;
 	white-space: nowrap;
 	overflow: hidden;

@@ -29,20 +29,62 @@
 							<c:if test="${reply.category=='challenge'}">챌린지 게시판</c:if>
 							<c:if test="${reply.category=='ba'}">Before&After</c:if>
 						</td>
-						<td>
+						
+						<td title="${reply.title }">
 							<a <c:if test="${reply.category=='everyMeal'}">href="/mypage/everyFoodView?no=${reply.boardNo}"</c:if>
 								<c:if test="${reply.category=='myExercise'}">href="/exercise/exerciseView?no=${reply.boardNo}"</c:if>
 								<c:if test="${reply.category!='everyMeal' && reply.category!='myExercise'}">href="/board/boardView?no=${reply.boardNo}&category=${reply.category }"</c:if>
 							>${reply.title }</a>
 						</td>
-						<td>${reply.contents}</td>
+						<td title="${reply.contents}">${reply.contents}</td>
 						<td>${reply.writedate }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<!-- 페이징 -->
 		<c:if test="${myReplyList.size()!=0 }">
-			<%@include file="/WEB-INF/views/inc/mypage/myActivityPaging.jsp" %>
+			<ul class="paging">
+				<!-- 이전 페이지 -->
+				<c:if test="${pVO.pageNum<=pVO.onePageCount}">
+					<li>Prev</li>
+				</c:if>
+				<c:if test="${pVO.pageNum>pVO.onePageCount}">
+					<li>
+						<a href="/mypage/myComment?pageNum=${pVO.startPage-pVO.onePageCount}
+						<c:if test="${category!=null}">&category=${category}</c:if>
+						<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">Prev</a>
+					</li>
+				</c:if>
+				
+				<!-- 페이지 번호 -->
+				<c:forEach var="p" begin="${pVO.startPage}" end="${pVO.startPage+pVO.onePageCount-1}">
+					<c:if test="${p<=pVO.totalPage }">
+						<c:if test="${p==pVO.pageNum}">
+							<li>${p}</li>
+						</c:if>
+						<c:if test="${p!=pVO.pageNum}">
+							<li>
+								<a href="/mypage/myComment?pageNum=${p}
+								<c:if test="${category!=null}">&category=${category}</c:if>
+								<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">${p}</a>
+							</li>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				
+				<!-- 다음 페이지 -->
+				<c:if test="${pVO.totalPage-pVO.startPage<pVO.onePageCount }">
+					<li>Next</li>
+				</c:if>
+				<c:if test="${pVO.totalPage-pVO.startPage>=pVO.onePageCount }">
+					<li>
+						<a href="/mypage/myComment?pageNum=${pVO.startPage+pVO.onePageCount}
+						<c:if test="${category!=null}">&category=${category}</c:if>
+						<c:if test='${pVO.searchWord!=null}'>&searchKey=${pVO.searchKey}&searchWord=${pVO.searchWord}</c:if>">Next</a>
+					</li>
+				</c:if>
+			</ul>
 		</c:if>
 	</div>
 </div>

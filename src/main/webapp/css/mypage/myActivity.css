@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("/css/mypage/mypaging.css");
 
 /* Nav */
 .lnb-box a:nth-child(2) {
@@ -78,13 +79,4 @@ th {
 th:nth-child(1),
 td:nth-child(1){
 	width: 21%;
-}
-
-.paging {
-	display: flex;
-	justify-content: center;
-	margin-top: 30px;
-}
-.paging li {
-	margin: 0 10px;
 }

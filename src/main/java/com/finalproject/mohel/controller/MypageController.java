@@ -93,10 +93,11 @@ public class MypageController {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
+//		pVO.setTotalRecord(service.boardTotalRecord(userInfo.getNickname(), category, pVO));
 		pVO.setTotalRecord(service.boardTotalRecord("ㅇㅇ", category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
-//		List<BoardVO> allBoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
+//		List<BoardVO> BoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
 		List<BoardVO> BoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
 		
 		LocalDate now = LocalDate.now();
@@ -127,9 +128,11 @@ public class MypageController {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
+//		pVO.setTotalRecord(service.replyTotalRecord(userInfo.getNickname(), category, pVO));
 		pVO.setTotalRecord(service.replyTotalRecord("ㅇㅇ", category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
+//		List<HashMap<String, Object>> replyList = service.selectMyReplyList(userInfo.getNickname(), category, pVO);
 		List<HashMap<String, Object>> replyList = service.selectMyReplyList("ㅇㅇ", category, pVO);
 		
 		LocalDate now = LocalDate.now();
@@ -155,11 +158,18 @@ public class MypageController {
 		return mav;
 	}
 	
-	
-	
 	@GetMapping("myExercise")
-	public String myExercise() {
-		return "/mypage/myExercise";
+	public ModelAndView myExercise(PagingVO pVO, HttpSession session) {
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		
+		pVO.setOnePageRecord(10);
+		pVO.setTotalRecord(service.myExerciseTotalRecord(userInfo.getNickname(), pVO));
+		
+		mav.addObject("myExerciseList", service.selectMyExercise(userInfo.getNickname(), pVO));
+		mav.addObject("pVO", pVO);
+		mav.setViewName("/mypage/myExercise");
+		
+		return mav;
 	}
 	
 	@GetMapping("userDel")

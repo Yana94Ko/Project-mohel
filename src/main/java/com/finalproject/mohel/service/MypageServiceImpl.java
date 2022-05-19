@@ -42,8 +42,15 @@ public class MypageServiceImpl implements MypageService {
 	public int replyTotalRecord(String nickname, String category, PagingVO pVO) {
 		return dao.replyTotalRecord(nickname, category, pVO);
 	}
-	
-	
 
+	@Override
+	public List<HashMap<String, String>> selectMyExercise(String nickname, PagingVO pVO) {
+		return dao.selectMyExercise(nickname, pVO);
+	}
+
+	@Override
+	public int myExerciseTotalRecord(String nickname, PagingVO pVO) {
+		return dao.myExerciseTotalRecord(nickname, pVO);
+	}
 	
 }

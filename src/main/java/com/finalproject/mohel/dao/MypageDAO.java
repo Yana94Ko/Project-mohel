@@ -19,4 +19,6 @@ public interface MypageDAO {
 	public int boardTotalRecord(String nickname, String category, PagingVO pVO);
 	public List<HashMap<String, Object>> selectMyReplyList(String nickname, String category, PagingVO pVO);
 	public int replyTotalRecord(String nickname, String category, PagingVO pVO);
+	public List<HashMap<String, String>> selectMyExercise(String nickname, PagingVO pVO);
+	public int myExerciseTotalRecord(String nickname, PagingVO pVO);
 }

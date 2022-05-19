@@ -64,4 +64,26 @@
 			and ${param3.searchKey} like "%${param3.searchWord}%"
 		</if>
   	</select>
+  	
+  	<select id="selectMyExercise" resultType="map">
+  		select e.no, e.nickname leader, e.title, e.hashtag, m.status
+		from everyexercise e join exercise_member m
+		on e.no=m.exerciseNo
+		where m.nickname=#{param1}
+		<if test="param2.searchWord!=null">
+			and ${param2.searchKey} like "%${param2.searchWord}%"
+		</if>
+		order by m.no desc
+		limit ${param2.onePageRecord} offset ${param2.offsetIndex}
+  	</select>
+  	
+  	<select id="myExerciseTotalRecord" resultType="int">
+  		select count(e.no)
+		from everyexercise e join exercise_member m
+		on e.no=m.exerciseNo
+		where m.nickname=#{param1}
+		<if test="param2.searchWord!=null">
+			and ${param2.searchKey} like "%${param2.searchWord}%"
+		</if>
+  	</select>
 </mapper>
