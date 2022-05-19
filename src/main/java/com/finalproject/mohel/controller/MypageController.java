@@ -2,7 +2,6 @@ package com.finalproject.mohel.controller;
 
 import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.MohelApplication;
@@ -26,7 +24,6 @@ import com.finalproject.mohel.service.MypageService;
 import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.PagingVO;
-import com.finalproject.mohel.vo.ReplyVO;
 
 @Controller
 @RequestMapping("/mypage/")
@@ -93,12 +90,10 @@ public class MypageController {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
-//		pVO.setTotalRecord(service.boardTotalRecord(userInfo.getNickname(), category, pVO));
-		pVO.setTotalRecord(service.boardTotalRecord("ㅇㅇ", category, pVO));
+		pVO.setTotalRecord(service.boardTotalRecord(userInfo.getNickname(), category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
-//		List<BoardVO> BoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
-		List<BoardVO> BoardList = service.selectMyBoardList("ㅇㅇ", category, pVO);
+		List<BoardVO> BoardList = service.selectMyBoardList(userInfo.getNickname(), category, pVO);
 		
 		LocalDate now = LocalDate.now();
 		for (BoardVO boardVO : BoardList) {
@@ -128,12 +123,10 @@ public class MypageController {
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		
 		pVO.setOnePageRecord(10);
-//		pVO.setTotalRecord(service.replyTotalRecord(userInfo.getNickname(), category, pVO));
-		pVO.setTotalRecord(service.replyTotalRecord("ㅇㅇ", category, pVO));
+		pVO.setTotalRecord(service.replyTotalRecord(userInfo.getNickname(), category, pVO));
 		
 		if(category!=null && category.equals("")) category=null;
-//		List<HashMap<String, Object>> replyList = service.selectMyReplyList(userInfo.getNickname(), category, pVO);
-		List<HashMap<String, Object>> replyList = service.selectMyReplyList("ㅇㅇ", category, pVO);
+		List<HashMap<String, Object>> replyList = service.selectMyReplyList(userInfo.getNickname(), category, pVO);
 		
 		LocalDate now = LocalDate.now();
 		for (HashMap<String, Object> reply : replyList) {
