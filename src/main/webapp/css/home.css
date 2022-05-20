@@ -39,9 +39,9 @@
   background-color: #01c9c6;
   display: inline-block;
   color: #fff;
-  padding: 12px 30px;
+  padding: 12px 40px;
   width:200px;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 5px 5px;
   font-size: 16px;
   text-transform: uppercase;
   font-weight: 600;
@@ -93,7 +93,7 @@
 }
 
 .carousel{
-    height: 450px;
+    height: 480px;
     width: 100vw;
     margin-top: 40px;
     margin-bottom: 0px;
@@ -102,7 +102,7 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
-    border-radius: 20px 20px 0 0;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .carousel-inner{
@@ -134,7 +134,7 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url('prev.svg');
+    background-image: url('/img/prev.svg');
     background-position: center;
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -150,7 +150,7 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url('next.svg');
+    background-image: url('/img/next.svg');
     background-position: center;
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -206,3 +206,4 @@
 	width:300px;
 	height:200px;
 }
+

@@ -113,6 +113,7 @@
 .switch{
 	width:750px;
 }
+
 .switch a{
 	height: 15px;
 	padding:5px 13px;
@@ -127,6 +128,7 @@
 .switch a:nth-child(1){
 	width: 75px;
 	color: #01c9c6;
+	border:1px solid gray;
 	border-bottom: 4px solid #01c9c6;
 	margin-right:0px;
 }
@@ -135,6 +137,7 @@
 	padding-bottom: 9px;
 	color:black;
 	border-bottom: none;
+	border-radius: 8px 8px 0px 0px;
 }
 .switch-select{
 	margin-left:425px;
@@ -177,6 +180,7 @@ table td,th {
 table{
 	border:none;
 }
+
 
 
 th {

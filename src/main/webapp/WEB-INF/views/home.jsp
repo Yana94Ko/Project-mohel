@@ -30,13 +30,13 @@
 	        <li><strong>나만의 식단</strong>으로</li>
 	        <li>오늘 먹은 음식</li>
 	        <li><strong>기록하기!</strong></li>
-	
 	      </ul>
 	  	</div>
     </div>
 
     <div class="pricing-card">
-	    <div class="pricing-card-02">	
+	    <div class="pricing-card-02">
+	
 	      <h3 class="pricing-card-header">모두의 식단</h3>
 	      <div class="price">🥗</div>
 	      <ul>
@@ -49,14 +49,13 @@
     </div>
 
     <div class="pricing-card">
-      <div class="pricing-card-03">		
+      <div class="pricing-card-03">
       <h3 class="pricing-card-header">나만의 운동</h3>
-      <div class="price">🏊‍♂️</div>
+      <div class="price"><a href="/exercise/exerciseList?category=운동">🏊‍</a></div>
       <ul>
         <li><strong>나만의 운동</strong>으로</li>
         <li>오늘의 운동을</li>
         <li><strong>기록하기!</strong></li>
-
       </ul>
   	</div>
     </div>
@@ -136,5 +135,6 @@
 
  </div>
  </div>
+
  <script src="/js/home.js"></script>
  </main>
