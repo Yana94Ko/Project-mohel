@@ -4,6 +4,7 @@
 	<%@include file="/WEB-INF/views/inc/mypage/mypageNav.jsp" %>
 	
 	<form id="userEditFrm" class="info-box" method="post" action="/mypage/userEditOk" enctype="multipart/form-data">
+		<h3>나의 정보</h3>
 		<div class="info-basic">
 			<div class="basic-img-box">
 				<input id="imgFile" name="profileImg" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
@@ -73,28 +74,28 @@
 			<ul class="activity-rate">
 				<li>
 					<label for="select1">거의 운동을 하지 않음</label>
-					<input id="select1" name="active" type="radio" value="0.2" <c:if test="${userInfo.active==0.2 }">checked</c:if>>
+					<input id="select1" name="active" type="radio" value="0.2" <c:if test="${userInfo.intActive==200}">checked</c:if>>
 				</li>
 				<li>
 					<label for="select2">가벼운 운동 (주 1~3일)</label>
-					<input id="select2" name="active" type="radio" value="0.375" <c:if test="${userInfo.active==0.375 }">checked</c:if>>
+					<input id="select2" name="active" type="radio" value="0.375" <c:if test="${userInfo.intActive==375}">checked</c:if>>
 				</li>
 				<li>
 					<label for="select3">보통 (주 3~5일)</label>
-					<input id="select3" name="active" type="radio" value="0.55" <c:if test="${userInfo.active==0.55 }">checked</c:if>>
+					<input id="select3" name="active" type="radio" value="0.55" <c:if test="${userInfo.intActive==550}">checked</c:if>>
 				</li>
 				<li>
 					<label for="select4">적극적으로 운동 (주 5~7일)</label>
-					<input id="select4" name="active" type="radio" value="0.725" <c:if test="${userInfo.active==0.725 }">checked</c:if>>
+					<input id="select4" name="active" type="radio" value="0.725" <c:if test="${userInfo.intActive==725}">checked</c:if>>
 				</li>
 				<li>
 					<label for="select5">매우 적극적으로 운동 (매일)</label>
-					<input id="select5" name="active" type="radio" value="0.9" <c:if test="${userInfo.active==0.9 }">checked</c:if>>
+					<input id="select5" name="active" type="radio" value="0.9" <c:if test="${userInfo.intActive==900}">checked</c:if>>
 				</li>
 			</ul>
 			<div class="calc-metabolic-rate">
-				<div id="BMR">기초대사량 <span style="color:black;"></span></div>
-				<div id="AMR">활동대사량 <span style="color:black;"></span></div>
+				<div id="BMR">기초대사량 <span></span></div>
+				<div id="AMR">활동대사량 <span></span></div>
 			</div>
 		</div>
 		<button class="info-edit-pw-btn btn btn-info btn-sm">수정</button>

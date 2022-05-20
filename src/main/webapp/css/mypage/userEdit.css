@@ -16,6 +16,12 @@
 }
 
 /* info-basic */
+.info-box>h3{
+	font-size: 30px;
+}
+.info-box h4 {
+	color: black;
+}
 .info-box>div {
 	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
 	padding: 40px 60px;
@@ -153,4 +159,7 @@ h4{
 	border: none;
 	outline: none;
 	border-bottom: 1px solid black;
+}
+.calc-metabolic-rate span {
+	color: black;
 }

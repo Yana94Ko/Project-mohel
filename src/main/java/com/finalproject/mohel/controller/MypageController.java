@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.function.ServerRequest.Headers;
 
 import com.finalproject.mohel.MohelApplication;
 import com.finalproject.mohel.service.MemberService;
@@ -44,12 +43,14 @@ public class MypageController {
 		HttpSession session = request.getSession();
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
 		vo.setEmail(userInfo.getEmail());
+		System.out.println(vo);
+		System.out.println(session.getAttribute("userInfo"));
 		
 		MohelApplication.profileImgUpload(vo, request);
 		
 		headers.add("content-Type", "text/html;charset=utf-8");
 		
-		String imgRealPath = null;
+		String imgRealPath = "";
 		if(service.updateUserInfo(vo)==1) {
 			if(!((MemberVO)session.getAttribute("userInfo")).getProfile().equals(vo.getProfile())) {
 				imgRealPath = session.getServletContext().getRealPath(((MemberVO)session.getAttribute("userInfo")).getProfile());
@@ -62,7 +63,9 @@ public class MypageController {
 			body += "</script>";
 			entity = new ResponseEntity<String>(body, headers, HttpStatus.OK);
 		}else {
-			imgRealPath = session.getServletContext().getRealPath(vo.getProfile());
+			if(!((MemberVO)session.getAttribute("userInfo")).getProfile().equals(vo.getProfile())) {
+				imgRealPath = session.getServletContext().getRealPath(vo.getProfile());
+			}
 			
 			String body = "<script>";
 			body += "alert('회원 정보 수정에 실패하였습니다.\\n비밀번호를 확인해주세요.');";
