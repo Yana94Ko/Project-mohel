@@ -176,7 +176,7 @@ public class MypageController {
 	
 	@PostMapping("userDelOk")
 	public ResponseEntity<String> userDelOk(HttpSession session) {
-		if((boolean)session.getAttribute("kakao")) {
+		if(session.getAttribute("kakao")!=null && (boolean)session.getAttribute("kakao")) {
 			kakao.disconnKakao((String)session.getAttribute("accessToken"));
 		}
 		service.deleteMember((MemberVO)session.getAttribute("userInfo"));

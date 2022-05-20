@@ -62,10 +62,17 @@ public class MemberController {
 	public String checkMail(String email) {
 		String subject="모두의 헬스 메일 인증번호를 알려드립니다.";
 		String key = String.format("%06d", (int)(Math.random()*1000000));
-		String htmlText = "<h3>아래의 인증번호 6자리를 인증번호 입력창에 입력해주세요.</h3>";
-		htmlText += "<hr>";
-		htmlText += "<h2>"+key+"</h2>";
-		htmlText += "<hr>";
+		
+		String htmlText = "<div style='text-align: center;'>";
+		htmlText += "<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>";
+		htmlText += "<div style='margin: 0 auto; margin-top: 20px; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 470px; padding: 20px 0; font-size: 12px;'>";
+		htmlText += "<p style='font-size: 14px; font-weight: bold; margin-bottom: 10px;'>모헬[모두의 헬스]에서 보낸 이메일 확인을 위한 인증번호 입니다.</p>";
+		htmlText += "<p>아래의 인증번호 6자리를 입력하여 이메일 인증을 완료해 주세요</p>";
+		htmlText += "<h1 style='margin: 20px 0;'>"+key+"</h1>";
+		htmlText += "<p style='font-weight: bold;'>개인정보 보호를 위해 인증번호는 10분 동안만 유효합니다.</p>";
+		htmlText += "</div>";
+		htmlText += "<p style='margin-top: 60px;'>&#169; 2022 Mohel. All rigths reserved.</p>";
+		htmlText += "</div>";
 		
 		certified.sendMail(subject, htmlText, email);
 		
