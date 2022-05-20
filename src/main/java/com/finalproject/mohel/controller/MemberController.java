@@ -71,7 +71,7 @@ public class MemberController {
 		htmlText += "<h1 style='margin: 20px 0;'>"+key+"</h1>";
 		htmlText += "<p style='font-weight: bold;'>개인정보 보호를 위해 인증번호는 10분 동안만 유효합니다.</p>";
 		htmlText += "</div>";
-		htmlText += "<p style='margin-top: 60px;'>&#169; 2022 Mohel. All rigths reserved.</p>";
+		htmlText += "<p style='margin-top: 20px;'>&#169; 2022 Mohel. All rigths reserved.</p>";
 		htmlText += "</div>";
 		
 		certified.sendMail(subject, htmlText, email);
