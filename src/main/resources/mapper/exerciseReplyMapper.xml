@@ -13,7 +13,7 @@
 		order by no desc
 	</select>
 	<update id="exerciseReplyEdit">
-		update exercise_reply set contents=#{contents} where no=${no} and nickname=#{nickname}
+		update exercise_reply set contents=#{contents}, moddate=#{moddate} where no=${no} and nickname=#{nickname}
 	</update>
 	<delete id="exerciseReplyDel">
 		delete from exercise_reply where no=#{param1} and nickname=#{param2}

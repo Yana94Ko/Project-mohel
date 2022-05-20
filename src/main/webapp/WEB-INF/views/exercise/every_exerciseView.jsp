@@ -19,24 +19,25 @@
 		function replyListAll() { // 현재 글의 댓글을 모두 가져오기
 			var url = "/exercise/exerciseReplyList";
 			var params = "no=${vo.no}"; // 32번 글인경우: no=32 
-			
-			$.ajax({
+
+			$
+					.ajax({
 						url : url,
 						data : params,
 						success : function(result) {
 							var $result = $(result); // vo, vo, vo, vo...
 
-							var tag = "<ul>";
+							var tag = "<ul clss='list-group'>";
 
 							$result
 									.each(function(idx, vo) {
-										tag += "<li><div>" + vo.nickname;
+										tag += "<li class='list-group-item'><div>" + vo.nickname;
 										tag += "(" + vo.writedate + ")";
 										//  'goguma' ==  'goguma'
 										if (vo.nickname == '${userInfo.nickname}') {
 
-											tag += "<input type='button' value='수정'/>";
-											tag += "<input type='button' value='삭제' title='"+vo.no+"'/>";
+											tag += "<input type='button' class='btn btn-warning' value='수정' style='margin:5px; background-color:white;'/>";
+											tag += "<input type='button' class='btn btn-danger' value='삭제' style='background-color:white; color:black;'title='"+vo.no+"'/>";
 										}
 
 										tag += "<br/>" + vo.contents + "</div>";
@@ -52,7 +53,7 @@
 											tag += "</form></div>";
 
 										}
-										tag += "<hr/></li>"; // vo의 개수만큼 순환
+										tag += "</li>"; // vo의 개수만큼 순환
 									});
 
 							tag += "</ul>";
@@ -145,8 +146,8 @@
 			<h5>운동 함께할 사람 모집</h5>
 			<div>
 				<div class="form-group row">
-					<label for="title" class="col-sm-2 col-form-label">${vo.no}제목</label>
-					<input type='hidden' id='dbExerciseNo' value='${vo.no }'>
+					<label for="title" class="col-sm-2 col-form-label">제목</label> <input
+						type='hidden' id='dbExerciseNo' value='${vo.no }'>
 					<div class="col-sm-10">
 						<input readonly type="text" class="form-control"
 							placeholder="${vo.title}">
@@ -191,8 +192,9 @@
 						name="applicantMax" value="${vo.applicantMax}" readonly>
 				</div>
 				<div class="form-group">
-					<label for="applicant" class="form-label mt-4">참가자</label> 게시자
-					${vo.nickname } / 현재 로그인아이디${nickname }
+					<label for="applicant" class="form-label mt-4">참가자<br /></label> <br />모임
+					개설자 <strong>${vo.nickname }</strong> &nbsp&nbsp/&nbsp&nbsp 현재
+					로그인아이디 <strong>${nickname }</strong>
 					<!-- 신청 신청취소 구현 후 다시하기-->
 					<!-- START : 작성자 화면 -->
 					<c:if test="${nickname == vo.nickname}">
@@ -239,11 +241,13 @@
 								</c:if>
 							</c:forEach>
 						</ul>
-						<input type="hidden" id="loginNickName" value=${nickname}>
-						<input type="button" id="excerciseMemberApply"
-							onclick="excerciseMember()" value="참가 신청하기" />
-						<input type="button" id="excerciseMemberApplyDel"
-							onclick="excerciseMemberCancel()" value="참가 신청취소" />
+						<div id="applicantBox">
+							<input type="hidden" id="loginNickName" value=${nickname}>
+							<input type="button" id="excerciseMemberApply"
+								onclick="excerciseMember()" value="참가 신청하기" /> <input
+								type="button" id="excerciseMemberApplyDel"
+								onclick="excerciseMemberCancel()" value="참가 신청취소" />
+						</div>
 					</c:if>
 					<!-- 작성자가 아닐 때 화면 : END-->
 				</div>
@@ -266,12 +270,18 @@
 	</div>
 
 	<!-- 댓글쓰기 -->
+
 	<c:if test="${nickname!=null}">
+		<hr id="line"/>
 		<form method="post" id="replyFrm">
 			<input type="hidden" name="no" value="${vo.no }" />
-			<textarea name="contents" id="reply-contents"
-				style="width: 500px; height: 80px;"></textarea>
-			<input type="submit" value="댓글등록" />
+			<div class="form-group">
+				<label for="contents" class="form-label mt-4">댓글 작성하기</label>
+				<textarea class="form-control" id="reply-contents" rows="1"
+					name="contents"></textarea>
+			</div>
+
+			<input type="submit" class="btn btn-outline-dark" value="댓글등록하기" id="reply-submit"/>
 		</form>
 	</c:if>
 
