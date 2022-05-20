@@ -174,8 +174,8 @@ $(function() {
 			BMR = 655.1+(9.56*$(weight).val())+(1.85*$(height).val())-(4.68*age);
 		}
 		var AMR = BMR*$('input[name=active]:checked').val();
-		$('#BMR>span').text(Math.round(BMR * 100)/100+'kcal');
-		$('#AMR>span').text(Math.round(AMR * 100)/100+'kcal');
+		$('#BMR>span').text(Math.round(BMR * 100)/100);
+		$('#AMR>span').text(Math.round(AMR * 100)/100);
 	}
 	setABMR();
 	$('input[name=active], #birthdate, input[name=gender], #height, #weight').on('change', function() {
