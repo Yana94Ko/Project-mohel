@@ -7,7 +7,6 @@
 <head>
 <link href="${url}/css/exercise/every_exerciseList.css" rel="stylesheet"
 	type="text/css" />
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>

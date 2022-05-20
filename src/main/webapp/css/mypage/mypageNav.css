@@ -1,9 +1,17 @@
 @charset "UTF-8";
+
+.btn,
+.btn:active,
+.btn:focus {
+	border: none !important;
+	box-shadow: none !important;
+}
+
 .mypage-main {
 	overflow: auto;
 	margin: 90px auto;
 }
-.mypage-main>div {
+.mypage-main>* {
 	float: left;
 }
 #contents {
