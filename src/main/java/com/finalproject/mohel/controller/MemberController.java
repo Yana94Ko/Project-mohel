@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.finalproject.mohel.MohelApplication;
 import com.finalproject.mohel.service.Certified;
 import com.finalproject.mohel.service.KakaoAPI;
@@ -137,5 +138,17 @@ public class MemberController {
 			redirect.addFlashAttribute("kakaoVO", kakaoVO);
 			return "redirect:signup";
 		}
+	}
+	
+	// 비밀번호 찾기
+	@GetMapping("findPwd")
+	public String findPwd() {
+		return "/member/findPwd";
+	}
+	
+	// 비밀번호 재설정
+	@GetMapping("resetPwd")
+	public String resetPwd() {
+		return "/member/resetPwd";
 	}
 }
