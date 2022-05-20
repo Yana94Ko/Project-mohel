@@ -60,7 +60,7 @@
 				</div>
 				 -->
 				 <div class="form-group">
-					<label for="location" class="form-label mt-4">장소</label> 
+					<label for="location" class="form-label mt-4">모임장소</label> 
 					<input type="text" class="form-control" id="location" name="location" >
 				 	<input type="hidden" name="placeinfo" id="placeinfo">
 				 	
