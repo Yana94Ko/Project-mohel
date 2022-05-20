@@ -160,6 +160,11 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.getFilename(no);
 	}
 
+	@Override
+	public List<ExerciseVO> home_exercise(ExercisePagingVO pVO) {
+		return dao.home_exercise(pVO);
+	}
+
 
 
 

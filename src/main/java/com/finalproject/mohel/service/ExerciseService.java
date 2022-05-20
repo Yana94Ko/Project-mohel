@@ -57,4 +57,7 @@ public interface ExerciseService {
 	public int every_exerciseDelete(int no, String nickname);
 	
 	public void every_cntHit (int no);
+	
+	// 홈에 나오는 모두의 운동
+	public List<ExerciseVO> home_exercise(ExercisePagingVO pVO);
 }
