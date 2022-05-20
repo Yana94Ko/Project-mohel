@@ -16,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.MohelApplication;
+import com.finalproject.mohel.service.KakaoAPI;
 import com.finalproject.mohel.service.MemberService;
 import com.finalproject.mohel.service.MypageService;
 import com.finalproject.mohel.vo.BoardVO;
@@ -33,6 +35,8 @@ public class MypageController {
 	MypageService service;
 	@Inject
 	MemberService memberService;
+	@Inject
+	KakaoAPI kakao;
 	
 	ModelAndView mav = new ModelAndView();
 	HttpHeaders headers = new HttpHeaders();
@@ -168,5 +172,33 @@ public class MypageController {
 	@GetMapping("userDel")
 	public String userDel() {
 		return "/mypage/userDel";
+	}
+	
+	@PostMapping("userDelOk")
+	public ResponseEntity<String> userDelOk(HttpSession session) {
+		if((boolean)session.getAttribute("kakao")) {
+			kakao.disconnKakao((String)session.getAttribute("accessToken"));
+		}
+		service.deleteMember((MemberVO)session.getAttribute("userInfo"));
+		session.invalidate();
+		
+		String body = "<script>";
+		body += "alert('회원정보가 삭제되었습니다.');";
+		body += "location.href='/';";
+		body += "</script>";
+		
+		return new ResponseEntity<String>(body, headers, HttpStatus.OK);
+	}
+	
+	@PostMapping("pwdCk")
+	@ResponseBody
+	public int pwdCk(String pwd, HttpSession session) {
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		userInfo.setPwd(pwd);
+		if(memberService.selectMember(userInfo)!=null) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 }

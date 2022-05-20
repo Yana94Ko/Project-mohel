@@ -43,7 +43,7 @@
 			</tbody>
 		</table>
 		<!-- 페이징 -->
-		<c:if test="${myReplyList.size()!=0 }">
+		<c:if test="${myReplyList.size()>10 }">
 			<ul class="paging">
 				<!-- 이전 페이지 -->
 				<c:if test="${pVO.pageNum<=pVO.onePageCount}">

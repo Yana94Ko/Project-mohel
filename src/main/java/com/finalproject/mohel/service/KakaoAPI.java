@@ -17,32 +17,32 @@ public class KakaoAPI {
 	private final String REST_API_KEY = "8299169b3aa46a93e89d0f3fe4ed0583";
 	private final String REDIRECT_URI = "http://localhost:8040/member/kakaologin";
 
-//	토큰 갱신
+//	토큰 받기
 //	 -d "grant_type=authorization_code"
 //	 -d "client_id=${REST_API_KEY}"
 //	 --data-urlencode "redirect_uri=${REDIRECT_URI}"
 //	 -d "code=${AUTHORIZE_CODE}"
-	public String getRefreshToken(String authorizeCode) {
+	public JSONObject getToken(String authorizeCode) {
         StringBuffer sb = new StringBuffer();
         sb.append("grant_type=authorization_code");
 		sb.append("&client_id="+REST_API_KEY);
 		sb.append("&redirect_uri="+REDIRECT_URI);
 		sb.append("&code="+authorizeCode);
 		
-		return getTokenJson(sb).getString("refresh_token");
+		return getTokenJson(sb);
 	}
 
-//	토큰 받기
+//	토큰 갱신
 //	 -d "grant_type=refresh_token"
 //	 -d "client_id=${REST_API_KEY}"
 //	 -d "refresh_token=${USER_REFRESH_TOKEN}"
-	public String getAccessToken(String refreshToken) {
+	public JSONObject getTokenRefresh(String refreshToken) {
 		StringBuffer sb = new StringBuffer();
         sb.append("grant_type=refresh_token");
 		sb.append("&client_id="+REST_API_KEY);
 		sb.append("&refresh_token="+refreshToken);
 		
-		return getTokenJson(sb).getString("access_token");
+		return getTokenJson(sb);
 	}
 	
 	public HashMap<String, String> getUserInfo(String accessToken) {
@@ -73,6 +73,32 @@ public class KakaoAPI {
 		}
 		
 		return userInfo;
+	}
+	
+	public String disconnKakao(String accessToken) {
+		String disconnUrl = "https://kapi.kakao.com/v1/user/unlink";
+		String method = "POST";
+		
+		String disconnId = null;
+		try {
+			URL url = new URL(disconnUrl);
+			
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setDoOutput(false);
+			con.setRequestMethod(method);
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+			con.setRequestProperty("Authorization", "Bearer " + accessToken);
+			
+			StringBuffer response = getResponse(con);
+			JSONObject disconnJSON = new JSONObject(response.toString());
+			
+			disconnId = disconnJSON.getString("id");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return disconnId;
 	}
 	
 	private JSONObject getTokenJson(StringBuffer sb) {

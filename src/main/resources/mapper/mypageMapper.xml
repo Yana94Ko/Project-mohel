@@ -86,4 +86,9 @@
 			and ${param2.searchKey} like "%${param2.searchWord}%"
 		</if>
   	</select>
+  	
+  	<delete id="deleteMember">
+  		delete from member
+  		where email=#{email}
+  	</delete>
 </mapper>

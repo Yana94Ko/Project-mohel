@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.mail.javamail.JavaMailSender;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +29,6 @@ public class MemberController {
 	Certified certified;
 	@Inject
 	KakaoAPI kakao;
-	@Inject
-	JavaMailSender javaMailSender;
 
 	// 회원가입
 	@GetMapping("signup")
@@ -62,7 +60,16 @@ public class MemberController {
 	@PostMapping("checkMail")
 	@ResponseBody
 	public String checkMail(String email) {
-		return certified.checkMail(email, javaMailSender);
+		String subject="모두의 헬스 메일 인증번호를 알려드립니다.";
+		String key = String.format("%06d", (int)(Math.random()*1000000));
+		String htmlText = "<h3>아래의 인증번호 6자리를 인증번호 입력창에 입력해주세요.</h3>";
+		htmlText += "<hr>";
+		htmlText += "<h2>"+key+"</h2>";
+		htmlText += "<hr>";
+		
+		certified.sendMail(subject, htmlText, email);
+		
+		return key;
 	}
 	
 	@GetMapping("searchNickname")
@@ -106,11 +113,17 @@ public class MemberController {
 	
 	@GetMapping("kakaologin")
 	public String kakaologin(String code, HttpSession session, RedirectAttributes redirect) {
-		MemberVO kakaoVO = new MemberVO(kakao.getUserInfo(kakao.getAccessToken(kakao.getRefreshToken(code))));
+		JSONObject tokenJson = kakao.getToken(code);
+		String accessToken = tokenJson.getString("access_token");
+		String refreshToken = tokenJson.getString("refresh_token");
+		
+		MemberVO kakaoVO = new MemberVO(kakao.getUserInfo(accessToken));
 		MemberVO userInfo = service.selectMember(kakaoVO);
 		
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
+			session.setAttribute("accessToken", accessToken);
+			session.setAttribute("refreshToken", refreshToken);
 			session.setAttribute("kakao", true);
 			return "redirect:/";
 		}else {

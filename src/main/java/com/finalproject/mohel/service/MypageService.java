@@ -16,4 +16,5 @@ public interface MypageService {
 	public int replyTotalRecord(String nickname, String category, PagingVO pVO);
 	public List<HashMap<String, String>> selectMyExercise(String nickname, PagingVO pVO);
 	public int myExerciseTotalRecord(String nickname, PagingVO pVO);
+	public int deleteMember(MemberVO vo);
 }

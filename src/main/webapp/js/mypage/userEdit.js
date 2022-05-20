@@ -182,7 +182,7 @@ $(function() {
 		setABMR();
 	});
 	
-	$('#userEditFrm').submit(function() {
+	$('#userEditFrm').submit(function(e) {
 		let userInfo = nicknameCheck && telCheck;
 		let metabolicRate = age * $(height).val() * $(weight).val() * $('input[name=active]:checked').val()!=0
 		if(!userInfo){
@@ -192,5 +192,25 @@ $(function() {
 			alert("대사량 측정 입력란을 확인해주세요.");
 			return false;
 		}
+		
+		try{
+			if($(editCkPwd).val().length==0){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}else {
+				$.ajax({
+					url: '/mypage/pwdCk',
+					data: 'pwd='+$(editCkPwd).val(),
+					type: 'post',
+					async: false,
+					success: function(r) {
+						if(r==0) {
+							alert("비밀번호가 틀렸습니다.");
+							e.preventDefault();
+						}
+					}
+				});
+			}
+		}catch (e) {}
 	});
 });

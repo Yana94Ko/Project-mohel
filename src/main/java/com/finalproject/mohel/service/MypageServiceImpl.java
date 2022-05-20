@@ -52,5 +52,10 @@ public class MypageServiceImpl implements MypageService {
 	public int myExerciseTotalRecord(String nickname, PagingVO pVO) {
 		return dao.myExerciseTotalRecord(nickname, pVO);
 	}
+
+	@Override
+	public int deleteMember(MemberVO vo) {
+		return dao.deleteMember(vo);
+	}
 	
 }
