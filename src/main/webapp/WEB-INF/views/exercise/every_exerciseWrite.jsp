@@ -5,12 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="${url}/css/exercise/every_exerciseWrite.css"
-	rel="stylesheet" type="text/css" />
+<link href="${url}/css/exercise/every_exerciseWrite.css" rel="stylesheet" type="text/css" />
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -91,12 +89,11 @@
 					<input id="upload-btn" class="form-control" type="file" id="formFile" name="filename">
 				</div>
 
-				<button onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>
+				<button type="button" onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>
 			</fieldset>
 		</form>
 	</div>
 
-	<script type="text/javascript"
-		src="${url}/js/exercise/every_exerciseWrite.js"></script>
+	<script type="text/javascript" src="${url}/js/exercise/every_exerciseWrite.js"></script>
 </body>
 </html>

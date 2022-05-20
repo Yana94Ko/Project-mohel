@@ -11,7 +11,7 @@ import com.finalproject.mohel.vo.ExerciseVO;
 public interface ExerciseService {
 	//참가 여부
 	public int resolveStatus(String nickname,int no);
-	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO);
+	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO, String nickname);
 	public int exerciseInsert(BoardVO vo); 
 	//public int exerciseSelect(BoardVO vo);
 	public BoardVO exerciseSelect(int no);
@@ -23,7 +23,7 @@ public interface ExerciseService {
 	public void cntHit (int no);
 
 	//총레코드수
-	public int totalRecord(ExercisePagingVO pVO);
+	public int totalRecord(ExercisePagingVO pVO, String nickname);
 	public int totalRecord1(ExerciseVO vo, ExercisePagingVO pVO);
 	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO);
 	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO);

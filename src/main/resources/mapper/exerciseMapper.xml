@@ -8,20 +8,26 @@
 <mapper namespace="com.finalproject.mohel.dao.ExerciseDAO">
 	<select id="exerciseList"
 		resultType="com.finalproject.mohel.vo.BoardVO">
-		select no, title, contents, nickname, date_format(writedate,
-		'%Y-%m-%d') as writedate, hit
+		select no, title, contents, nickname, date_format(writedate,'%Y-%m-%d') as writedate, hit
 		from board
-		where category='exercise'
-		<if test='searchWord != null'>
-			where ${searchKey} like '%${searchWord}%'
+		where category='exercise' 
+		<if test="param2!=null">
+		and nickname=#{param2} 
+		</if>
+		<if test='param1.searchWord != null'>
+			and ${param1.searchKey} like '%${param1.searchWord}%'
 		</if>
 		order by no desc
-		limit ${onePageRecord} offset ${offsetIndex}
+		limit ${param1.onePageRecord} offset ${param1.offsetIndex}
 	</select>
 	<select id="totalRecord" resultType="int">
 		select count(no) cnt from board
-		<if test='searchWord !=null'>
-			where ${searchKey} like '%${searchWord}%'
+		where category='exercise' 
+		<if test="param2!=null">
+		and nickname=#{param2} 
+		</if>
+		<if test='param1.searchWord !=null'>
+			and ${param1.searchKey} like '%${param1.searchWord}%'
 		</if>
 	</select>
 

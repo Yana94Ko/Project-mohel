@@ -25,8 +25,8 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO) {
-		return dao.exerciseList(pVO);
+	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO, String nickname) {
+		return dao.exerciseList(pVO, nickname);
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int totalRecord(ExercisePagingVO pVO) {
-		return dao.totalRecord(pVO);
+	public int totalRecord(ExercisePagingVO pVO, String nickname) {
+		return dao.totalRecord(pVO, nickname);
 	}
 
 	@Override

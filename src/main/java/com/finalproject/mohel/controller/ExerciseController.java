@@ -42,9 +42,15 @@ public class ExerciseController {
 	@GetMapping("/exercise/exerciseList")
 	public ModelAndView exerciseList(ExercisePagingVO pVO, String category, String nickname, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		pVO.setTotalRecord(service.totalRecord(pVO));
-		
-		mav.addObject("lst", service.exerciseList(pVO));
+		if(nickname==null) {
+			MemberVO user=(MemberVO)session.getAttribute("userInfo");
+			if(user!=null) {
+				nickname=user.getNickname();
+			}
+		}
+		pVO.setTotalRecord(service.totalRecord(pVO, nickname));
+		System.out.println(nickname);
+		mav.addObject("lst", service.exerciseList(pVO, nickname));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
 		mav.addObject("nickname", nickname);
@@ -235,7 +241,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
-		pVO.setTotalRecord(service.totalRecord(pVO));
+		pVO.setTotalRecord(service.totalRecord(pVO,null));
 		
 		mav.addObject("lst", service.every_exerciseList(pVO));
 		mav.addObject("pVO", pVO);

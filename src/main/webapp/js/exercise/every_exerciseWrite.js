@@ -271,6 +271,7 @@ $(function(){
 	$("#everyExerciseFrm").submit(function(){
 		if($("#title").val()==''){
 			alert("제목을 입력하세요.");
+			console.log("제목확인")
 			return false;
 		}
 		if($("#contents").val()==''){
@@ -317,4 +318,4 @@ $(function(){
             }
         }
 
-
+console.log(" 스크립트 로드 확인")

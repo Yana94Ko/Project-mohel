@@ -20,8 +20,7 @@
 			var url = "/exercise/exerciseReplyList";
 			var params = "no=${vo.no}"; // 32번 글인경우: no=32 
 
-			$
-					.ajax({
+			$.ajax({
 						url : url,
 						data : params,
 						success : function(result) {
@@ -49,7 +48,7 @@
 											tag += "<textarea name='contents' style='width:400px;height:50px;'>"
 													+ vo.contents
 													+ "</textarea>";
-											tag += "<input type='submit' value='수정'/>";
+											tag += "<input type='submit' class='btn btn-warning' value='수정' style='background-color:white; position:relative; top:-20px; margin:5px;'/>";
 											tag += "</form></div>";
 
 										}
@@ -211,10 +210,9 @@
 										id="exerciseStatusShow${st.index}"><a
 											href="/member/login">열람하기</a></span></li>
 									<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
-									<li><input type='button' id="stateUpdateBtn"
-										class="applicantSave" value="승낙"> <input type='button'
-										id="stateDeleteBtn" class="applicantDel" value="거절"> <span
-										id="exerciseTogether${st.index}"></span></li>
+									<li><input type='button' id="stateUpdateBtn" class="applicantSave" value="승낙" > 
+										<input type='button' id="stateDeleteBtn" class="applicantDel" value="거절" > 
+										<span id="exerciseTogether${st.index}"></span></li>
 								</c:if>
 							</c:forEach>
 						</ul>
@@ -243,9 +241,9 @@
 						</ul>
 						<div id="applicantBox">
 							<input type="hidden" id="loginNickName" value=${nickname}>
-							<input type="button" id="excerciseMemberApply"
+							<input type="button" id="excerciseMemberApply" class='btn btn-light'
 								onclick="excerciseMember()" value="참가 신청하기" /> <input
-								type="button" id="excerciseMemberApplyDel"
+								type="button" id="excerciseMemberApplyDel" class='btn btn-light'
 								onclick="excerciseMemberCancel()" value="참가 신청취소" />
 						</div>
 					</c:if>

@@ -300,9 +300,14 @@ h5 {
 #applicantBox{
 	margin:15px;
 }
+#excerciseMemberApply{
+	border-color:#008C8C;
+}
 #excerciseMemberApplyDel{
+	border-color:#008C8C;
 	position:relative;
 	left:10px;
+	
 }
 /*댓글*/
 #line{
