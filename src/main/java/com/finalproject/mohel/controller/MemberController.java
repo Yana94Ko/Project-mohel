@@ -3,8 +3,11 @@ package com.finalproject.mohel.controller;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -135,11 +138,12 @@ public class MemberController{
 	}
 	
 	@PostMapping("loginOk")
-	public String loginOk(HttpSession session, MemberVO vo, RedirectAttributes redirect) {
+	public String loginOk(MemberVO vo, HttpSession session, HttpServletResponse res, RedirectAttributes redirect) {
 		MemberVO userInfo = service.selectMember(vo);
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("verify", userInfo.getVerify());
+			setCookie(res, session);
 			return "redirect:/";
 		}else {
 			redirect.addFlashAttribute("email", vo.getEmail());
@@ -149,13 +153,14 @@ public class MemberController{
 	}
 	
 	@GetMapping("logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+		removeCookies(req, res);
 		session.invalidate();
 		return "redirect:/";
 	}
 	
 	@GetMapping("kakaologin")
-	public String kakaologin(String code, HttpSession session, RedirectAttributes redirect) {
+	public String kakaologin(String code, HttpSession session, HttpServletResponse res,  RedirectAttributes redirect) {
 		JSONObject tokenJson = kakao.getToken(code);
 		String accessToken = tokenJson.getString("access_token");
 		String refreshToken = tokenJson.getString("refresh_token");
@@ -168,6 +173,7 @@ public class MemberController{
 			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("refreshToken", refreshToken);
 			session.setAttribute("kakao", true);
+			setCookie(res, session);
 			return "redirect:/";
 		}else {
 			redirect.addFlashAttribute("kakaoVO", kakaoVO);
@@ -175,10 +181,10 @@ public class MemberController{
 		}
 	}
 	
-	// 비밀번호 찾기
-	@GetMapping("findPwd")
-	public String findPwd() {
-		return "/member/findPwd";
+	// 비밀번호 재설정
+	@GetMapping("resetPwdCertifiedMail")
+	public String resetPwdCertifiedMail() {
+		return "/member/resetPwdCertifiedMail";
 	}
 	
 	@PostMapping("changePwdSendMail")
@@ -193,8 +199,7 @@ public class MemberController{
 				code.append(codeListString.charAt((int)(Math.random()*(codeListString.length()-1))));
 			}
 			
-			int holdTime = 60*30;	// 30분(비밀번호 변경 사이트 유지 시간)
-			holdTime = 60;
+			int holdTime = 1800;	// 30분(비밀번호 재설정 사이트 유지 시간)
 			session.setAttribute("email", email);
 			session.setAttribute("authCode", code.toString());
 			session.setMaxInactiveInterval(holdTime);
@@ -202,6 +207,9 @@ public class MemberController{
 			Cookie c = new Cookie("authCode", code.toString());
 			c.setMaxAge(holdTime);
 			c.setPath("/member/");
+			
+			System.out.println("cookieMaxAge=> "+c.getMaxAge());
+			System.out.println();
 			res.addCookie(c);
 			
 			String subject="모헬[모두의 헬스] 비밀번호 변경";
@@ -211,7 +219,7 @@ public class MemberController{
 			htmlText += "<p style='font-size: 14px; font-weight: bold; margin-bottom: 10px;'>안녕하세요 회원님 비밀번호를 재설정 하시겠어요?</p>";
 			htmlText += "<p>비밀번호를 재설정 하길 원하시면 아래 버튼을 클릭해주세요!</p>";
 			htmlText += "<p>메일이 온 시간부터 30분 내로 비밀번호를 변경 해주세요.</p>";
-			htmlText += "<div style='margin-top: 30px; margin-bottom: 10px;'><a href='http://localhost:8040/member/codeCheck' style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold;'>비밀번호 재설정</a></div>";
+			htmlText += "<div style='margin-top: 30px; margin-bottom: 10px;'><a href='http://localhost:8040/member/codeCheck?authCode="+code.toString()+"' style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold;'>비밀번호 재설정</a></div>";
 			htmlText += "</div>";
 			htmlText += "<p style='margin-top: 60px;'>&#169; 2022 Mohel. All rigths reserved.</p>";
 			htmlText += "</div>";
@@ -234,25 +242,34 @@ public class MemberController{
 	}
 	
 	@GetMapping("codeCheck")
-	public ResponseEntity<String> codeCheck(HttpServletRequest req, RedirectAttributes redirect) throws URISyntaxException {
+	public ResponseEntity<String> codeCheck(String authCode, HttpServletRequest req, RedirectAttributes redirect) throws URISyntaxException {
 		HttpSession session = req.getSession();
 		String sessionCode = (String)session.getAttribute("authCode");
 		
-		HashMap<String, String> cookiesMap = new HashMap<String, String>();
+		String cookieCode = null;
 		Cookie[] cookies = req.getCookies();
-		for (Cookie c : cookies) {
-			cookiesMap.put(c.getName(), c.getValue());
+		if(cookies!=null) {
+			for (Cookie c : cookies) {
+				if(c.getName().equals("authCode") && c.getValue().length()!=0) {
+					cookieCode = c.getValue();
+					System.out.println("cookieCode=> "+cookieCode);
+				}
+			}
 		}
-		
+		System.out.println("sessionCode=> "+sessionCode);
+		System.out.println("authCode=> "+authCode);
+		System.out.println();
 		headers.add("content-Type", "text/html;charset=utf-8");
-		if(sessionCode.equals(cookiesMap.get("authCode"))){
+		if(cookieCode!=null
+		&& sessionCode.equals(cookieCode)
+		&& cookieCode.equals(authCode)
+		&& authCode.equals(sessionCode)){
 			URI resetPwdUri = new URI("resetPwd");
 			headers.setLocation(resetPwdUri);
-			redirect.addFlashAttribute("email", (String)session.getAttribute("email"));
 			entity = new ResponseEntity<String>(headers, HttpStatus.SEE_OTHER);
 		}else {
 			String body = "<script>";
-			body += "alert('세션이 만료되었습니다.');";
+			body += "alert('이메일 인증을 다시 진행해주세요.');";
 			body += "location.href='/member/login';";
 			body += "</script>";
 			entity = new ResponseEntity<String>(body, headers, HttpStatus.BAD_REQUEST);
@@ -261,11 +278,62 @@ public class MemberController{
 		return entity;
 	}
 	
-	// 비밀번호 재설정
 	@GetMapping("resetPwd")
-	public String resetPwd(Model model) {
-		System.out.println(model.getAttribute("email"));
+	public String resetPwd(HttpServletRequest req) {
+		Cookie[] cookies = req.getCookies();
+		if(cookies!=null) {
+			for (Cookie c : cookies) {
+				if(c.getName().equals("authCode")) {
+					System.out.println("-------------resetPwd--------------");
+					System.out.println("cookieName=> "+c.getName());
+					System.out.println("cookieValue=> "+c.getValue());
+					System.out.println("cookieMaxAge=> "+c.getMaxAge());
+					System.out.println();
+				}
+			}
+		}
+		
 		return "/member/resetPwd";
+	}
+	
+	@PostMapping("resetPwdOk")
+	public ResponseEntity<String> resetPwdOk(String pwd, HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		
+		String cookieCode = null;
+		Cookie[] cookies = req.getCookies();
+		if(cookies != null) {
+			for (Cookie c : cookies) {
+				if(c.getName().equals("authCode")) {
+					cookieCode = c.getValue();
+				}
+			}
+		}
+		removeCookies(req, res);
+		
+		StringBuffer body = new StringBuffer();
+		headers.add("content-Type", "text/html;charset=utf-8");
+		if((String)session.getAttribute("email")!=null && cookieCode!=null && cookieCode != "") {
+			MemberVO vo = new MemberVO();
+			vo.setEmail((String)session.getAttribute("email"));
+			vo.setPwd(pwd);
+			service.updatePwd(vo);
+			
+			body.append("<script>");
+			body.append("alert('비밀번호가 변경되었습니다.');");
+			body.append("location.href='/member/login';");
+			body.append("</script>");
+			entity = new ResponseEntity<String>(body.toString(), headers, HttpStatus.OK);
+		}else {
+			body.append("<script>");
+			body.append("alert('이메일 인증을 다시 진행해주세요.');");
+			body.append("location.href='/member/login';");
+			body.append("</script>");
+			entity = new ResponseEntity<String>(body.toString(), headers, HttpStatus.BAD_REQUEST);
+		}
+		session.invalidate();
+		
+		return entity;
 	}
 	
 	// 쿠키 생성
@@ -273,19 +341,20 @@ public class MemberController{
 		Iterator<String> it = session.getAttributeNames().asIterator();
 		while(it.hasNext()) {
 			String sessionAttributeName = it.next();
-			Cookie c = null;
-			c = new Cookie(sessionAttributeName, (String) session.getAttribute(sessionAttributeName));
+			Cookie c = new Cookie(sessionAttributeName, (String) session.getAttribute(sessionAttributeName));
 			c.setMaxAge(60*60*24*30);
 			res.addCookie(c);
 		}
 	}
 	
 	// 쿠키 삭제
-	private void removeCookies(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+	private void removeCookies(HttpServletRequest req, HttpServletResponse res) {
 		Cookie[] cookies = req.getCookies();
 		if(cookies != null) {
 			for (Cookie cookie : cookies) {
 				cookie.setMaxAge(0);
+				cookie.setSecure(true);
+				cookie.setPath("/");
 				res.addCookie(cookie);
 			}
 		}

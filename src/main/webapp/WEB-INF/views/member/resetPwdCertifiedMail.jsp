@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/css/member/findPwd.css" type="text/css">
-<script src="/js/member/findPwd.js"></script>
+<link rel="stylesheet" href="/css/member/resetPwdCertifiedMail.css" type="text/css">
+<script src="/js/member/resetPwdCertifiedMail.js"></script>
 <div class="findPwd container">
 
 	<form id="findPwdFrm" method="post" action="/member/changePwdSendMail">

@@ -12,4 +12,5 @@ public interface MemberDAO {
 	public int searchEmail(String email);
 	public int insertMember(MemberVO vo);
 	public MemberVO selectMember(MemberVO vo);
+	public int updatePwd(MemberVO vo);
 }

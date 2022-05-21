@@ -20,4 +20,9 @@
 			 and pwd=#{pwd}
 		</if>
 	</select>
+	<update id="updatePwd">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>
 </mapper>
