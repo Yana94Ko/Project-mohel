@@ -6,6 +6,7 @@
 		<a href="/" class="newPwd-img"><img src="/img/mohel-logo-11.png"></a>
 		<h3>새 비밀번호 설정</h3>
 		<p>새로운 비밀번호를 입력해주세요.</p>
+		<input type="hidden" name="authCode" value="${redirectAuthCode}">
 		<ul>
 			<li>새로운 비밀번호</li>
 			<li><input type="password" id="newPwd" name="pwd"></li>

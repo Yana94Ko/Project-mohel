@@ -58,27 +58,29 @@ public class MypageController {
 		headers.add("content-Type", "text/html;charset=utf-8");
 		
 		String imgRealPath = "";
+
+		StringBuffer body = new StringBuffer();
 		if(service.updateUserInfo(vo)==1) {
 			if(!((MemberVO)session.getAttribute("userInfo")).getProfile().equals(vo.getProfile())) {
 				imgRealPath = session.getServletContext().getRealPath(((MemberVO)session.getAttribute("userInfo")).getProfile());
 			}
 			session.setAttribute("userInfo", memberService.selectMember(vo));
 			
-			String body = "<script>";
-			body += "alert('회원 정보가 수정되었습니다.');";
-			body += "location.href='/mypage/userEdit';";
-			body += "</script>";
-			entity = new ResponseEntity<String>(body, headers, HttpStatus.OK);
+			body.append("<script>");
+			body.append("alert('회원 정보가 수정되었습니다.');");
+			body.append("location.href='/mypage/userEdit';");
+			body.append("</script>");
+			entity = new ResponseEntity<String>(body.toString(), headers, HttpStatus.OK);
 		}else {
 			if(!((MemberVO)session.getAttribute("userInfo")).getProfile().equals(vo.getProfile())) {
 				imgRealPath = session.getServletContext().getRealPath(vo.getProfile());
 			}
 			
-			String body = "<script>";
-			body += "alert('회원 정보 수정에 실패하였습니다.\\n비밀번호를 확인해주세요.');";
-			body += "location.href='/mypage/userEdit';";
-			body += "</script>";
-			entity = new ResponseEntity<String>(body, headers, HttpStatus.BAD_REQUEST);
+			body.append("<script>");
+			body.append("alert('회원 정보 수정에 실패하였습니다.\\n비밀번호를 확인해주세요.');");
+			body.append("location.href='/mypage/userEdit';");
+			body.append("</script>");
+			entity = new ResponseEntity<String>(body.toString(), headers, HttpStatus.BAD_REQUEST);
 		}
 		
 		File f = new File(imgRealPath);
@@ -182,12 +184,13 @@ public class MypageController {
 		service.deleteMember((MemberVO)session.getAttribute("userInfo"));
 		session.invalidate();
 		
-		String body = "<script>";
-		body += "alert('회원정보가 삭제되었습니다.');";
-		body += "location.href='/';";
-		body += "</script>";
+		StringBuffer body = new StringBuffer();
+		body.append("<script>");
+		body.append("alert('회원정보가 삭제되었습니다.');");
+		body.append("location.href='/';");
+		body.append("</script>");
 		
-		return new ResponseEntity<String>(body, headers, HttpStatus.OK);
+		return new ResponseEntity<String>(body.toString(), headers, HttpStatus.OK);
 	}
 	
 	@PostMapping("pwdCk")

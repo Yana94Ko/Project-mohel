@@ -1,8 +1,8 @@
 package com.finalproject.mohel;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,18 +12,12 @@ public class ResetPwdInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
+		HttpSession session = request.getSession();
 		String authCode = null;
-		Cookie[] cookies = request.getCookies();
-		if(cookies!=null) {
-			for (Cookie c : cookies) {
-				if(c.getName().equals("authCode") && c.getValue().length()!=0) {
-					authCode = c.getValue();
-				}
-			}
+		if((String)session.getAttribute("authCode") != null) {
+			session.setAttribute("expireSession", (long)session.getMaxInactiveInterval()-(System.currentTimeMillis()/1000-(long)session.getAttribute("setSessionTimeStamp")));
+			authCode = (String)session.getAttribute("authCode");
 		}
-		
-		System.out.println("interceptor authCode: "+authCode);
-		System.out.println();
 		if(authCode!=null) {
 			return true;
 		}else {
