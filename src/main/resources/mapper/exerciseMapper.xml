@@ -165,4 +165,14 @@
 		where ${searchKey} like '%${searchWord}%'
 		</if>
 	</select>
+	
+	<!-- 참가자 수 관련 -->
+	<select id="exerciseMemberCnt" resultType="int">
+		select count(nickname) as cnt from exercise_member 
+		where exerciseNo =#{param1} and status=1
+	</select>
+	<update id="exerciseApplicantCntSet">
+		update everyexercise set
+		applicantCnt = #{param2} where no= #{param1}
+	</update>
 </mapper>
