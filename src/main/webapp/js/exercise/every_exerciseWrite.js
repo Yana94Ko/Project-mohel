@@ -316,5 +316,35 @@ $(function(){
                 sdate.value = date;
             }
         }
-
-
+//해시태그 입력 관련
+$('#hashtag').on("keyup", function(event) {
+	let keyword = document.getElementById("hashtag").value;
+	if (window.event.keyCode == 32) {
+		$('input[id=hashtag]').val(keyword.substr(0, keyword.length - 1)+"#");
+	}
+	if(window.event.keyCode == 8){
+		if(keyword==""){
+			keyword.value="#"
+		}
+	}
+});
+$('#hashtag').on("keyup", function(event) {
+	let keyword = document.getElementById("hashtag").value;
+	if (keyword.substring(0,0)!="#" && keyword.length==0) {
+		$('input[id=hashtag]').val("#");
+	}
+});
+$('#hashtag').on("focus", function(event) {
+	if($('input[id=hashtag]').val()!="#"){
+		$('input[id=hashtag]').val($('input[id=hashtag]').val( )+"#");
+	}
+});
+$('#hashtag').on("focusout", function(event) {
+	let keyword = document.getElementById("hashtag").value;
+	if($('input[id=hashtag]').val()=="#"){
+		$('input[id=hashtag]').val("");
+	}
+	if(keyword.substring(keyword.length-1)=='#'){
+		$('#hashtag').val(keyword.substring(0,keyword.length-1));
+	}
+})

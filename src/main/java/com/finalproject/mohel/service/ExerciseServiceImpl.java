@@ -160,7 +160,13 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.getFilename(no);
 	}
 
+	@Override
+	public int exerciseMemberCnt(int exerciseNo) {
+		return dao.exerciseMemberCnt(exerciseNo);
+	}
 
-
-
+	@Override
+	public void exerciseApplicantCntSet(int exerciseNo, int applicantCnt) {
+		dao.exerciseApplicantCntSet(exerciseNo, applicantCnt);
+	}
 }

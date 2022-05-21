@@ -57,9 +57,13 @@ function excerciseMember(){
 		location.href = "/member/login";
 		return false;
 	}
+	if($("#exampleSelect1").val()<=$("#applicantCnt").val()){
+		alert("모든 인원이 모집되어, 참가신청이 불가합니다.")
+		return false;
+	}
 	if (confirm('참가 신청하시겠습니까?')) {
 		let url = "/exercise/excerciseMemberOk";
-		let params = "no=" + $("#no").val();
+		let params = "exerciseNo=" + $("#no").val();
 		$.ajax({
 			url: url,
 			data :params,
@@ -82,7 +86,7 @@ function excerciseMemberCancel(){
 	}
 	if(confirm('참가신청 취소하시겠습니까?')) {
 		let url = "/exercise/excerciseMemberCancel";
-		let params = "no=" + $("#no").val();
+		let params = "exerciseNo=" + $("#no").val();
 		$.ajax({
 			url: url,
 			data :params,
@@ -99,6 +103,11 @@ function excerciseMemberCancel(){
 var exerciseNo =  $("#dbExerciseNo").val();
 //작성자 : 참가자 수락
 $(".applicantSave").on("click", function(event) {
+	//최대 참여 인원수 유효성 검사
+	if($("#exampleSelect1").val()<=$("#applicantCnt").val()){
+		alert("더이상 참가자 수를 늘릴 수 없습니다 \n 사유 : 현재 운동의 최대 참가자 수는"+$("#exampleSelect1").val()+"명입니다.")
+		return false;
+	}
 	if (confirm($(this).parent().prev().text()+'님과 함께 운동하시겠습니까?')) {
 		$('input[name=applicantNickName]').val($(this).parent().prev().text());
 		let applicantNickName = $('input[name=applicantNickName]').val();
@@ -135,6 +144,7 @@ $(".applicantDel").on("click", function(event) {
 		});
 	}
 });
+//참가자 상태 확인
 function exerciseStateCheck(){
 	let statesCnt = $('span[id^=exerciseStatusShow]').length;
 	if(loginNickName!=""){
@@ -144,18 +154,29 @@ function exerciseStateCheck(){
 			if(document.getElementById('applierNickname'+i).innerText==loginNickName){
 				$('#excerciseMemberApply').css('display', 'none');
 			}
-		
-		//(작성자, 작성자 외) : 로그인 되어 있을 시, 참가자 리스트 내의 참가자의 확정 상태를 보여줌
-		if(exerciseStatus==1){
-			document.getElementById('exerciseStatusShow'+i).innerText = "참가확정"
-			if($('.applicantSave').length!=0){
-				$('.applicantSave').css('display', 'none');
-				$('.applicantDel').css('display', 'none');
+			//(작성자, 작성자 외) : 로그인 되어 있을 시, 참가자 리스트 내의 참가자의 확정 상태를 보여줌
+			if(exerciseStatus==1){
+				document.getElementById('exerciseStatusShow'+i).innerText = "참가확정"
+				if($('.applicantSave').length!=0){
+					document.getElementById('stateUpdateBtn'+i).style.display = "none";
+					document.getElementById('stateDeleteBtn'+i).style.display = "none";
+				}
+			}else if(exerciseStatus==0){
+				document.getElementById('exerciseStatusShow'+i).innerText = "수락대기"
 			}
-		}else if(exerciseStatus==0){
-			document.getElementById('exerciseStatusShow'+i).innerText = "수락대기"
-		}
 		}
 	}
 }
 exerciseStateCheck();
+//해시태그 입력
+$('#ridingKeyword').on("keyup", function(event) {
+	let keyword = document.getElementById("ridingKeyword").value;
+	if (window.event.keyCode == 32) {
+		$('input[id=ridingKeyword]').val(keyword.substr(0, keyword.length - 1)+"#");
+	}
+	if(window.event.keyCode == 8){
+		if(keyword==""){
+			keyword.value="#"
+		}
+	}
+});

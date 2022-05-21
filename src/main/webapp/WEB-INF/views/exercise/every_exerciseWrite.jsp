@@ -33,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<label for="today-keyword" class="form-label mt-4">오늘의 키워드</label>
-					<input type="text" class="form-control" id="today-keyword"
+					<input type="text" class="form-control" id="hashtag"
 						placeholder="#하체 #스쿼트" name="hashtag"> <small id="keywordhelp"
 						class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
@@ -47,6 +47,7 @@
 				<div class="form-group">
 					<label for="location" class="form-label mt-4">장소</label> 
 					<input type="text" class="form-control" id="location" name="location">
+					<small id="keywordhelp"	class="form-text text-muted">검색 희망하는 장소를 선택 후 엔터키를 입력하세요</small>
 				
 					<!-- 지도 -->
 					<div class="map_wrap">
@@ -87,10 +88,6 @@
 					<small id="keywordhelp"
 						class="form-text text-muted">최대 참가자 수는 숫자만 입력가능합니다</small>
 						
-				</div>
-				<div class="form-group">
-					<label for="applicant" class="form-label mt-4">참가자</label>
-					<textarea class="form-control" id="applicant" rows="3"></textarea>
 				</div>
 				<div class="form-group">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label> <input

@@ -57,4 +57,8 @@ public interface ExerciseService {
 	public int every_exerciseDelete(int no, String nickname);
 	
 	public void every_cntHit (int no);
+	
+	//참가자 수 관련
+	public int exerciseMemberCnt(int exerciseNo);
+	public void exerciseApplicantCntSet(int exerciseNo, int applicantCnt);
 }

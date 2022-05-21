@@ -178,7 +178,7 @@
 				</div>
 				<div class="form-group">
 					<label for="applicant" class="form-label mt-4">참가자</label>
-					게시자 ${vo.nickname } / 현재 로그인아이디${nickname }
+					<input type="hidden" id="applicantCnt" value=${vo.applicantCnt} >
 					<!-- 신청 신청취소 구현 후 다시하기-->
 					<!-- START : 작성자 화면 -->
 					<c:if test="${nickname == vo.nickname}">
@@ -196,8 +196,8 @@
                          			</li>
                          			<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
                          			<li>
-                                    	<input type='button' id="stateUpdateBtn" class="applicantSave" value="승낙">
-                                    	<input type='button' id="stateDeleteBtn" class="applicantDel" value="거절">
+                                    	<input type='button' id="stateUpdateBtn${st.index}" class="applicantSave" value="승낙">
+                                    	<input type='button' id="stateDeleteBtn${st.index}" class="applicantDel" value="거절">
                                     	<span id="exerciseTogether${st.index}"></span>
                                     </li>
                          		</c:if>
