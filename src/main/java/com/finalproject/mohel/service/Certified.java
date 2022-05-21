@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -128,7 +129,7 @@ public class Certified {
 		return key;
 	}
 	
-	String makeSignature(String url, String timestamp, String method, String accessKey, String secretKey) {
+	private String makeSignature(String url, String timestamp, String method, String accessKey, String secretKey) {
 		String space = " ";					// one space
 		String newLine = "\n";					// new line
 //		String method = "GET";					// method

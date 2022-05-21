@@ -53,14 +53,6 @@ $(function() {
 	}
 	
 	
-	/*element.each(function () {
-		$(this).removeAttr('disabled').parent().css('background-color', '#fff');
-	});
-	element.each(function () {
-		$(this).attr('disabled','disabled').parent().css('background-color', '#FAFAFA');
-	});*/
-	
-	
 	var emailCheck = false;
 	var pwdCheck = false;
 	var nicknameCheck = false;
@@ -98,8 +90,6 @@ $(function() {
 				type: 'post',
 				success: function(result) {
 					if(result==0){
-						$('#emailCk').val('');
-						$("#emailCkMsg").html('');
 						activeCheckBox($('#emailCheckBox>input'));
 						$.ajax({
 							url: '/member/checkMail',
@@ -107,13 +97,13 @@ $(function() {
 							type: 'post',
 							success: function(result) {
 								mailCkNum=result;
-								$('#emailCheckBox>span').text("10:00");
-								min = 10;
-								sec = 0;
-								clearInterval(interval);
-								interval = setInterval(emailCkTime, 1000);
 							}
 						});
+						$('#emailCheckBox>span').text("10:00");
+						min = 10;
+						sec = 0;
+						clearInterval(interval);
+						interval = setInterval(emailCkTime, 1000);
 						str = '<span style="color: green;">메일이 발송되었습니다.</span>';
 					}else {
 						str = '<span style="color: red;">중복된 이메일 입니다.</span>';
