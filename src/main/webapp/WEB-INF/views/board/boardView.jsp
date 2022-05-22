@@ -13,51 +13,36 @@
         <p><span>조회수</span> ${vo.hit}</p>
       </div>
     </div>
-	
     <div class="contents">
       <p>${vo.contents}</p> 
     </div> 
-
+	<div>
+		<c:if test="${userInfo.nickname==vo.nickname}"> 
+			<a href="/board/boardEdit?no=${vo.no}&category=${category}">글수정</a> 
+			<a href="javascript:delCheck()">글삭제</a>
+		</c:if>
+	</div>
     <div class="comment-box">
       <div class="write-area">
-        <span>${vo.nickname}</span> <!-- 로그인시 작성자 닉네임 -->
+        <span>${userInfo.nickname}</span> <!-- 로그인시 작성자 닉네임 -->
         <form id="replyFrm">
           <input type="hidden" name="boardNo" value="${vo.no}">
-          <textarea name="contents" cols="30" rows="3" placeholder="내용을 입력해주세요."></textarea>
+          <textarea name="contents" id="replyContents"cols="30" rows="3" placeholder="내용을 입력해주세요."></textarea>
           <button>등록</button>
         </form>
       </div>
-
       <div class="comment" id="replyList">
         <div class="info">
-          <span>헬스25년차</span> <!-- 댓글 닉네임 -->
-          <p>22.05.10</p>
-        </div>
-        <div class="contents">
-          <p>마이프로틴 추천</p>
-          <div class="btn-box">
-            <button class="modify">수정</button>
-            <button class="delete">삭제</button>
-          </div>
-        </div>
       </div>
     </div>
-
   </div>
-	<div>
-		<c:if test="${logId==vo.nickname}"> 
-			<a href="/board/boardEdit?no=${vo.no}&category=${category}">수정</a> 
-			<a href="javascript:delCheck()">삭제</a>
-		</c:if>
-	</div>
-	<hr/>
-	
+</div>	
 <script>
 	function delCheck(){
 		//confirm()은 사용자가 y, n을 선택 가능한 대화 상자
 		if(confirm("글을 삭제하시겠습니까?")){
 			//확인버튼 선택시
-			location.href = "/mohel/board/boardDel?no="+${vo.no};
+			location.href = "/board/boardDel?no="+${vo.no};
 		}
 	}
 	//댓글-----------------------------------------
@@ -79,18 +64,17 @@
 						tag += "<li><div>"+vo.nickname;
 						tag += "("+vo.writedate+") ";
 						
-						if(vo.userid=='${logId}'){
+						if(vo.nickname=='${userInfo.nickname}'){
 							tag += "<input type='button' value='수정'/>";
 							tag += "<input type='button' value='삭제' title='"+vo.no+"'/>";
 						}
-						
 						tag += "<br/>"+vo.contents+"</div>";
 						
 						//본인 글일때 댓글수정 폼이 있어야 한다
-						if(vo.userid=='${logId}'){
+						if(vo.nickname=='${userInfo.nickname}'){
 							tag += "<div style='display:none'><form method='post'>";
 							tag += "<input type='hidden' name='no' value='"+vo.no+"'/>";
-							tag += "<textarea name='contents' style='width:400px; height:50px'>"+vo.coment+"</textarea>";
+							tag += "<textarea name='contents' style='width:400px; height:50px'>"+vo.contents+"</textarea>";
 							tag += "<input type='submit' value='수정'/>";
 							tag += "</form></div>";
 						}
@@ -130,7 +114,15 @@
 						console.log(e.responseText);
 					}
 				});
+				const contents=document.querySelector("#replyContents");
+				      contents.value="";
 			}
+		});
+		document.getElementById('replyContents').addEventListener('keydown',function(event){
+		    if(event.keyCode ==13){
+		    event.preventDefault();
+		        document.querySelector('#replyFrm button').click();
+		    }
 		});
 		//댓글 수정버튼 선택시 해당 댓글의 수정 폼 보여주기
 		$(document).on("click","#replyList input[value=수정]",function(){
@@ -140,11 +132,13 @@
 			$(this).parent().next().css("display", "block");
 		});
 		//댓글 수정(DB)
+		
 		$(document).on("submit","#replyList form",function(){
 			event.preventDefault();
 			//데이터
 			var params = $(this).serialize();
-			var url = "/myapp/reply/editOk";
+			var url = "/mohel/reply/editOk";
+			console.log(params);
 			$.ajax({
 				url : url,
 				data : params,
@@ -161,7 +155,7 @@
 		//댓글 삭제
 		$(document).on("click", "#replyList input[value=삭제]", function(){
 			if(confirm("댓글을 삭제하시겠습니까?")){
-				var params = "replyno="+$(this).attr("title");
+				var params = "no=" + $(this).attr("title");
 				$.ajax({
 					url : "/mohel/reply/del",
 					data : params,

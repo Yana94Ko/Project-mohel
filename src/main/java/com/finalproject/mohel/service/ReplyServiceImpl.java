@@ -30,8 +30,8 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public int replyDel(int boardNo, String nickname) {
-		return dao.replyDel(boardNo, nickname);
+	public int replyDel(int no, String nickname) {
+		return dao.replyDel(no, nickname);
 	}
 
 }

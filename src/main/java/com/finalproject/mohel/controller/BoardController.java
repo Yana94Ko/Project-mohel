@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.BoardService;
 import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.PagingVO;
 @RestController
 @RequestMapping("/board/")
@@ -61,8 +62,8 @@ public class BoardController {
 		//vo.setNickname("ㅇㅇ"); 
 		//vo.setNickname(request.getRemoteAddr()); 
 		//글쓴이-session로그인 아이디를 구한다
-		vo.setNickname((String)request.getSession().getAttribute("logId"));
-		
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity = null; //데이터와 처리 상태를 가진다
 		HttpHeaders header = new HttpHeaders();
 		header.add("Content-Type", "text/html; charset=utf-8");
@@ -119,8 +120,8 @@ public class BoardController {
 		ResponseEntity<String> entity = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-		
-		vo.setNickname((String)session.getAttribute("logId"));
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		try {
 			int result = service.boardUpdate(vo);
 			if(result>0) {//수정 성공
@@ -150,14 +151,14 @@ public class BoardController {
 	}
 	//글 삭제
 		@GetMapping("boardDel")
-		public ModelAndView boardDel(int no, HttpSession session){
-			String nickname = (String)session.getAttribute("logId");
+		public ModelAndView boardDel(int no, HttpSession session,String category){
+			MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
 			
-			int result = service.boardDelete(no, nickname);
-			
+			int result = service.boardDelete(no, mvo.getNickname());
 			ModelAndView mav = new ModelAndView();
 			if(result>0) {//삭제 성공시
-				mav.setViewName("redirect:boardList");
+				mav.setViewName("redirect:/board/boardList?category="+category);
+				
 			}else {//삭제 실패시
 				mav.addObject("no", no);
 				mav.setViewName("redirect:boardView");
