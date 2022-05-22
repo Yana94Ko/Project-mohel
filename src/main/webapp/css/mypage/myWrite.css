@@ -11,109 +11,9 @@
 	background-color: #fff;
 }
 
-/* .mypage-box {
-	
-	width: 300px;
-	margin: 5% 20% 0;
-}
-.mypage-box h1{
-	color:black;
-}
-.line1{
-	border:1px solid #dedede;
-	width:1200px;
-	margin-bottom:20px;
-}
-	
-.lnb-box {margin: 0% 0 0;}
-.lnb-box:after {
-	float:left;
-	content: '';
-	display: block;
-	clear: both;
-	border:1px solid #dedede;
-}
-.lnb-box a {
-	width: 300px;
-	height: 55px;
-	float: left;
-	position: relative;
-	top: 0;
-	left: 0;
-	
-	font-weight: 400;
-	font-size: 15px;
-	color: rgb(102,102,102);
-	text-align: left;
-	line-height: 55px;
-	border-left: 1px solid #dedede;
-	border-right: 1px solid #dedede;
-}
-.lnb-box a:nth-child(2){
-	width: 300px;
-	height: 55px;
-	float: left;
-	position: relative;
-	top: 0;
-	left: 0;
-	
-	font-weight: 600;
-	font-size: 17px;
-	color: #01c9c6;
-	text-align: left;
-	line-height: 55px;
-	border-left: 6px solid #01c9c6;
-	border-right: 1px solid #dedede;
-	
-}
-.lnb-box a:nth-child(4){
-	border-bottom:1px solid #dedede;
-}
-.lnb-box a:nth-child(1){
-	border-top:	1px solid #dedede;
-}
-.lnb-box a.on,
-.lnb-box a:hover {z-index: 5;}
-.lnb-box a:after {
-	width: 300px;
-	height: 55px;
-	content: '';
-	position: absolute;
-	float: left;
-	top: 0;
-	left: 0;
-	border-bottom: none;
-	box-sizing: border-box;
-	
-}
-
-.lnb-box a:hover:nth-child(1):after {
-	z-index: -5;
-	border:1px solid #dedede;
-	border-bottom: none;
-	background-color: #f1f1f1;
-	
-}
-.lnb-box a:hover:nth-child(3):after {
-	z-index: -5;
-	border:1px solid #dedede;
-	border-bottom: none;
-	border-top:none;
-	background-color: #f1f1f1;
-	
-}
-.lnb-box a:hover:nth-child(4):after {
-	z-index: -5;
-	border:1px solid #dedede;
-	border-top:none;
-	background-color: #f1f1f1;
-	
-} */
-
 .switch{
 	width:750px;
 }
-
 .switch a{
 	height: 15px;
 	padding:5px 13px;
@@ -128,7 +28,6 @@
 .switch a:nth-child(1){
 	width: 75px;
 	color: #01c9c6;
-	border:1px solid gray;
 	border-bottom: 4px solid #01c9c6;
 	margin-right:0px;
 }
@@ -137,7 +36,6 @@
 	padding-bottom: 9px;
 	color:black;
 	border-bottom: none;
-	border-radius: 8px 8px 0px 0px;
 }
 .switch-select{
 	margin-left:425px;
@@ -180,7 +78,6 @@ table td,th {
 table{
 	border:none;
 }
-
 
 
 th {

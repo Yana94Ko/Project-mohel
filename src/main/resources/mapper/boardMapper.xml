@@ -31,7 +31,7 @@
 		update board set hit=hit+1 where no=#{param1}
 	</update>
 	<update id="boardUpdate">
-		update board set subject=#{title}, content=#{contents} where no=${no} and nickname=#{nickname}
+		update board set title=#{title}, contents=#{contents} where no=${no} and nickname=#{nickname}
 	</update>
 	<delete id="boardDelete">
 		delete from board where no=#{param1} and nickname=#{param2} 

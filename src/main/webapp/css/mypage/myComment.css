@@ -33,7 +33,6 @@
 .switch a:nth-child(2){
 	width: 75px;
 	color: #01c9c6;
-	border:1px solid gray;
 	border-bottom: 4px solid #01c9c6;
 	margin-right:0px;
 }
@@ -81,6 +80,8 @@ table td,th {
 table{
 	border:none;
 }
+
+
 th {
 	border:1px solid gray;
 	background:white;

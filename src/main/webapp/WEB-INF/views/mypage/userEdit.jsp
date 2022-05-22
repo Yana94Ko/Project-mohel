@@ -94,8 +94,8 @@
 				</li>
 			</ul>
 			<div class="calc-metabolic-rate">
-				<div id="BMR">기초대사량 <span></span></div>
-				<div id="AMR">활동대사량 <span></span></div>
+				<div id="BMR">기초대사량<span></span> kcal</div>
+				<div id="AMR">활동대사량<span></span> kcal</div>
 			</div>
 		</div>
 		<button class="info-edit-pw-btn btn btn-info btn-sm">수정</button>

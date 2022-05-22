@@ -1,8 +1,6 @@
 @charset "UTF-8";
 
-
-
-.findPwdFrm{
+#findPwdFrm{
 	width: 500px;
 	margin-top: 100px;
 	margin-bottom: 200px;
@@ -11,29 +9,58 @@
 	border: none;
 }
 
+#findPwdFrm li {
+	margin-bottom: 5px;
+}
+
 .findPwd-button{
-	margin-top:30px;
 	width:70px;
 	padding:5px;
-	display: inline-block;
  	background-color: #01c9c6;
   	color: white;
-  	font-weight: var(--font-medium);
   	font-size: 15px;
   	transition: 0.5s;
-  	border-radius: 8px;
+  	border-radius: 5px;
   	border:none;
+  	margin-top: 20px;
 }
 .findPwd-button:hover {
   background-color: #01d8d6;
 }
 
-#email{
+.email-ck-input{
 	width:300px;
 	height:40px;
 	border: 0.5px solid #D8D8D8;
 	border-radius: 5px;
 	font-size:15px;
+}
+.email-ck-input.ck-num {
+	line-height: 40px;
+	padding-left: 5px;
+}
+.email-ck-input.ck-num>input {
+	line-height: 23px;
+}
+.email-ck-input.ck-num>input:first-child {
+	border: none;
+	outline: none;
+	width: 244px;
+}
+#emailCheckBox {
+	background-color: #FAFAFA;
+}
+#emailCk {
+	width: 200px;
+}
+
+.ck-time {
+	display: inline-block;
+	width: 40px;
+	color: #888;
+}
+.ck-msg {
+	font-size: 14px;
 }
 
 hr{

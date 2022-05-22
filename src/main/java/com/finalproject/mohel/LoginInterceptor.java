@@ -16,8 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = request.getSession();
 
-		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
-		if (userInfo != null) {
+		if ((MemberVO)session.getAttribute("userInfo") != null) {
 			return true;
 		} else {
 			response.sendRedirect("/member/login");
