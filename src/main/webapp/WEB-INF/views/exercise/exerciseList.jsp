@@ -9,62 +9,66 @@
 <head>
 <link href="${url}/css/exercise/exerciseList.css" rel="stylesheet"
 	type="text/css" />
+<script type="text/javascript" src="${url}/js/exercise/exerciseList.js"></script>
+
 <meta charset="UTF-8">
 
-<script type="text/javascript" src="${url}/js/exercise/exerciseList.js"></script>
 <title>나만의 운동</title>
 
 </head>
 <body>
 	<div class="container" style="text-align: center">
-		<h1 id='main_text'>나의 운동</h1>
+		<h1 id='main_text'>나만의 운동</h1>
 
 		<div>
 			<form id="search-box">
 				<div class="mx-auto mt-5 search-bar input-group mb-3">
-					<input name="q" type="text" class="form-control rounded-pill"
-						placeholder="함께하고 싶은 운동을 검색해보세요">
+					<input name="q" id="search-keyword" type="text"
+						class="form-control rounded-pill" placeholder="나의 운동 기록들을 확인해보세요">
 
 				</div>
 			</form>
 			<div id='write-box'>
 				<button type="button" class="btn btn-primary" id='write'
-					onclick="location.href='/exercise/exerciseWrite?category=운동&nickname=ㅇㅇ' ">나만의
+					onclick="location.href='/exercise/exerciseWrite?category=exercise' ">나만의
 					운동 글쓰기</button>
 			</div>
 		</div>
 
+		
 
-
-		<table class="table table-hover" id="exercise-main-tbl">
-			<thead id="exercise-tbl">
-				<tr id="exercise-head">
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">내용</th>
-					<th scope="col">작성자</th>
-					<th scope="col">작성일</th>
-					<th scope="col">조회수</th>
-				</tr>
-			</thead>
-			<tbody id="exercise-contents">
-
-				<c:forEach var="vo" items="${lst }">
-					<tr class="table-light"
-						onclick="location.href='/exercise/exerciseView?no=${vo.no}'"
-						id="exercise-head">
-
-						<td>${vo.no }</td>
-						<td>${vo.title }</td>
-						<td>${vo.contents }</td>
-						<td>${vo.nickname }</td>
-						<td>${vo.writedate }</td>
-						<td>${vo.hit }</td>
+			<table class="table table-hover" id="exercise-main-tbl">
+				<thead id="exercise-tbl">
+					<tr id="exercise-head">
+						<th scope="col">번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">내용</th>
+						<th scope="col">작성자</th>
+						<th scope="col">작성일</th>
+						<th scope="col">조회수</th>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody id="exercise-contents">
 
-			</tbody>
-		</table>
+					<c:forEach var="vo" items="${lst }">
+						<tr class="table-light"
+							onclick="location.href='/exercise/exerciseView?no=${vo.no}'"
+							id="exercise-head">
+
+							<td>${vo.no }</td>
+							<td>${vo.title }</td>
+							<td>${vo.contents }</td>
+							<td>${vo.nickname }</td>
+							<td>${vo.writedate }</td>
+							<td>${vo.hit }</td>
+									
+						</tr>
+					
+					</c:forEach>
+				
+				</tbody>
+			</table>
+
 		<!-- 페이징 -->
 		<br />
 		<!-- 페이징 -->

@@ -1,0 +1,47 @@
+package com.finalproject.mohel.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.finalproject.mohel.service.ReplyService;
+import com.finalproject.mohel.vo.ReplyVO;
+
+@RestController
+@RequestMapping("/mohel")
+public class ReplyController {
+	@Inject
+	ReplyService service;
+	
+	//댓글 등록
+	@RequestMapping(value="/reply/writeOk", method=RequestMethod.POST)
+	public int writeOk(ReplyVO vo, HttpSession session) {
+		System.out.println(vo.getBoardNo());
+		vo.setNickname((String)session.getAttribute("logId"));
+		
+		return service.replyWrite(vo);
+	}	
+	//댓글 목록 가져오기
+	@RequestMapping("/reply/list")
+	public List<ReplyVO> list(int boardNo){
+		return service.replyList(boardNo);
+	}
+	//댓글 수정
+	@PostMapping("/reply/editOk")
+	public int editOk(ReplyVO vo, HttpSession session) {
+		vo.setNickname((String)session.getAttribute("logId"));
+		return service.replyEdit(vo);
+	}
+	//댓글 삭제
+	@GetMapping("/reply/del")
+	public int delOk(int boardNo, HttpSession session) {
+		return service.replyDel(boardNo, (String)session.getAttribute("logId"));
+	}
+}
