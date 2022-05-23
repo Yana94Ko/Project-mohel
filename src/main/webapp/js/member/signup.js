@@ -1,6 +1,19 @@
+// input 숫자만 입력 가능
+function onlyNum(element) {
+	var regOnlyNum = /[^0-9]/g;
+	$(element).val($(element).val().replace(regOnlyNum, ''));
+}
+
+// 글자수 한정
+function inputMaxLength(element, max) {
+	if($(element).val().length>max){
+		$(element).val($(element).val().substring(0, max));
+	}
+}
+
 $(function() {
 	// 프로필사진 선택한 사진으로 변경
-	const fileInput = document.getElementById('profile');
+	const fileInput = document.getElementById('imgFile');
 	const handleFiles = () => {
 		const selectedFile = [...fileInput.files];
 		const fileReader = new FileReader();
@@ -14,6 +27,7 @@ $(function() {
 	// 이미지제거 클릭시 기본 이미지로 프로필 사진 변경
 	$('#defaultProfile').click(function() {
 		$('#profileImg').attr('src', '/img/profile/defaultProfile.png');
+		$('#imgFile').val('');
 		$('#profile').val('');
 	});
 	
@@ -38,18 +52,6 @@ $(function() {
 		});
 	}
 	
-	// input 숫자만 입력 가능
-	const onlyNum = (element) => {
-		var regOnlyNum = /[^0-9]/g;
-		$(element).val($(element).val().replace(regOnlyNum, ''));
-	}
-	
-	// 글자수 한정
-	const inputMaxLength = (element, max) => {
-		if($(element).val().length>max){
-			$(element).val($(element).val().substring(0, max));
-		}
-	}
 	
 	var emailCheck = false;
 	var pwdCheck = false;
@@ -57,19 +59,37 @@ $(function() {
 	var telCheck = false;
 	// 이메일 인증
 	var mailCkNum = "";
+	let min = 0;
+	let sec = 0;
+	let interval = null;
+	var emailCkTime = function() {
+		if(sec==0){
+			min--;
+			sec = 60;
+		}
+		sec--;
+		let secStr = sec;
+		if(sec<10) secStr = "0"+sec;
+		
+		$('#emailCheckBox>span').text("0"+min+":"+secStr);
+		
+		if(sec==0 && min==0){
+			mailCkNum = "";
+			clearInterval(interval);
+		}
+	};
+	
 	let regEmail = /^\w{6,}[@][a-zA-Z]{2,}[.][a-zA-Z]{2,3}([.][a-zA-Z]{2,3})?$/;
 	$('#emailCheckNumSend').click(function() {
+		emailCheck = false;
 		var str = '';
 		if(regEmail.test($('#email').val())){
 			$.ajax({
 				url: '/member/searchEmail',
 				data: 'email='+$('#email').val(),
 				type: 'post',
-				async: false,
 				success: function(result) {
 					if(result==0){
-						$('#emailCk').val('');
-						$("#emailCkMsg").html('');
 						activeCheckBox($('#emailCheckBox>input'));
 						$.ajax({
 							url: '/member/checkMail',
@@ -79,10 +99,16 @@ $(function() {
 								mailCkNum=result;
 							}
 						});
+						$('#emailCheckBox>span').text("10:00");
+						min = 10;
+						sec = 0;
+						clearInterval(interval);
+						interval = setInterval(emailCkTime, 1000);
 						str = '<span style="color: green;">메일이 발송되었습니다.</span>';
 					}else {
 						str = '<span style="color: red;">중복된 이메일 입니다.</span>';
 					}
+					$("#emailCkMsg").html(str);
 				}
 			});
 		}else {
@@ -92,9 +118,12 @@ $(function() {
 	});
 	$('#emailCkBtn').on('click', function() {
 		var str='';
-		if(mailCkNum==$('#emailCk').val() && $('#emailCk').val()!=''){
-			str = '<span style="color: blue;">인증 되었습니다.</span>';
+		if(mailCkNum==$('#emailCk').val() && $('#emailCk').val().length==6){
 			emailCheck = true;
+			str = '<span style="color: blue;">인증 되었습니다.</span>';
+			disabledCheckBox($('#emailCheckBox>input'));
+			clearInterval(interval);
+			$('#emailCheckBox>span').text('');
 		}else {
 			str = '<span style="color: red;">인증번호를 확인해주세요</span>';
 		}
@@ -104,6 +133,8 @@ $(function() {
 		emailCheck = false;
 		$('#emailCk').val('');
 		$("#emailCkMsg").html('');
+		$('#emailCheckBox>span').text('');
+		clearInterval(interval);
 		disabledCheckBox($('#emailCheckBox>input'));
 	});
 	
@@ -136,6 +167,8 @@ $(function() {
     let nickname = $('#nickname');
     const checkNickname = (e) => {
 		inputMaxLength(e, 10);
+		
+		let str = "";
 		if(nickname.val().length<2) {
 			str = '<span style="color: gray;">문자+숫자 사용(2~10글자)</span>';
 		}else if(regNickname.test(nickname.val())) {
@@ -160,12 +193,9 @@ $(function() {
 	}
 	checkNickname(nickname);
     nickname.on('input', function() {
-		let str = "";
 		nicknameCheck = false;
 		checkNickname(this);
 	});
-	
-	
 	
 	// 전화번호 인증
 	var tel = $('#tel');
@@ -176,6 +206,7 @@ $(function() {
 	var telCkNum = "";
 	var regTel = /^010|011|016|017|018|019/
 	$('#telCheckNumSend').click(function() {
+		telCheck = false;
 		var str = '';
 		if(tel.val().length<10 || !regTel.test(tel.val())){
 			str = '<span style="color: red;">전화번호를 정확히 입력해주세요.</span>';
@@ -198,8 +229,9 @@ $(function() {
 	$('#telCkBtn').on('click', function() {
 		var str='';
 		if(telCkNum==$('#telCk').val() && $('#telCk').val()!=''){
-			str = '<span style="color: blue;">인증 되었습니다.</span>'
 			telCheck = true;
+			str = '<span style="color: blue;">인증 되었습니다.</span>'
+			disabledCheckBox($('#telCheckBox>input'));
 		}else {
 			str = '<span style="color: red;">인증번호를 확인해주세요</span>'
 		}
@@ -298,3 +330,5 @@ $(function() {
 		}
 	});
 });
+
+export {onlyNum, inputMaxLength}

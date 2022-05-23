@@ -35,7 +35,12 @@
 					<a href="/member/signup">회원가입</a>
 				</c:if>
 				<c:if test="${userInfo!=null}">
-					<a href="/member/logout">로그아웃</a> | 
+					<c:if test="${kakao==true }">
+						<a href="https://kauth.kakao.com/oauth/logout?client_id=8299169b3aa46a93e89d0f3fe4ed0583&logout_redirect_uri=http://localhost:8040/member/logout">로그아웃</a> |
+					</c:if>
+					<c:if test="${kakao!=true }">
+						<a href="/member/logout">로그아웃</a> |
+					</c:if>
 					<a href="/mypage/userEdit">마이페이지</a>
 				</c:if>
 			</div>
@@ -54,12 +59,12 @@
 			<div class="container">
 				<div class="category-list-box">
 					<ul>
-						<li><a href="/myFoodMain">나만의 식단</a></li>
-						<li><a href="/everyFoodList?pageNum=1">모두의 식단</a></li>
+						<li><a href="${url}/myFoodMain">나만의 식단</a></li>
+						<li><a href="everyFoodList?pageNum=1">모두의 식단</a></li>
 					</ul>
 					<ul>
-						<li><a href="${url}/exercise/exerciseList?category=운동">나만의 운동</a></li>
-						<li><a href="/exercise/every_exerciseList">모두의 운동</a></li>
+						<li><a href="/exercise/exerciseList?category=운동">나만의 운동</a></li>
+						<li><a href="/exercise/every_exerciseList?category=운동">모두의 운동</a></li>
 					</ul>
 					<ul>
 						<li><a href="/board/boardList?category=free">자유 게시판</a></li>

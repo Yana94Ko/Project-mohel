@@ -16,6 +16,7 @@ public class MemberVO {
 	private int height;
 	private int weight;
 	private float active;
+	private int intActive;
 	
 	private float BMR;
 	private float AMR;
@@ -30,10 +31,11 @@ public class MemberVO {
 				+ ", getNickname()=" + getNickname() + ", getTel()=" + getTel() + ", getProfile()=" + getProfile()
 				+ ", getBirthdate()=" + getBirthdate() + ", getGender()=" + getGender() + ", getAge()=" + getAge()
 				+ ", getHeight()=" + getHeight() + ", getWeight()=" + getWeight() + ", getActive()=" + getActive()
-				+ ", getBRM()=" + getBMR() + ", getARM()=" + getAMR() + ", getVerify()=" + getVerify()
-				+ ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()=" + getJoindate() + "]";
+				+ ", getIntActive()=" + getIntActive() + ", getBMR()=" + getBMR() + ", getAMR()=" + getAMR()
+				+ ", getVerify()=" + getVerify() + ", getRecentvisit()=" + getRecentvisit() + ", getJoindate()="
+				+ getJoindate() + "]";
 	}
-	
+
 	public MemberVO() {}
 	
 	public MemberVO(HashMap<String, String> kakaoInfo) {
@@ -113,6 +115,12 @@ public class MemberVO {
 	}
 	public void setActive(float active) {
 		this.active = active;
+	}
+	public int getIntActive() {
+		return (int)(active*1000);
+	}
+	public void setIntActive(int intActive) {
+		this.intActive = intActive;
 	}
 	public float getBMR() {
 		if(active!=0) {

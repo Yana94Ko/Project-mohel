@@ -25,8 +25,6 @@ public class PagingVO {
 	}
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
-		//offset위치계산
-		offsetIndex = (pageNum-1)*onePageRecord;
 		//페이지 번호의 시작값
 		startPage = ((pageNum-1)/onePageCount*onePageCount)+1;
 	}
@@ -50,7 +48,8 @@ public class PagingVO {
 		this.totalPage = totalPage;
 	}
 	public int getOffsetIndex() {
-		return offsetIndex;
+		//offset위치계산
+		return (pageNum-1)*onePageRecord;
 	}
 	public void setOffsetIndex(int offsetIndex) {
 		this.offsetIndex = offsetIndex;
