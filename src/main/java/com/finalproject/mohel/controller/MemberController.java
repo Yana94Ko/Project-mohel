@@ -2,10 +2,10 @@ package com.finalproject.mohel.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
 import javax.inject.Inject;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,20 +71,12 @@ public class MemberController{
 
 	// 회원가입
 	@GetMapping("signup")
-	public String signup(Model model, HttpSession session) {
-		Object obj = model.getAttribute("kakaoVO");
-		if(obj!=null) {
-			session.setAttribute("kakaoVO", obj);
-		}else {
-			session.invalidate();
-		}
-		
+	public String signup() {
 		return "/member/signup";
 	}
 	
 	@PostMapping("signupOk")
-	public String signupOk(MemberVO vo, HttpServletRequest request, HttpSession session) {
-		session.invalidate();
+	public String signupOk(MemberVO vo, HttpServletRequest request) {
 		MohelApplication.profileImgUpload(vo, request);
 		service.insertMember(vo);
 		
@@ -136,7 +127,8 @@ public class MemberController{
 	
 	// 로그인
 	@GetMapping("login")
-	public String login() {
+	public String login(HttpSession session) {
+		session.invalidate();
 		return "/member/login";
 	}
 	
