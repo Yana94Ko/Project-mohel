@@ -46,7 +46,10 @@ h5 {
 	left: 43%;
 	margin-bottom: 40px;
 }
-
+#upload-btn{
+	float:relative;
+	top:20px;
+}
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;

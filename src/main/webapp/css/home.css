@@ -11,8 +11,8 @@
 
 .body-02{
   display: flex;
- 
   align-items: center;
+
 }
 
 .pricing-table{
@@ -36,13 +36,15 @@
 }
 
 .pricing-card-header{
-  background-color: #01c9c6;
+  background-color:#fff;
   display: inline-block;
-  color: #fff;
+  color: #01c9c6;
   padding: 12px 40px;
   width:200px;
-  border-radius: 0 0 5px 5px;
-  font-size: 16px;
+  margin-top:12px;
+  border: 1px solid #01c9c6;
+  border-radius: 5px 5px 5px 5px;
+  font-size: 18px;
   text-transform: uppercase;
   font-weight: 600;
   transition: .4s linear;
@@ -50,7 +52,8 @@
 
 .pricing-card:hover .pricing-card-header{
   box-shadow: 0 0em 0em 0.04em #01c9c6;
-  font-size: 18px;
+  background-color:#eefefe;
+  font-size: 19px;
 }
 
 .price{
@@ -65,12 +68,13 @@
   font-weight: 700;
 }
 
-.pricing-card:hover ,.pricing-card:hover .price{
-	
-}
 
 .pricing-card li{
-  font-size: 16px;
+ 
+  margin-left:37px;
+  line-height:30px;
+  width:200px;
+  font-size: 17px;
   padding: 10px 0;
   text-transform: uppercase;
 }
@@ -102,7 +106,7 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .carousel-inner{
@@ -205,5 +209,9 @@
 .pic img{
 	width:300px;
 	height:200px;
+}
+
+.pic1{
+	width:300px;
 }
 
