@@ -26,7 +26,6 @@
 				onclick="location.href='/exercise/every_exerciseWrite'">운동원
 				모집하기</button>
 		</div>
-	</div>
 
 	<div id="thumbnail-list">
 		<c:forEach var="vo" items="${lst }" varStatus="st">
@@ -106,5 +105,6 @@
 
 	</ul>
 
+	</div>
 	<script type="text/javascript"
 		src="${url}/js/exercise/every_exerciseList.js"></script>

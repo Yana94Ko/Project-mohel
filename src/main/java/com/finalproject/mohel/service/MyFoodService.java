@@ -6,6 +6,8 @@ import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MyFoodVO;
 import com.finalproject.mohel.vo.ReplyVO;
 
+import com.finalproject.mohel.vo.PagingVO;
+
 public interface MyFoodService {
 	public List<MyFoodVO> getMyFood(String date, String nickname);
 	public int getRecommendCalorie(String nickname);
@@ -24,4 +26,7 @@ public interface MyFoodService {
 	public BoardVO getDBImg(int boardNo);
 	public int updateBoardWithFile(BoardVO bvo);
 	public int updateBoardNoFile(BoardVO bvo);
+	public List<MyFoodVO> adminGetMyFood( PagingVO pVO);
+    public int totalRecord(PagingVO pVO);
+    public void adminMyFoodDel(int no);
 }

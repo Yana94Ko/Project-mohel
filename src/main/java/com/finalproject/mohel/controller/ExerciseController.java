@@ -2,6 +2,7 @@ package com.finalproject.mohel.controller;
 
 
 
+import java.io.Console;
 import java.io.File;
 import java.nio.charset.Charset;
 
@@ -241,7 +242,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
-		pVO.setTotalRecord(service.totalRecord(pVO,null));
+		pVO.setTotalRecord(service.totalRecord1(pVO));
 		
 		mav.addObject("lst", service.every_exerciseList(pVO));
 		mav.addObject("pVO", pVO);
@@ -271,7 +272,9 @@ public class ExerciseController {
 	@PostMapping("/exercise/every_exerciseWriteOk")
     public ResponseEntity<String> every_exerciseWriteOk(ExerciseVO vo, HttpServletRequest request, MultipartHttpServletRequest mr, ExerciseMemberVO emvo){
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
-		vo.setNickname(mvo.getNickname());
+		if(mvo!=null) {
+			vo.setNickname(mvo.getNickname());
+		}
 		ResponseEntity<String> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("text", "html",Charset.forName("UTF-8")));
@@ -300,12 +303,18 @@ public class ExerciseController {
 			
 			//글등록 성공
         	service.every_exerciseInsert(vo);
-        	//ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
-			//emvo.setExerciseNo(vo2.getNo());
-			//emvo.setNickname(vo.getNickname());
-			//System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getNo());
-			//service.exerciseMemberInsert(emvo);
-			//service.exerciseMemberUpdate(emvo);
+        	ExerciseVO vo2=service.every_exerciseLastWriteNo(vo.getNickname());
+			emvo.setExerciseNo(vo2.getNo());
+			emvo.setNickname(vo.getNickname());
+			service.exerciseMemberInsert(emvo);
+			System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getExerciseNo());
+			service.exerciseMemberUpdate(emvo);
+
+			//참가자 중 확정자 수 확인하는 함수
+			int applicantCnt = service.exerciseMemberCnt(emvo.getExerciseNo());
+			System.out.println(applicantCnt+"명");
+			//확정자 수 update 함수
+			service.exerciseApplicantCntSet(emvo.getExerciseNo(), applicantCnt);
 			
 			//글 목록으로 이동
 			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/every_exerciseList';</script>";
@@ -325,23 +334,26 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseView")
 	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		
+		//System.out.println("뷰로 왔어요");
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		if(mvo!=null) {
 			mav.addObject("nickname",mvo.getNickname());
 			vo.setNickname(mvo.getNickname());
 		}
 		
-		
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
 		String jsonStr=vo2.getPlaceinfo();
 		System.out.println(jsonStr);
 		JSONObject obj=new JSONObject(jsonStr);
-		String addr=obj.getString("address_name");
-		System.out.println(addr);
+		String addr=obj.getString("place_name");
+		String x=obj.getString("x");
+		String y=obj.getString("y");
+		System.out.println(x+"gggggggggg"+y);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
+		mav.addObject("x",x);
+		mav.addObject("y",y);
 		mav.addObject("emvo",service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
@@ -349,11 +361,19 @@ public class ExerciseController {
 	// 모두의 운동 글 수정
 	@GetMapping("/exercise/every_exerciseEdit")
 	public ModelAndView every_exerciseEdit(int no, ExerciseVO vo, HttpSession session) {
-		//System.out.println(no);
 		ModelAndView mav = new ModelAndView();
-		//mav.addObject("lst2", service.exerciseMemberShow(no));
-		mav.addObject("vo", service.every_exerciseSelect(no));
-		//mav.addObject("vo", service.exerciseSelect(no));
+		ExerciseVO vo2 =service.every_exerciseSelect(no);
+		String jsonStr=vo2.getPlaceinfo();
+		//System.out.println(jsonStr);
+		JSONObject obj=new JSONObject(jsonStr);
+		String addr=obj.getString("place_name");
+		String x=obj.getString("x");
+		String y=obj.getString("y");
+		//System.out.println(x+"gggggggggg"+y);
+		mav.addObject("vo", vo2);
+		mav.addObject("placeinfo",addr);
+		mav.addObject("x",x);
+		mav.addObject("y",y);
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
@@ -442,12 +462,14 @@ public class ExerciseController {
 	// 모두의 운동 참가신청(작성자 외)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseMemberOk")
-	public int excerciseMemberOk (int no, ExerciseMemberVO mvo, HttpServletRequest request) {
+	public int excerciseMemberOk (int exerciseNo, ExerciseMemberVO mvo, HttpServletRequest request) {
 		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		mvo.setNickname(logMvo.getNickname());
-		mvo.setNo(no);
+		mvo.setExerciseNo(exerciseNo);
 		int result = 0;
 		try {
+
+			System.out.println(exerciseNo+"번글");
 			result = service.exerciseMemberInsert(mvo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -457,12 +479,18 @@ public class ExerciseController {
 	//모두의 운동 참가신청 취소(작성자 외)
 	@ResponseBody
 	@GetMapping("/exercise/excerciseMemberCancel")
-	public void excerciseMemberCancel (int no, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
+	public void excerciseMemberCancel (int exerciseNo, ExerciseMemberVO mvo, ExerciseVO vo, HttpServletRequest request) {
 		MemberVO logMvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		mvo.setNickname(logMvo.getNickname());
-		mvo.setExerciseNo(no);
+		mvo.setExerciseNo(exerciseNo);
 		try {
 			service.exerciseMemberDelete(mvo);
+			//참가자 중 확정자 수 확인하는 함수
+			int applicantCnt = service.exerciseMemberCnt(exerciseNo);
+			System.out.println(applicantCnt+"명");
+			//확정자 수 update 함수
+			service.exerciseApplicantCntSet(exerciseNo, applicantCnt);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -474,6 +502,11 @@ public class ExerciseController {
 		try { 
 			System.out.println(mvo.getExerciseNo()+mvo.getNickname());
 			service.exerciseMemberUpdate(mvo);
+			//참가자 중 확정자 수 확인하는 함수
+			int applicantCnt = service.exerciseMemberCnt(mvo.getExerciseNo());
+			System.out.println(applicantCnt+"명");
+			//확정자 수 update 함수
+			service.exerciseApplicantCntSet(mvo.getExerciseNo(), applicantCnt);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

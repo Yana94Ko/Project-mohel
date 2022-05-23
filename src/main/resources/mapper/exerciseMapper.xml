@@ -63,7 +63,7 @@
 	<!-- 운동 참가 신청 -->
 	<insert id="exerciseMemberInsert">
 		insert into exercise_member (exerciseNo, nickname)
-		values(#{no}, #{nickname})
+		values(#{exerciseNo}, #{nickname})
 	</insert>
 
 	<!-- 참가신청여부 확인용 -->
@@ -116,8 +116,10 @@
 		hit = hit+1 where no=#{param1}
 	</update>
 	<select id="every_exerciseLastWriteNo" resultType="ExerciseVO">
-		select no from everyexercise where nickname = #{param1}
-		order by no desc
+		select no
+		from everyexercise 
+		where nickname = #{param1}
+		order by no DESC
 		limit 1
 	</select>
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
@@ -148,6 +150,15 @@
 		</if>
 	</select>
 	
+	<!-- 참가자 수 관련 -->
+	<select id="exerciseMemberCnt" resultType="int">
+		select count(nickname) as cnt from exercise_member 
+		where exerciseNo =#{param1} and status=1
+	</select>
+	<update id="exerciseApplicantCntSet">
+		update everyexercise set
+		applicantCnt = #{param2} where no= #{param1}
+	</update>
 	<!-- home -->
 	<select id="home_exercise" resultType="ExerciseVO"> 
 		select no, title, hashtag, contents, 

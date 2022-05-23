@@ -9,6 +9,7 @@ import com.finalproject.mohel.dao.MyFoodDAO;
 import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.MyFoodVO;
 import com.finalproject.mohel.vo.ReplyVO;
+import com.finalproject.mohel.vo.PagingVO;
 
 @Service
 public class MyFoodServiceImpl implements MyFoodService {
@@ -98,6 +99,21 @@ public class MyFoodServiceImpl implements MyFoodService {
 	@Override
 	public int updateBoardNoFile(BoardVO bvo) {
 		return dao.updateBoardNoFile(bvo);
+	}
+	
+	@Override
+	public List<MyFoodVO> adminGetMyFood(PagingVO pVO) {
+		return dao.adminGetMyFood(pVO);
+	}
+
+	@Override
+	public int totalRecord(PagingVO pVO) {
+		return dao.totalRecord(pVO);
+	}
+
+	@Override
+	public void adminMyFoodDel(int no) {
+		dao.adminMyFoodDel(no);
 	}
 
 }

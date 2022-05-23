@@ -24,7 +24,7 @@
 					<tr>
 						<td>
 							<c:if test="${reply.category=='everyMeal'}">모두의 식단</c:if>
-							<c:if test="${reply.category=='myExercise'}">나만의 운동</c:if>
+							<c:if test="${reply.category=='exercise'}">나만의 운동</c:if>
 							<c:if test="${reply.category=='free'}">자유 게시판</c:if>
 							<c:if test="${reply.category=='challenge'}">챌린지 게시판</c:if>
 							<c:if test="${reply.category=='ba'}">Before&After</c:if>
@@ -32,8 +32,8 @@
 						
 						<td title="${reply.title }">
 							<a <c:if test="${reply.category=='everyMeal'}">href="/mypage/everyFoodView?no=${reply.boardNo}"</c:if>
-								<c:if test="${reply.category=='myExercise'}">href="/exercise/exerciseView?no=${reply.boardNo}"</c:if>
-								<c:if test="${reply.category!='everyMeal' && reply.category!='myExercise'}">href="/board/boardView?no=${reply.boardNo}&category=${reply.category }"</c:if>
+								<c:if test="${reply.category=='exercise'}">href="/exercise/exerciseView?no=${reply.boardNo}"</c:if>
+								<c:if test="${reply.category!='everyMeal' && reply.category!='exercise'}">href="/board/boardView?no=${reply.boardNo}&category=${reply.category }"</c:if>
 							>${reply.title }</a>
 						</td>
 						<td title="${reply.contents}">${reply.contents}</td>

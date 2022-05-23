@@ -56,7 +56,7 @@
 
 							<td>${vo.no }</td>
 							<td>${vo.title }</td>
-							<td>${vo.contents }</td>
+							<td id="tbl-contents">${vo.contents }</td>
 							<td>${vo.nickname }</td>
 							<td>${vo.writedate }</td>
 							<td>${vo.hit }</td>

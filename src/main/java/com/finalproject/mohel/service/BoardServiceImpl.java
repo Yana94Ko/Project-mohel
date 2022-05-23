@@ -42,5 +42,13 @@ public class BoardServiceImpl implements BoardService {
 	public int totalRecord(String category, PagingVO pVO) {
 		return dao.totalRecord(category, pVO);
 	}
+	@Override
+	public void adminBoardDelete(int no) {
+		dao.adminBoardDelete(no);
+	}
+	@Override
+	public int adminTotalRecord(PagingVO pVO) {
+		return dao.adminTotalRecord(pVO);
+	}
 
 }
