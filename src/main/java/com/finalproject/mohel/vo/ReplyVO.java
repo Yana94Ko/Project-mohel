@@ -7,6 +7,12 @@ public class ReplyVO {
 	private String contents;
 	private String writedate;
 	
+	@Override
+	public String toString() {
+		return "ReplyVO [getBoardNo()=" + getBoardNo() + ", getNo()=" + getNo() + ", getNickname()=" + getNickname()
+				+ ", getContents()=" + getContents() + ", getWritedate()=" + getWritedate() + "]";
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
