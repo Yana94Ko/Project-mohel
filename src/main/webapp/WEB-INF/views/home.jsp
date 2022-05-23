@@ -29,11 +29,11 @@
 				<div class="pricing-card-01"
 					onclick="location.href='${url}/myFoodMain'">
 					<h3 class="pricing-card-header">나만의 식단</h3>
-					<div class="price">🥦</div>
+					<div class="price">🥄</div>
 					<ul>
-						<li><strong>나만의 식단</strong>으로</li>
-						<li>오늘 먹은 음식</li>
-						<li><strong>기록하기!</strong></li>
+						<li><strong>나만의 식단</strong>으로<br>
+						오늘 먹은 음식<br>
+						<strong>기록하기!</strong></li>
 
 					</ul>
 				</div>
@@ -45,10 +45,9 @@
 					<h3 class="pricing-card-header">모두의 식단</h3>
 					<div class="price">🥗</div>
 					<ul>
-						<li><strong>모두의 식단</strong>으로</li>
-						<li>나의 식단들을</li>
-						<li><strong>공유하기!</strong></li>
-
+						<li><strong>모두의 식단</strong>으로<br>
+						나의 식단들을<br>
+						<strong>공유하기!</strong></li>
 					</ul>
 				</div>
 			</div>
@@ -59,24 +58,21 @@
 					<h3 class="pricing-card-header">나만의 운동</h3>
 					<div class="price">🏊‍♂️</div>
 					<ul>
-						<li><strong>나만의 운동</strong>으로</li>
-						<li>오늘의 운동을</li>
-						<li><strong>기록하기!</strong></li>
-
+						<li><strong>나만의 운동</strong>으로<br>
+						오늘의 운동을<br>
+						<strong>기록하기!</strong></li>
 					</ul>
 				</div>
 			</div>
-
 			<div class="pricing-card">
 				<div class="pricing-card-04"
 					onclick="location.href='${url}/exercise/every_exerciseList'">
 					<h3 class="pricing-card-header">모두의 운동</h3>
-					<div class="price">🤾‍♂️</div>
+					<div class="price">‍⛹️‍♀️⛹️‍♂️</div>
 					<ul>
-						<li><strong>모두의 운동</strong>으로</li>
-						<li>같이 운동할 사람</li>
-						<li><strong>모집하기!</strong></li>
-
+						<li><strong>모두의 운동</strong>으로<br>
+						같이 운동할 사람<br>
+						<strong>모집하기!</strong></li>
 					</ul>
 
 				</div>
@@ -121,13 +117,12 @@
 			🥇 <strong>모두의 운동</strong> 🥇
 		</h3>
 		<div class="every-01">
-			
-			
 			<c:forEach var="vo" items="${lst}" varStatus="st">
 				<div class="pic1">
 					<a href="/exercise/every_exerciseView?no=${vo.no}" class="pic">
 					<c:if test="${vo.img!=null}">
-					<img src="/img/every_exercise/${vo.img}"	name="img"></a>
+					<img src="/img/every_exercise/${vo.img}" name="img">
+					</a>
 					</c:if>
 					<c:if test="${vo.img==null}">
 					<img src="/img/every_exercise/dumbbell.png" name="img">
@@ -143,8 +138,6 @@
 			</c:forEach>
 		</div>
 	</div>
-	<div>
-		
-	</div>
+
 	<script src="/js/home.js"></script>
 </main>

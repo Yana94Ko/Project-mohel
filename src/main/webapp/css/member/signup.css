@@ -25,6 +25,14 @@
 	margin: 20px 0;
 }
 
+#emailCk {
+	width: 350px;
+}
+#emailCheckBox>span {
+	display: inline-block;
+	width: 44px;
+	color: #888;
+}
 .form-use-btn {
 	border: 1px solid #ccc;
 	width: inherit;

@@ -32,5 +32,10 @@ public class MemberServiceIpml implements MemberService {
 	public MemberVO selectMember(MemberVO vo) {
 		return dao.selectMember(vo);
 	}
+
+	@Override
+	public int updatePwd(MemberVO vo) {
+		return dao.updatePwd(vo);
+	}
 	
 }

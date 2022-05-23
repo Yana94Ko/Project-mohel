@@ -7,4 +7,5 @@ public interface MemberService {
 	public int searchEmail(String email);
 	public int insertMember(MemberVO vo);
 	public MemberVO selectMember(MemberVO vo);
+	public int updatePwd(MemberVO vo);
 }
