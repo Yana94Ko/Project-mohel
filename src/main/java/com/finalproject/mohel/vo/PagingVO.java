@@ -80,4 +80,3 @@ public class PagingVO {
 		this.searchWord = searchWord;
 	}	
 }
-

@@ -25,5 +25,8 @@ public interface BoardDAO {
 
 	public int totalRecord(String category, PagingVO pVO);
 	
-	
+	//관리자 글삭제
+	public void adminBoardDelete(int no);
+	//관리자 전체 글 갯수
+	public int adminTotalRecord(PagingVO pVO);
 }

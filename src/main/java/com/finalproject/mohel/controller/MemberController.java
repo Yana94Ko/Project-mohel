@@ -1,6 +1,8 @@
 package com.finalproject.mohel.controller;
 
-
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
@@ -139,13 +141,32 @@ public class MemberController{
 	}
 	
 	@PostMapping("loginOk")
-	public String loginOk(MemberVO vo, HttpSession session, HttpServletResponse res, RedirectAttributes redirect) {
+	public String loginOk(HttpServletResponse response, HttpSession session, MemberVO vo, RedirectAttributes redirect) throws IOException {
 		MemberVO userInfo = service.selectMember(vo);
+		//System.out.println("회원상태"+userInfo.getVerify());
 		if(userInfo!=null) {
+			//블랙회원 로그인시
+			if(userInfo.getVerify()==9) {
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out = response.getWriter(); 
+				out.println("<script>alert('정지된 회원입니다. 정지사유는 관리자에게 문의하세요.');location.href='/member/login';</script>");
+				out.flush();
+				return "redirect:login";
+			}
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("verify", userInfo.getVerify());
-			setLogCookie(res, session);
-			return "redirect:/";
+			SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+			String currentTime = format1.format (System.currentTimeMillis());
+			vo.setRecentvisit(currentTime);
+			vo.setNickname(userInfo.getNickname());
+			service.setRecentvisit(vo);
+			setLogCookie(response, session);
+			//관리자 로그인시
+			if(userInfo.getVerify()==1) {
+				return "redirect:/admin/adminMain";
+			}else {
+				return "redirect:/";
+			}
 		}else {
 			redirect.addFlashAttribute("email", vo.getEmail());
 			redirect.addFlashAttribute("nologin", true);
@@ -154,7 +175,7 @@ public class MemberController{
 	}
 	
 	@GetMapping("kakaologin")
-	public String kakaologin(String code, HttpSession session, HttpServletResponse res,  RedirectAttributes redirect) {
+	public String kakaologin(HttpServletResponse response, String code, HttpSession session, HttpServletResponse res,  RedirectAttributes redirect)throws IOException {
 		JSONObject tokenJson = kakao.getToken(code);
 		String accessToken = tokenJson.getString("access_token");
 		String refreshToken = tokenJson.getString("refresh_token");
@@ -163,12 +184,24 @@ public class MemberController{
 		MemberVO userInfo = service.selectMember(kakaoVO);
 		
 		if(userInfo!=null) {
+			//블랙회원 로그인시
+			if(userInfo.getVerify()==9) {
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out = response.getWriter(); 
+				out.println("<script>alert('정지된 회원입니다. 정지사유는 관리자에게 문의하세요.');location.href='/member/login';</script>");
+				out.flush();
+				return "redirect:login";
+			}
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("refreshToken", refreshToken);
 			session.setAttribute("kakao", "true");
 			setLogCookie(res, session);
-			return "redirect:/";
+			if(userInfo.getVerify()==1) {
+				return "redirect:/admin/adminMain";
+			}else {
+				return "redirect:/";
+			}
 		}else {
 			redirect.addFlashAttribute("kakaoVO", kakaoVO);
 			return "redirect:signup";

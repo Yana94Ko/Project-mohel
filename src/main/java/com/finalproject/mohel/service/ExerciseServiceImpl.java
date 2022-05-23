@@ -59,19 +59,11 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.totalRecord(pVO, nickname);
 	}
 
-	@Override
-	public int totalRecord1(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord1(vo, pVO);
-	}
+	
 
 	@Override
-	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord2(vo, pVO);
-	}
-
-	@Override
-	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord3(vo, pVO);
+	public int totalRecord1(ExercisePagingVO pVO) {
+		return dao.totalRecord1(pVO);
 	}
 
 	@Override
@@ -161,11 +153,16 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
+	public int exerciseMemberCnt(int exerciseNo) {
+		return dao.exerciseMemberCnt(exerciseNo);
+	}
 	public List<ExerciseVO> home_exercise(ExercisePagingVO pVO) {
 		return dao.home_exercise(pVO);
 	}
 
 
-
-
+	@Override
+	public void exerciseApplicantCntSet(int exerciseNo, int applicantCnt) {
+		dao.exerciseApplicantCntSet(exerciseNo, applicantCnt);
+	}
 }

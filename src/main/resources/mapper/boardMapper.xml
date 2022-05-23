@@ -24,7 +24,7 @@
 		 order by no desc limit ${param2.onePageRecord} offset ${param2.offsetIndex}
 	</select>
 	<select id="boardSelect" resultType="com.finalproject.mohel.vo.BoardVO">
-		select no, title, contents, nickname, hit, writedate
+		select no, title, contents, nickname, hit, writedate, category
 		from board where no=#{param1}
 	</select>
 	<update id="hit">
@@ -35,5 +35,8 @@
 	</update>
 	<delete id="boardDelete">
 		delete from board where no=#{param1} and nickname=#{param2} 
+	</delete>
+	<delete id="adminBoardDelete">
+		delete from board where no=#{param1}
 	</delete>
 </mapper>

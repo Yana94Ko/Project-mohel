@@ -24,9 +24,7 @@ public interface ExerciseService {
 
 	//총레코드수
 	public int totalRecord(ExercisePagingVO pVO, String nickname);
-	public int totalRecord1(ExerciseVO vo, ExercisePagingVO pVO);
-	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO);
-	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO);
+	public int totalRecord1(ExercisePagingVO pVO);
 	
 	public int exerciseMemberInsert(ExerciseMemberVO mvo);
 	public int exerciseMemberUpdate(ExerciseMemberVO mvo);
@@ -58,6 +56,10 @@ public interface ExerciseService {
 	
 	public void every_cntHit (int no);
 	
+
+	//참가자 수 관련
+	public int exerciseMemberCnt(int exerciseNo);
+	public void exerciseApplicantCntSet(int exerciseNo, int applicantCnt);
 	// 홈에 나오는 모두의 운동
 	public List<ExerciseVO> home_exercise(ExercisePagingVO pVO);
 }

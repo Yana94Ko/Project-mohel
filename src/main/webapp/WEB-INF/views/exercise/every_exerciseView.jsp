@@ -5,6 +5,16 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
 <script>
+	document.addEventListener("DOMContentLoaded", function(event){
+		//지도 중심좌표 설정
+		map.setCenter(new kakao.maps.LatLng(${y}, ${x}));
+		//마커 생성
+		var marker = new kakao.maps.Marker({
+		    map: map,
+		    position: new kakao.maps.LatLng(${y}, ${x})
+		});
+		marker.setMap(map);
+	})
 	function every_del() {
 		// 사용자가 yes(true)와 no(false)를 선택할 수 있는 대화상자
 		if (confirm("삭제하시겠습니까?")) {
@@ -149,9 +159,14 @@
 						type='hidden' id='dbExerciseNo' value='${vo.no }'>
 					<div class="col-sm-10">
 						<input readonly type="text" class="form-control"
-							placeholder="${vo.title}">
+							placeholder="${vo.title}"><br/>
+					</div><label for="title" class="col-sm-2 col-form-label">작성자</label>
+					<div class="col-sm-10">
+						<input readonly type="text" class="form-control"
+							placeholder="${vo.nickname}">
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label> <input
 						type="text" class="form-control" id="keyword" readonly
@@ -191,31 +206,32 @@
 						name="applicantMax" value="${vo.applicantMax}" readonly>
 				</div>
 				<div class="form-group">
-					<label for="applicant" class="form-label mt-4">참가자<br /></label> <br />모임
-					개설자 <strong>${vo.nickname }</strong> &nbsp&nbsp/&nbsp&nbsp 현재
-					로그인아이디 <strong>${nickname }</strong>
+					<label for="applicant" class="form-label mt-4">참가자</label>
+					<input type="hidden" id="applicantCnt" value=${vo.applicantCnt} >
 					<!-- 신청 신청취소 구현 후 다시하기-->
 					<!-- START : 작성자 화면 -->
 					<c:if test="${nickname == vo.nickname}">
-						<ul class="author-view">
-							<li class="author-view-label">번호</li>
-							<li class="author-view-label">참가 상태</li>
-							<li class="author-view-label">닉네임</li>
-							<li class="author-view-label">승낙/거절</li>
-							<c:forEach var="emvo" items="${emvo}" varStatus="st">
-								<c:if test="${vo.no == emvo.exerciseNo}">
-									<li>${emvo.no }</li>
-									<li><span style="display: none"
-										id="exerciseStatus${st.index}">${emvo.status}</span> <span
-										id="exerciseStatusShow${st.index}"><a
-											href="/member/login">열람하기</a></span></li>
-									<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
-									<li><input type='button' id="stateUpdateBtn" class="applicantSave" value="승낙" > 
-										<input type='button' id="stateDeleteBtn" class="applicantDel" value="거절" > 
-										<span id="exerciseTogether${st.index}"></span></li>
-								</c:if>
-							</c:forEach>
-						</ul>
+						 <ul class="author-view">
+                         	<li class="author-view-label">번호</li>
+                         	<li class="author-view-label">참가 상태</li>
+                         	<li class="author-view-label">닉네임</li>
+                         	<li class="author-view-label">승낙/거절</li>
+                         	<c:forEach var="emvo" items="${emvo}" varStatus="st">
+                         		<c:if test="${vo.no == emvo.exerciseNo}">
+                         			<li>${emvo.no }</li>
+                         			<li>
+                         				<span style = "display:none" id="exerciseStatus${st.index}">${emvo.status}</span>
+                         				<span id="exerciseStatusShow${st.index}"><a href="/member/login">열람하기</a></span>
+                         			</li>
+                         			<li><span id="applierNickname${st.index}">${emvo.nickname }</span></li>
+                         			<li>
+                                    	<input type='button' id="stateUpdateBtn${st.index}" class="applicantSave" value="승낙">
+                                    	<input type='button' id="stateDeleteBtn${st.index}" class="applicantDel" value="거절">
+                                    	<span id="exerciseTogether${st.index}"></span>
+                                    </li>
+                         		</c:if>
+                         	</c:forEach>
+                         </ul>
 					</c:if>
 					<form id="nicknameTest">
 						<input type="text" name="applicantNickName" id="applicantNickName"
