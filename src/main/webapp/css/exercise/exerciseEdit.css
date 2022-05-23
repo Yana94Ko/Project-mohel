@@ -4,7 +4,7 @@
 /*메인폼*/
 #exercise-mainFrm {
 	width: 1000px;
-	height: 800px;
+	height: 900px;
 	border: solid gray #ddd;
 }
 
@@ -14,7 +14,9 @@
 	position: relative;
 	font-size: 30px;
 }
-
+#contents{
+	height:200px;
+}
 #delete-btn {
 	position: relative;
 	left: 2%;
