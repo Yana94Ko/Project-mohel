@@ -81,7 +81,8 @@ public class MemberController{
 	}
 	
 	@PostMapping("signupOk")
-	public String signupOk(MemberVO vo, HttpServletRequest request) {
+	public String signupOk(MemberVO vo, HttpServletRequest request, HttpSession session) {
+		session.invalidate();
 		MohelApplication.profileImgUpload(vo, request);
 		service.insertMember(vo);
 		
@@ -164,7 +165,7 @@ public class MemberController{
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("refreshToken", refreshToken);
-			session.setAttribute("kakao", true);
+			session.setAttribute("kakao", "true");
 			setLogCookie(res, session);
 			return "redirect:/";
 		}else {

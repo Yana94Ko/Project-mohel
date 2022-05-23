@@ -46,5 +46,12 @@ public class MohelApplication {
 			vo.setProfile(profilePath+orgFileName);
 		}
 	}
+	
+	public static void removeImg(String imgRealPath) {
+		File f = new File(imgRealPath);
+		if(f.exists()) {
+			f.delete();
+		}
+	}
 
 }

@@ -83,10 +83,7 @@ public class MypageController {
 			entity = new ResponseEntity<String>(body.toString(), headers, HttpStatus.BAD_REQUEST);
 		}
 		
-		File f = new File(imgRealPath);
-		if(f.exists()) {
-			f.delete();
-		}
+		MohelApplication.removeImg(imgRealPath);
 		
 		return entity;
 	}
@@ -178,10 +175,16 @@ public class MypageController {
 	
 	@PostMapping("userDelOk")
 	public ResponseEntity<String> userDelOk(HttpSession session) {
-		if(session.getAttribute("kakao")!=null && (boolean)session.getAttribute("kakao")) {
+		if(((String)session.getAttribute("kakao")).equals("true")) {
 			kakao.disconnKakao((String)session.getAttribute("accessToken"));
 		}
-		service.deleteMember((MemberVO)session.getAttribute("userInfo"));
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		service.deleteMember(userInfo);
+		String imgRealPath = "";
+		if(userInfo.getProfile()!=null && !userInfo.getProfile().equals("") && userInfo.getProfile().startsWith("/img/")) {
+			imgRealPath = session.getServletContext().getRealPath(userInfo.getProfile());
+		}
+		MohelApplication.removeImg(imgRealPath);
 		session.invalidate();
 		
 		StringBuffer body = new StringBuffer();

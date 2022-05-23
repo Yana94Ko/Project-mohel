@@ -92,7 +92,7 @@ public class KakaoAPI {
 			StringBuffer response = getResponse(con);
 			JSONObject disconnJSON = new JSONObject(response.toString());
 			
-			disconnId = disconnJSON.getString("id");
+			disconnId = disconnJSON.get("id").toString();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
