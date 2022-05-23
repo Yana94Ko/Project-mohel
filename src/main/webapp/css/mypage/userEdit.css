@@ -160,6 +160,11 @@ h4{
 	outline: none;
 	border-bottom: 1px solid black;
 }
+.calc-metabolic-rate {
+	font-size: 18px;
+}
 .calc-metabolic-rate span {
 	color: black;
+	font-weight: bold;
+	margin-left: 15px;
 }

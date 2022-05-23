@@ -4,7 +4,7 @@
 <c:set var="url" value="<%=request.getContextPath()%>" />
 <!DOCTYPE html>
 <html>
-<head>
+
 <link href="${url}/css/exercise/every_exerciseEdit.css" rel="stylesheet"
 	type="text/css" />
 <!-- 카카오 api 라이브러리  -->
@@ -12,6 +12,16 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
 <script>
+	document.addEventListener("DOMContentLoaded", function(event){
+		//지도 중심좌표 설정
+		map.setCenter(new kakao.maps.LatLng(${y}, ${x}));
+		//마커 생성
+		var marker = new kakao.maps.Marker({
+		    map: map,
+		    position: new kakao.maps.LatLng(${y}, ${x})
+		});
+		marker.setMap(map);
+	})
 	// 장소명+주소 가져오기
 	 function placeinfo(){
 		var placeinfoJson = ${vo.placeinfo};
@@ -20,11 +30,6 @@
 	 	$('#location').val(placesinfo+' '+address_name);	
 	 }
 </script>
-<style>
-</style>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
 <body onload="placeinfo()">
 	<div class="container" id="every-exercise-mainFrm">
 	<form method="post" id="every-exerciseFrm" action="/exercise/every_exerciseEditOk" enctype="multipart/form-data">
@@ -39,11 +44,13 @@
 						<input type="text" id="title" name="title" class="form-control" value="${vo.title}">
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label>
 					<input type="text" class="form-control" name="hashtag" id="hashtag" value="${vo.hashtag }"> 
 					<small id="keywordhelp"	class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
+				
 				<div class="form-group">
 					<label for="contents" class="form-label mt-4">내용</label>
 					<textarea class="form-control" id="contents" rows="3" name="contents">${vo.contents }</textarea>
@@ -60,7 +67,7 @@
 				</div>
 				 -->
 				 <div class="form-group">
-					<label for="location" class="form-label mt-4">장소</label> 
+					<label for="location" class="form-label mt-4">모임장소</label> 
 					<input type="text" class="form-control" id="location" name="location" >
 				 	<input type="hidden" name="placeinfo" id="placeinfo">
 				 	

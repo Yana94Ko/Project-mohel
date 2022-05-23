@@ -7,32 +7,9 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         level: 3 // 지도의 확대 레벨
     };  
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
-// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-function addMarker(position, idx, title) {
-    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-        imgOptions =  {
-            spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-        },
-        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-            marker = new kakao.maps.Marker({
-            position: position, // 마커의 위치
-            image: markerImage
-        });
-
-    marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-
-    return marker;
-}
 
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
@@ -168,11 +145,11 @@ function exerciseStateCheck(){
 	}
 }
 exerciseStateCheck();
-//해시태그 입력
-$('#ridingKeyword').on("keyup", function(event) {
-	let keyword = document.getElementById("ridingKeyword").value;
+//해시태그 입력 관련
+$('#hashtag').on("keyup", function(event) {
+	let keyword = document.getElementById("hashtag").value;
 	if (window.event.keyCode == 32) {
-		$('input[id=ridingKeyword]').val(keyword.substr(0, keyword.length - 1)+"#");
+		$('input[id=hashtag]').val(keyword.substr(0, keyword.length - 1)+"#");
 	}
 	if(window.event.keyCode == 8){
 		if(keyword==""){
@@ -180,3 +157,23 @@ $('#ridingKeyword').on("keyup", function(event) {
 		}
 	}
 });
+$('#hashtag').on("keyup", function(event) {
+	let keyword = document.getElementById("hashtag").value;
+	if (keyword.substring(0,0)!="#" && keyword.length==0) {
+		$('input[id=hashtag]').val("#");
+	}
+});
+$('#hashtag').on("focus", function(event) {
+	if($('input[id=hashtag]').val()!="#"){
+		$('input[id=hashtag]').val($('input[id=hashtag]').val( )+"#");
+	}
+});
+$('#hashtag').on("focusout", function(event) {
+	let keyword = document.getElementById("hashtag").value;
+	if($('input[id=hashtag]').val()=="#"){
+		$('input[id=hashtag]').val("");
+	}
+	if(keyword.substring(keyword.length-1)=='#'){
+		$('#hashtag').val(keyword.substring(0,keyword.length-1));
+	}
+})

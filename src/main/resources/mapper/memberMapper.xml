@@ -20,4 +20,48 @@
 			 and pwd=#{pwd}
 		</if>
 	</select>
+	<update id="setRecentvisit">
+		update member set recentvisit = #{recentvisit}
+		where nickname = #{nickname}
+	</update>
+	<!-- 관리자 페이지 회원 목록 페이지 수 -->
+    <select id="totalRecord" resultType="int">
+        select count(joindate) as cnt from member
+        <if test='searchWord != null'>
+            where ${searchKey} like '%${searchWord}%'
+        </if>
+    </select>
+    <!-- 관리자 페이지 회원 목록 -->
+    <select id = "memberList" resultType="com.finalproject.mohel.vo.MemberVO">
+    	select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify, recentvisit, joindate
+		from member
+        <if test = 'searchWord != null'>
+            WHERE ${searchKey} like '%${searchWord}%'
+        </if>
+        ORDER BY no DESC
+        LIMIT ${onePageRecord} OFFSET ${offsetIndex}
+    </select>
+    <!--관리자 페이지 회원정보 상세보기 -->
+    <select id = "adminView" resultType="com.finalproject.mohel.vo.MemberVO">
+        SELECT no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify, recentvisit, joindate, pwd
+        from member where nickname=#{nickname}
+    </select>
+    
+    <!-- 관리자 페이지 회원정보 수정 및 정리 -->
+    <update id="adminUpdate">
+        update member set email=#{email}, nickname=#{nickname}, tel=#{tel}, birthdate=#{birthdate}, age=#{age}, height=#{height}, weight=#{weight}, active=#{active}
+        , verify=#{verify},  pwd=#{pwd},  BMR=#{BMR},  AMR=#{AMR}
+        where nickname=#{nickname}
+    </update>
+    
+    <!-- 관리자 페이지 회원 삭제 -->
+    <delete id="adminDelete">
+        DELETE FROM member
+        WHERE nickname = #{nickname}
+    </delete>
+	<update id="updatePwd">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>
 </mapper>

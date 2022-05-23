@@ -8,4 +8,18 @@
 		FROM mymeals WHERE date LIKE #{param1} AND nickname=#{param2}
 		ORDER BY meals
 	</select>
+	<select id="totalRecord" resultType="int">
+		select count(no) cnt from mymeals
+		<if test='searchWord !=null'>
+			where ${searchKey} like '%${searchWord}%'
+		</if>
+	</select>
+	<select id="adminGetMyFood" resultType="MyFoodVO">
+		SELECT foodlist, foodcodes, foodcalories, meals ,no , nickname, date
+		FROM mymeals
+		order by no desc limit ${onePageRecord} offset ${offsetIndex}
+	</select>
+	<delete id="adminMyFoodDel">
+		delete from mymeals where no=#{param1}
+	</delete>
 </mapper>

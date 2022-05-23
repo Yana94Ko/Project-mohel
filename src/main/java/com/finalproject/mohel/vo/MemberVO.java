@@ -153,8 +153,8 @@ public class MemberVO {
 	public String getRecentvisit() {
 		return recentvisit;
 	}
-	public void setRecentvisit(String recentvisit) {
-		this.recentvisit = recentvisit;
+	public void setRecentvisit(String txt) {
+		this.recentvisit = txt;
 	}
 	public String getJoindate() {
 		return joindate;

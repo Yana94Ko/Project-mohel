@@ -5,7 +5,7 @@ function setPlaceInfo(){
 			//	console.log(placeinfo);
 			let placeJsonData = JSON.parse(placeinfo);
 			//console.log(placeJsonData.address_name);
-			document.getElementById("addressname" + i).innerHTML= placeJsonData.address_name;
+			document.getElementById("addressname" + i).innerHTML= placeJsonData.place_name;
 		}
 	}
 }

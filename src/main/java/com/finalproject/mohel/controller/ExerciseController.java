@@ -43,10 +43,15 @@ public class ExerciseController {
 	@GetMapping("/exercise/exerciseList")
 	public ModelAndView exerciseList(ExercisePagingVO pVO, String category, String nickname, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		pVO.setTotalRecord(service.totalRecord(pVO));
-
-		
-		mav.addObject("lst", service.exerciseList(pVO));
+		if(nickname==null) {
+			MemberVO user=(MemberVO)session.getAttribute("userInfo");
+			if(user!=null) {
+				nickname=user.getNickname();
+			}
+		}
+		pVO.setTotalRecord(service.totalRecord(pVO, nickname));
+		System.out.println(nickname);
+		mav.addObject("lst", service.exerciseList(pVO, nickname));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
 		mav.addObject("nickname", nickname);
@@ -237,7 +242,7 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
-		pVO.setTotalRecord(service.totalRecord(pVO));
+		pVO.setTotalRecord(service.totalRecord1(pVO));
 		
 		mav.addObject("lst", service.every_exerciseList(pVO));
 		mav.addObject("pVO", pVO);
@@ -329,23 +334,26 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseView")
 	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("뷰로 왔어요");
+		//System.out.println("뷰로 왔어요");
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		if(mvo!=null) {
 			mav.addObject("nickname",mvo.getNickname());
 			vo.setNickname(mvo.getNickname());
 		}
 		
-		
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
 		String jsonStr=vo2.getPlaceinfo();
 		System.out.println(jsonStr);
 		JSONObject obj=new JSONObject(jsonStr);
-		String addr=obj.getString("address_name");
-		System.out.println(addr);
+		String addr=obj.getString("place_name");
+		String x=obj.getString("x");
+		String y=obj.getString("y");
+		System.out.println(x+"gggggggggg"+y);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
+		mav.addObject("x",x);
+		mav.addObject("y",y);
 		mav.addObject("emvo",service.exerciseMemberShow(no));
 		mav.setViewName("exercise/every_exerciseView");
 		return mav;
@@ -353,11 +361,19 @@ public class ExerciseController {
 	// 모두의 운동 글 수정
 	@GetMapping("/exercise/every_exerciseEdit")
 	public ModelAndView every_exerciseEdit(int no, ExerciseVO vo, HttpSession session) {
-		//System.out.println(no);
 		ModelAndView mav = new ModelAndView();
-		//mav.addObject("lst2", service.exerciseMemberShow(no));
-		mav.addObject("vo", service.every_exerciseSelect(no));
-		//mav.addObject("vo", service.exerciseSelect(no));
+		ExerciseVO vo2 =service.every_exerciseSelect(no);
+		String jsonStr=vo2.getPlaceinfo();
+		//System.out.println(jsonStr);
+		JSONObject obj=new JSONObject(jsonStr);
+		String addr=obj.getString("place_name");
+		String x=obj.getString("x");
+		String y=obj.getString("y");
+		//System.out.println(x+"gggggggggg"+y);
+		mav.addObject("vo", vo2);
+		mav.addObject("placeinfo",addr);
+		mav.addObject("x",x);
+		mav.addObject("y",y);
 		String nickname = (String)session.getAttribute("nickname");
 		if (nickname != null) {
 			mav.addObject("resolveStatus", service.resolveStatus(nickname, no));
