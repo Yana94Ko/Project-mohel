@@ -1,7 +1,7 @@
 <!------------ CSS ------------->
 <link rel="stylesheet" href="/css/bottom.css">
-<footer class="footer-section">
-	<div class="footer-container container grid">
+<footer class="footer-section" id='footer-section'>
+	<div class="footer-container container grid" id='userFooter'>
 		<div class="footer-content grid">
 			<div class="footer-data">
 				<h3 class="footer-title">Customer Service</h3>

@@ -8,4 +8,93 @@
 		FROM mymeals WHERE date LIKE #{param1} AND nickname=#{param2}
 		ORDER BY meals
 	</select>
+	<select id="getRecommendCalorie" resultType="int">
+		SELECT FLOOR(BMR+AMR) FROM member WHERE nickname=#{param1};
+	</select>
+	<update id="updateMyFood">
+		UPDATE mymeals 
+		SET foodlist=#{param3.foodlist},
+			foodcodes=#{param3.foodcodes},
+			foodcalories=#{param3.foodcalories}
+		WHERE nickname=#{param1} AND date LIKE #{param2} AND meals=${param3.meals};
+	</update>
+	<insert id="insertMyFood">
+		INSERT INTO mymeals(nickname, foodlist, foodcodes, foodcalories, meals, date)
+		VALUES(#{param1}, #{param2.foodlist}, #{param2.foodcodes}, #{param2.foodcalories},
+			${param2.meals}, 
+		<choose>
+			<when test="param3==null">
+				now())
+			</when>
+			<otherwise>
+				#{param3})
+			</otherwise>
+		</choose>
+	</insert>
+	<insert id="everyFoodWriteOk">
+		INSERT INTO board(title, contents, category, nickname, foodlist, foodcodes, 
+			foodcalories, meals, img1, img2, img3)
+		VALUES(#{title}, #{contents}, #{category}, #{nickname}, #{foodlist}, #{foodcodes},
+			#{foodcalories}, #{meals}, #{img1}, #{img2}, #{img3})
+	</insert>
+	<select id="everyFoodList" resultType="BoardVO">
+		SELECT no, title, nickname, foodcalories, meals, img1, writedate, hit
+		FROM board 
+		WHERE category='everyMeal' ORDER BY writedate DESC
+		limit ${6*(param1-1)}, 6
+	</select>
+	<select id="bestUser" resultType="String">
+		SELECT nickname FROM board WHERE category="everyMeal" 
+		GROUP BY nickname ORDER BY COUNT(nickname) DESC LIMIT 0,6;
+	</select>
+	<select id="everyFoodView" resultType="BoardVO">
+		SELECT * FROM board WHERE no=${param1}
+	</select>
+	<update id="hitUp">
+		UPDATE board SET hit=hit+1 WHERE no=${param1};
+	</update>
+	<select id="everyFoodReply" resultType="ReplyVO">
+		SELECT no, boardNo, nickname, contents, writedate, moddate
+		FROM boardreply WHERE boardNo=${param1}
+		ORDER BY no DESC
+	</select>
+	<insert id="everyFoodReplyOk">
+		INSERT INTO boardreply(boardNo, nickname, contents)
+		VALUES(${param1}, #{param2}, #{param3})
+	</insert>
+	<delete id="everyFoodDel">
+		DELETE FROM board WHERE no=${no} AND nickname=#{nickname}
+	</delete>
+	<delete id="everyFoodReplyDel">
+		DELETE FROM boardreply WHERE no=${param1}
+	</delete>
+	<update id="replyEditOk">
+		UPDATE boardreply SET contents=#{contents}
+		WHERE no=${no} AND boardNo=${boardNo}
+	</update>
+	<select id="getDBImg" resultType="BoardVO">
+		SELECT img1, img2, img3 FROM board WHERE no=${param1}
+	</select>
+	<update id="updateBoardWithFile">
+		UPDATE board SET title=#{title}, contents=#{contents}, img1=#{img1}, img2=#{img2}, img3=#{img3}
+		WHERE no=${no} AND nickname=#{nickname}
+	</update>
+	<update id="updateBoardNoFile">
+		UPDATE board SET title=#{title}, contents=#{contents} 
+		WHERE no=${no} AND nickname=#{nickname}
+	</update>
+	<select id="totalRecord" resultType="int">
+		select count(no) cnt from mymeals
+		<if test='searchWord !=null'>
+			where ${searchKey} like '%${searchWord}%'
+		</if>
+	</select>
+	<select id="adminGetMyFood" resultType="MyFoodVO">
+		SELECT foodlist, foodcodes, foodcalories, meals ,no , nickname, date
+		FROM mymeals
+		order by no desc limit ${onePageRecord} offset ${offsetIndex}
+	</select>
+	<delete id="adminMyFoodDel">
+		delete from mymeals where no=#{param1}
+	</delete>
 </mapper>

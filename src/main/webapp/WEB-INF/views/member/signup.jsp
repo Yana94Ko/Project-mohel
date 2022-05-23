@@ -1,16 +1,17 @@
 <link rel="stylesheet" href="/css/member/signup.css" type="text/css">
-<script src="/js/member/signup.js"></script>
+<script type="module" src="/js/member/signup.js"></script>
 <div class="signup-main container">
 	<img id="signupLogo" src="/img/mohel-logo-05.png">
 	<form id="signupFrm" method="post" action="/member/signupOk" enctype="multipart/form-data">
 		<ul id="sugnupFrmBox">
 			<li>
-				<input id="profile" name="filename" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
-				<c:if test="${kakaoVO==null || kakaoVO.profile==null}">
-					<label for="profile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="/img/profile/defaultProfile.png"></label>
+				<input id="imgFile" name="profileImg" type="file" hidden="true" accept="image/jpg, image/jpeg, image/png">
+				<input id="profile" name="profile" type="hidden" value="${kakaoVO.profile }">
+				<c:if test="${kakaoVO.profile==null}">
+					<label for="imgFile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="/img/profile/defaultProfile.png"></label>
 				</c:if>
-				<c:if test="${kakaoVO!=null && kakaoVO.profile!=null}"> 
-					<label for="profile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="${kakaoVO.profile }"></label>
+				<c:if test="${kakaoVO.profile!=null}">
+					<label for="imgFile" title="이미지 업로드"><img class="profile-img" id="profileImg" src="${kakaoVO.profile }"></label>
 				</c:if>
 				<br><input id="defaultProfile" type="button" value="이미지 제거">
 			</li>
@@ -26,6 +27,7 @@
 					</div>
 					<div id="emailCheckBox" class="form-use-btn check">
 						<input id="emailCk" class="text-box" type="text" placeholder="인증번호 6자리" disabled>
+						<span></span>
 						<input id="emailCkBtn" type="button" value="확인" disabled>
 					</div>
 					<div id="emailCkMsg" class="ck-msg"></div>

@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+#findPwdFrm{
+	width: 500px;
+	margin-top: 100px;
+	margin-bottom: 200px;
+	margin-left:100px;
+	padding: 30px;
+	border: none;
+}
+
+#findPwdFrm li {
+	margin-bottom: 5px;
+}
+
+.findPwd-button{
+	width:70px;
+	padding:5px;
+ 	background-color: #01c9c6;
+  	color: white;
+  	font-size: 15px;
+  	transition: 0.5s;
+  	border-radius: 5px;
+  	border:none;
+  	margin-top: 20px;
+}
+.findPwd-button:hover {
+  background-color: #01d8d6;
+}
+
+.email-ck-input{
+	width:300px;
+	height:40px;
+	border: 0.5px solid #D8D8D8;
+	border-radius: 5px;
+	font-size:15px;
+}
+.email-ck-input.ck-num {
+	line-height: 40px;
+	padding-left: 5px;
+}
+.email-ck-input.ck-num>input {
+	line-height: 23px;
+}
+.email-ck-input.ck-num>input:first-child {
+	border: none;
+	outline: none;
+	width: 244px;
+}
+#emailCheckBox {
+	background-color: #FAFAFA;
+}
+#emailCk {
+	width: 200px;
+}
+
+.ck-time {
+	display: inline-block;
+	width: 40px;
+	color: #888;
+}
+.ck-msg {
+	font-size: 14px;
+}
+
+hr{
+ position:absolute;
+ top:-80px;
+ left:-40px;
+ height:30vh;
+ width:.05vw;
+ border-width:0;
+ color:#dedede;
+ background-color:#dedede;
+ margin-bottom:200px;
+ 
+}
+
+.explain{
+ position:absolute;
+ top:270px;
+ left:1100px;
+}
+
+.explain p{
+	font-size:14px;
+}
+.findPwd-icon{
+	font-size:50px;
+	color:gray;
+}

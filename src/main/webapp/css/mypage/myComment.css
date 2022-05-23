@@ -1,69 +1,37 @@
 @charset "UTF-8";
-@import url("mypageNav.css");
-
-/* Nav */
-.lnb-box a:nth-child(2) {
-	color: #01c9c6;
-	font-weight: bold;
-	font-size: 16px;
-	border-left: 3px solid #01c9c6;
-}
-.lnb-box a:nth-child(2):hover {
-	background-color: #fff;
-}
+@import url("/css/mypage/myActivity.css");
 
 .switch a:nth-child(1){
-	width: 30px;
-	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 500;
-	font-size: 17px;
-	color: gray;
-	border-bottom: none;
-	margin-right:10px;
+	width: 60px;
+	color: black;
+	bottom: -11px;
 }
 .switch a:nth-child(2){
-	width: 30px;
-	height: 15px;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 500;
-	font-size: 17px;
+	width: 75px;
 	color: #01c9c6;
-	border-bottom: 4px solid #01c9c6;
+	margin-right: 0px;
 }
-.switch-select{
-	margin-left:485px;
-	width:165px;
+.switch a:nth-child(1):hover{
+	background-color: #eee;
 }
 
-.board-box{
-	width: 750px;
-	display:block;
-	position: relative;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: 200;
-	font-size: 16px;
-	border: none;
-	color: rgb(102,102,102);
-	text-align: center;
-	line-height: 55px;
-	
+th:nth-child(2),
+td:nth-child(2){
+	width: 32%;
+	max-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-table{
-	
-    width: 100%;
-    border-collapse: collapse;
-    line-height: 24px;
+th:nth-child(3),
+td:nth-child(3){
+	width: 32%;
+	max-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-table td,th {
-    font-family: "Noto Sans KR", sans-serif;
-	border: 1px solid #dedede;
-    border-collapse: collapse;
-    text-align: center;
-    padding: 10px;
-    color:black;
-}
-th {
-	background: rgb(238,238,238);
-	
+th:nth-child(4),
+td:nth-child(4){
+	width: 15%;
 }

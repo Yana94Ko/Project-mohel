@@ -4,7 +4,7 @@
 /*메인폼*/
 #exercise-mainFrm {
 	width: 1000px;
-	height: 800px;
+	height: 900px;
 	border: solid gray #ddd;
 }
 
@@ -13,6 +13,9 @@
 	margin: 30px;
 	position: relative;
 	font-size: 30px;
+}
+#contents{
+	height:200px;
 }
 /*이미지*/
 #formFile{

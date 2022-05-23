@@ -42,7 +42,7 @@
 		//confirm()은 사용자가 y, n을 선택 가능한 대화 상자
 		if(confirm("글을 삭제하시겠습니까?")){
 			//확인버튼 선택시
-			location.href = "/board/boardDel?no="+${vo.no};
+			location.href = "/board/boardDel?no=${vo.no}&category=${vo.category}";
 		}
 	}
 	//댓글-----------------------------------------

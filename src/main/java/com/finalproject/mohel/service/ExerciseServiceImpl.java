@@ -25,8 +25,8 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO) {
-		return dao.exerciseList(pVO);
+	public List<ExerciseVO> exerciseList(ExercisePagingVO pVO, String nickname) {
+		return dao.exerciseList(pVO, nickname);
 	}
 
 	@Override
@@ -55,43 +55,35 @@ public class ExerciseServiceImpl implements ExerciseService{
 	}
 
 	@Override
-	public int totalRecord(ExercisePagingVO pVO) {
-		return dao.totalRecord(pVO);
+	public int totalRecord(ExercisePagingVO pVO, String nickname) {
+		return dao.totalRecord(pVO, nickname);
+	}
+
+	
+
+	@Override
+	public int totalRecord1(ExercisePagingVO pVO) {
+		return dao.totalRecord1(pVO);
 	}
 
 	@Override
-	public int totalRecord1(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord1(vo, pVO);
+	public int exerciseMemberInsert(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberInsert(mvo);
 	}
 
 	@Override
-	public int totalRecord2(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord2(vo, pVO);
+	public int exerciseMemberUpdate(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberUpdate(mvo);
 	}
 
 	@Override
-	public int totalRecord3(ExerciseVO vo, ExercisePagingVO pVO) {
-		return dao.totalRecord3(vo, pVO);
-	}
-
-	@Override
-	public int exerciseMemberInsert(ExerciseVO vo) {
-		return dao.exerciseMemberInsert(vo);
-	}
-
-	@Override
-	public int exerciseMemberUpdate(ExerciseMemberVO vo) {
-		return dao.exerciseMemberUpdate(vo);
-	}
-
-	@Override
-	public List<ExerciseVO> exerciseMemberShow(int no) {
+	public List<ExerciseMemberVO> exerciseMemberShow(int no) {
 		return dao.exerciseMemberShow(no);
 	}
 
 	@Override
-	public int exerciseMemberDelete(ExerciseMemberVO vo) {
-		return dao.exerciseMemberDelete(vo);
+	public int exerciseMemberDelete(ExerciseMemberVO mvo) {
+		return dao.exerciseMemberDelete(mvo);
 	}
 
 	@Override
@@ -129,6 +121,12 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.every_exerciseInsert(vo);
 	}
 
+	
+	@Override
+	public ExerciseVO every_exerciseLastWriteNo(String nickname) {
+		return dao.every_exerciseLastWriteNo(nickname);
+	}
+
 	@Override
 	public ExerciseVO every_exerciseSelect(int no) {
 		return dao.every_exerciseSelect(no);
@@ -154,7 +152,17 @@ public class ExerciseServiceImpl implements ExerciseService{
 		return dao.getFilename(no);
 	}
 
+	@Override
+	public int exerciseMemberCnt(int exerciseNo) {
+		return dao.exerciseMemberCnt(exerciseNo);
+	}
+	public List<ExerciseVO> home_exercise(ExercisePagingVO pVO) {
+		return dao.home_exercise(pVO);
+	}
 
 
-
+	@Override
+	public void exerciseApplicantCntSet(int exerciseNo, int applicantCnt) {
+		dao.exerciseApplicantCntSet(exerciseNo, applicantCnt);
+	}
 }

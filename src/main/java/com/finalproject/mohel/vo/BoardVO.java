@@ -1,7 +1,5 @@
 package com.finalproject.mohel.vo;
 
-import java.util.List;
-
 public class BoardVO {
 	private int no;
 	private String title;
@@ -10,6 +8,8 @@ public class BoardVO {
 	private String nickname;
 	private String foodlist;
 	private String foodcodes;
+	private String foodcalories;
+	private int sumcalories;
 	private String meals;
 	private String img1;
 	private String img2;
@@ -18,6 +18,15 @@ public class BoardVO {
 	private String moddate;
 	private int hit;
 
+	@Override
+	public String toString() {
+		return "BoardVO [getNo()=" + getNo() + ", getTitle()=" + getTitle() + ", getContents()=" + getContents()
+				+ ", getCategory()=" + getCategory() + ", getNickname()=" + getNickname() + ", getFoodlist()="
+				+ getFoodlist() + ", getFoodcodes()=" + getFoodcodes() + ", getMeals()=" + getMeals() + ", getImg1()="
+				+ getImg1() + ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getWritedate()="
+				+ getWritedate() + ", getModdate()=" + getModdate() + ", getHit()=" + getHit() + "]";
+	}
+	
 	public int getNo() {
 		return no;
 	}
@@ -59,6 +68,18 @@ public class BoardVO {
 	}
 	public void setFoodcodes(String foodcodes) {
 		this.foodcodes = foodcodes;
+	}
+	public String getFoodcalories() {
+		return foodcalories;
+	}
+	public void setFoodcalories(String foodcalories) {
+		this.foodcalories = foodcalories;
+	}
+	public int getSumcalories() {
+		return sumcalories;
+	}
+	public void setSumcalories(int sumcalories) {
+		this.sumcalories = sumcalories;
 	}
 	public String getMeals() {
 		return meals;

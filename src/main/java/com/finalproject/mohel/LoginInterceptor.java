@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.finalproject.mohel.vo.MemberVO;
+
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -14,8 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = request.getSession();
 
-		String logStatus = (String) session.getAttribute("logStatus");
-		if (logStatus != null && logStatus.equals("Y")) {
+		if ((MemberVO)session.getAttribute("userInfo") != null) {
 			return true;
 		} else {
 			response.sendRedirect("/member/login");

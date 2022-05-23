@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalproject.mohel.dao.MypageDAO">
+	<update id="updateUserInfo">
+		update member
+		set nickname=#{nickname}, tel=#{tel}, profile=#{profile}, birthdate=#{birthdate}, gender=#{gender}, age=${age}, height=${height}, weight=${weight}, active=#{active}, BMR=#{BMR}, AMR=#{AMR}
+		where email=#{email}
+		<if test="pwd!=null">
+		and pwd=#{pwd}
+		</if>
+	</update>
+	
+	<select id="selectMyBoardList" resultType="BoardVO">
+		select no, title, category, writedate, hit
+		from board
+		where nickname=#{param1}
+		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+		order by no desc
+		limit ${param3.onePageRecord} offset ${param3.offsetIndex}
+	</select>
+	
+	<select id="boardTotalRecord" resultType="int">
+  		select count(no) cnt from board
+  		where nickname=#{param1}
+  		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+  	</select>
+  	
+	<select id="selectMyReplyList" resultType="map">
+		select r.no, r.boardNo, b.category, b.title, r.contents, r.writedate
+		from boardreply r join board b
+		on r.boardNo=b.no
+		where r.nickname=#{param1}
+		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+		order by no desc
+		limit ${param3.onePageRecord} offset ${param3.offsetIndex}
+	</select>
+	
+	<select id="replyTotalRecord" resultType="int">
+  		select count(r.no)
+		from boardreply r join board b
+		on r.boardNo=b.no
+  		where r.nickname=#{param1}
+  		<if test="param2!=null">
+			and category=#{param2}
+		</if>
+		<if test="param3.searchWord!=null">
+			and ${param3.searchKey} like "%${param3.searchWord}%"
+		</if>
+  	</select>
+  	
+  	<select id="selectMyExercise" resultType="map">
+  		select e.no, e.nickname leader, e.title, e.hashtag, m.status
+		from everyexercise e join exercise_member m
+		on e.no=m.exerciseNo
+		where m.nickname=#{param1}
+		<if test="param2.searchWord!=null">
+			and ${param2.searchKey} like "%${param2.searchWord}%"
+		</if>
+		order by m.no desc
+		limit ${param2.onePageRecord} offset ${param2.offsetIndex}
+  	</select>
+  	
+  	<select id="myExerciseTotalRecord" resultType="int">
+  		select count(e.no)
+		from everyexercise e join exercise_member m
+		on e.no=m.exerciseNo
+		where m.nickname=#{param1}
+		<if test="param2.searchWord!=null">
+			and ${param2.searchKey} like "%${param2.searchWord}%"
+		</if>
+  	</select>
+  	
+  	<delete id="deleteMember">
+  		delete from member
+  		where email=#{email}
+  	</delete>
+</mapper>
