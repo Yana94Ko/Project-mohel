@@ -99,29 +99,29 @@ public class MyFoodController {
     @PostMapping("/everyFoodWriteOk")
     public String everyFoodWriteOk(BoardVO bvo, HttpServletRequest request) {
     	String path = request.getSession().getServletContext().getRealPath("/img/food");
-    	System.out.println("실제 경로 = "+path);
+    	//System.out.println("실제 경로 = "+path);
 
     	try {
 			MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
 
 			List<MultipartFile> files = mr.getFiles("images");
-			System.out.println("업로드 파일 수 -> "+files.size());
+			//System.out.println("업로드 파일 수 -> "+files.size());
 			
 			if(files!=null) {
 				for(int i=0; i<files.size(); i++) {
 					MultipartFile mf = files.get(i);
 					
 					String orgFileName = mf.getOriginalFilename();
-					System.out.println(i+1+"번째 파일명 -> "+ orgFileName );
+					//System.out.println(i+1+"번째 파일명 -> "+ orgFileName );
 					int point = orgFileName.lastIndexOf(".");
 					String ext = orgFileName.substring(point);
 					String newFileName = System.currentTimeMillis()+i+ext;
-					System.out.println("변환후 파일명 -> "+newFileName);
+					//System.out.println("변환후 파일명 -> "+newFileName);
 					File f = new File(path, newFileName);
 					
 					try {
 						mf.transferTo(f);
-						System.out.println(f);
+						//System.out.println(f);
 					}catch(Exception ee) {
 						ee.printStackTrace();
 					}
@@ -137,7 +137,7 @@ public class MyFoodController {
 				bvo.setCategory("everyMeal");
 				bvo.setNickname(((MemberVO)request.getSession().getAttribute("userInfo")).getNickname());
 				service.everyFoodWriteOk(bvo);
-				System.out.println("글쓰기 완료");
+				//System.out.println("글쓰기 완료");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -215,7 +215,7 @@ public class MyFoodController {
     @PostMapping("/everyFoodEditOk")
     public String everyFoodEditOk(BoardVO bvo, HttpServletRequest request) {
     	String path = request.getSession().getServletContext().getRealPath("/img/food");
-    	System.out.println("실제 경로 = "+path);
+    	//System.out.println("실제 경로 = "+path);
 
     	try {
 			MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
@@ -225,7 +225,7 @@ public class MyFoodController {
 			bvo.setNickname(((MemberVO)request.getSession().getAttribute("userInfo")).getNickname());
 			
 			if(files.get(0).getSize()>0) {
-				System.out.println("파일있는부분 진입");
+				//System.out.println("파일있는부분 진입");
 				BoardVO bvof = service.getDBImg(bvo.getNo());
 				for(int i=1; i<=3; i++) {
 					String img = null;
@@ -239,24 +239,24 @@ public class MyFoodController {
 					
 					if(img!=null) {
 						File f = new File(path, img);
-						System.out.println("삭제할 파일명 = "+img);
-						System.out.println("삭제여부 = "+f.delete());
+						//System.out.println("삭제할 파일명 = "+img);
+						//System.out.println("삭제여부 = "+f.delete());
 					}
 				}
 				for(int i=0; i<files.size(); i++) {
 					MultipartFile mf = files.get(i);
 					
 					String orgFileName = mf.getOriginalFilename();
-					System.out.println(i+1+"번째 파일명 -> "+ orgFileName );
+					//System.out.println(i+1+"번째 파일명 -> "+ orgFileName );
 					int point = orgFileName.lastIndexOf(".");
 					String ext = orgFileName.substring(point);
 					String newFileName = System.currentTimeMillis()+i+ext;
-					System.out.println("변환후 파일명 -> "+newFileName);
+					//System.out.println("변환후 파일명 -> "+newFileName);
 					File f = new File(path, newFileName);
 					
 					try {
 						mf.transferTo(f);
-						System.out.println(f);
+						//System.out.println(f);
 					}catch(Exception ee) {
 						ee.printStackTrace();
 					}
@@ -272,7 +272,7 @@ public class MyFoodController {
 				//DB UPDATE
 				service.updateBoardWithFile(bvo);
 			}else {
-				System.out.println("파일없는 부분 진입");
+				//System.out.println("파일없는 부분 진입");
 				service.updateBoardNoFile(bvo);
 			}
 			
