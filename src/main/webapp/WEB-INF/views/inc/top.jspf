@@ -55,7 +55,7 @@
 				<div class="category-list-box">
 					<ul>
 						<li><a href="/myFoodMain">나만의 식단</a></li>
-						<li><a href="#">모두의 식단</a></li>
+						<li><a href="/everyFoodList?pageNum=1">모두의 식단</a></li>
 					</ul>
 					<ul>
 						<li><a href="${url}/exercise/exerciseList?category=운동">나만의 운동</a></li>
