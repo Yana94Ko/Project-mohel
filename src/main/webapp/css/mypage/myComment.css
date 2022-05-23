@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("/css/mypage/mypaging.css");
 
 /* Nav */
 .lnb-box a:nth-child(2) {
