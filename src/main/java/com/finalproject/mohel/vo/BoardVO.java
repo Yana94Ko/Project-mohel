@@ -8,6 +8,8 @@ public class BoardVO {
 	private String nickname;
 	private String foodlist;
 	private String foodcodes;
+	private String foodcalories;
+	private int sumcalories;
 	private String meals;
 	private String img1;
 	private String img2;
@@ -66,6 +68,18 @@ public class BoardVO {
 	}
 	public void setFoodcodes(String foodcodes) {
 		this.foodcodes = foodcodes;
+	}
+	public String getFoodcalories() {
+		return foodcalories;
+	}
+	public void setFoodcalories(String foodcalories) {
+		this.foodcalories = foodcalories;
+	}
+	public int getSumcalories() {
+		return sumcalories;
+	}
+	public void setSumcalories(int sumcalories) {
+		this.sumcalories = sumcalories;
 	}
 	public String getMeals() {
 		return meals;

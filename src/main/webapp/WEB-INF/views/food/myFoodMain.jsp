@@ -14,6 +14,7 @@
 	var dateJson = ${dateJson};
 	var today = '${today}';
 	var foodList = ${foodList};
+	var recommendCal = ${recommendCal};
 </script>
 <script src="/js/food/myFoodMain.js"></script>
 
@@ -34,25 +35,23 @@
 			<img src="/img/food/calendar.png" data-toggle="modal" data-target="#exampleModal"/>
 		</div>
 		
-		<!-- 칼로리 표시 영역 -->
+<!-- 칼로리 표시 영역 -->
 		<div id="myFoodMain-input-calorie">
 			<div id="myFoodMain-input-calorie-recommend">
 				<span>오늘 섭취 권장 칼로리</span>
-				<div id="myFoodMain-input-calorie-recommend-bar">
-					<!-- 칼로리 막대 표시 필요 -->
-				</div>
-				<span>1,886 kcal</span>
+				<div id="myFoodMain-input-calorie-recommend-bar"></div>
+				<span><span id="recommendCalorie">${recommendCal}</span> kcal</span>
 			</div>
 			<div id="myFoodMain-input-calorie-my">
 				<span>오늘 나의 식단 칼로리</span>
 				<div id="myFoodMain-input-calorie-my-bar">
-					<!-- 칼로리 막대 표시 필요 -->
+					<div id="my-bar-inner"></div>
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorieTotal">0</span> kcal</span>
 			</div>
 		</div>
 		
-		<!-- 아침 -->
+<!-- 아침 -->
 		<div class="myFoodMain-input-menu">
 			&nbsp;&nbsp;&nbsp;아침
 			<img src="/img/food/plus.png"/>
@@ -71,16 +70,19 @@
 			<div class="myFoodMain-input-selected" id="selected1">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
-				<span>오늘 나의 식단 칼로리</span>
+				<span>아침 식단 칼로리</span>
 				<div class="myFoodMain-input-calorie-each-bar">
 					<!-- 칼로리 막대 표시 필요 -->
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorie1">0</span> kcal</span>
 			</div>
-			<div class="myFoodMain-input-each-save myFoodMain-btn">저장</div>
+			<div class="myFoodMain-input-each-save myFoodMain-btn" id="myFoodBtn1">저장</div>
+			<div class="myFoodMain-btn myFoodMain-shareEveryOne">
+				모두의 식단에 공유하기
+			</div>
 		</div>
 		
-		<!-- 오전간식 -->
+<!-- 오전간식 -->
 		<div class="myFoodMain-input-menu">
 			&nbsp;&nbsp;&nbsp;오전간식
 			<img src="/img/food/plus.png"/>
@@ -99,16 +101,19 @@
 			<div class="myFoodMain-input-selected" id="selected2">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
-				<span>오늘 나의 식단 칼로리</span>
+				<span>오전간식 식단 칼로리</span>
 				<div class="myFoodMain-input-calorie-each-bar">
 					<!-- 칼로리 막대 표시 필요 -->
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorie2">0</span> kcal</span>
 			</div>
-			<div class="myFoodMain-input-each-save myFoodMain-btn">저장</div>
+			<div class="myFoodMain-input-each-save myFoodMain-btn" id="myFoodBtn2">저장</div>
+			<div class="myFoodMain-btn myFoodMain-shareEveryOne">
+				모두의 식단에 공유하기
+			</div>
 		</div>
 		
-		<!-- 점심 -->
+<!-- 점심 -->
 		<div class="myFoodMain-input-menu">
 			&nbsp;&nbsp;&nbsp;점심
 			<img src="/img/food/plus.png"/>
@@ -127,16 +132,19 @@
 			<div class="myFoodMain-input-selected" id="selected3">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
-				<span>오늘 나의 식단 칼로리</span>
+				<span>점심 식단 칼로리</span>
 				<div class="myFoodMain-input-calorie-each-bar">
 					<!-- 칼로리 막대 표시 필요 -->
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorie3">0</span> kcal</span>
 			</div>
-			<div class="myFoodMain-input-each-save myFoodMain-btn">저장</div>
+			<div class="myFoodMain-input-each-save myFoodMain-btn" id="myFoodBtn3">저장</div>
+			<div class="myFoodMain-btn myFoodMain-shareEveryOne">
+				모두의 식단에 공유하기
+			</div>
 		</div>
 		
-		<!-- 오후간식 -->
+<!-- 오후간식 -->
 		<div class="myFoodMain-input-menu">
 			&nbsp;&nbsp;&nbsp;오후간식
 			<img src="/img/food/plus.png"/>
@@ -155,16 +163,19 @@
 			<div class="myFoodMain-input-selected" id="selected4">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
-				<span>오늘 나의 식단 칼로리</span>
+				<span>오후간식 식단 칼로리</span>
 				<div class="myFoodMain-input-calorie-each-bar">
 					<!-- 칼로리 막대 표시 필요 -->
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorie4">0</span> kcal</span>
 			</div>
-			<div class="myFoodMain-input-each-save myFoodMain-btn">저장</div>
+			<div class="myFoodMain-input-each-save myFoodMain-btn" id="myFoodBtn4">저장</div>
+			<div class="myFoodMain-btn myFoodMain-shareEveryOne">
+				모두의 식단에 공유하기
+			</div>
 		</div>
 		
-		<!-- 저녁 -->
+<!-- 저녁 -->
 		<div class="myFoodMain-input-menu">
 			&nbsp;&nbsp;&nbsp;저녁
 			<img src="/img/food/plus.png"/>
@@ -183,16 +194,16 @@
 			<div class="myFoodMain-input-selected" id="selected5">
 			</div>
 			<div class="myFoodMain-input-calorie-each">
-				<span>오늘 나의 식단 칼로리</span>
+				<span>저녁 식단 칼로리</span>
 				<div class="myFoodMain-input-calorie-each-bar">
 					<!-- 칼로리 막대 표시 필요 -->
 				</div>
-				<span>573 kcal</span>
+				<span><span id="todayCalorie5">0</span> kcal</span>
 			</div>
-			<div class="myFoodMain-input-each-save myFoodMain-btn">저장</div>
-		</div>
-		<div class="myFoodMain-btn" id="myFoodMain-shareEveryOne">
-			모두의 식단에 공유하기
+			<div class="myFoodMain-input-each-save myFoodMain-btn" id="myFoodBtn5">저장</div>
+			<div class="myFoodMain-btn myFoodMain-shareEveryOne">
+				모두의 식단에 공유하기
+			</div>
 		</div>
 	</div>
 </div>

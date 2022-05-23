@@ -1,14 +1,6 @@
 window.onload=function(){
-	const mealPart = ["아침","오전간식","점심","오후간식","저녁"];
-	const dataTag = document.getElementsByClassName("everyFoodWrite-data");
-	dataTag[0].value = sessionStorage.getItem("meals");
-	dataTag[1].value = sessionStorage.getItem("foodlist");
-	dataTag[2].value = sessionStorage.getItem("foodcodes");
-	dataTag[3].value = sessionStorage.getItem("foodcalories");
-	const dateInfo = `${sessionStorage.getItem("today")} (${mealPart[dataTag[0].value-1]})`;
-	document.getElementById("everyFoodWrite-date").innerText = dateInfo;
 	
-	const btn = document.getElementById("everyFoodWrite-selectPicture");
+	const btn = document.getElementById("everyFoodEdit-selectPicture");
 	btn.addEventListener("click", function(){
 		document.getElementById("select").click();
 	});
@@ -22,24 +14,26 @@ window.onload=function(){
 		readImage(this);
 		console.log(this.files);
 	});
-	const submitBtn = document.getElementById("everyFoodWrite-shareEveryOne");
+	const submitBtn = document.getElementById("everyFoodEdit-shareEveryOne");
 	submitBtn.addEventListener("click", function(){
 		if(imgInput.value==""){
-			alert("이미지가 없습니다.\n1~3개의 이미지를 선택해야 합니다.");
-			return;
+			if(!confirm("이미지를 선택하지 않으면 원래의 이미지가 유지됩니다.\n계속 진행하시겠습니까?")){
+				return;
+			}
 		}
-		const title = document.getElementById("everyFoodWrite-input-title");
+		const title = document.getElementById("everyFoodEdit-input-title");
 		if(title.value==""){
 			alert("제목을 입력해 주세요");
 			return;
 		}
-		const contents = document.getElementById("everyFoodWrite-input-content");
+		const contents = document.getElementById("everyFoodEdit-input-content");
 		if(contents.value==""){
 			alert("내용을 입력해 주세요");
 			return;
 		}
-		alert("식단이 공유되었습니다");
-		document.getElementById("everyFoodWriteFrm").submit();
+		
+		alert("수정이 완료되었습니다");
+		document.getElementById("everyFoodEditFrm").submit();
 	});
 }//onload 끝
 
