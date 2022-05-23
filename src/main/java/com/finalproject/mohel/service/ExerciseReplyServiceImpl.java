@@ -26,7 +26,7 @@ public class ExerciseReplyServiceImpl implements ExerciseReplyService{
 
 	@Override
 	public int exerciseReplyEdit(ExerciseReplyVO vo) {
-		return dao.exerciseEdit(vo);
+		return dao.exerciseReplyEdit(vo);
 	}
 
 	@Override

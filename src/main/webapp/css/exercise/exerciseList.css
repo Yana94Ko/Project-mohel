@@ -47,6 +47,7 @@ container{
 
 #exercise-main-tbl {
 	overflow: hidden;
+	text-overflow:hidden;
 	width: 100%;
 	height: 80px;
 	text-align: center;
@@ -64,12 +65,15 @@ container{
 
 #exercise-head>th:nth-child(6n+3) {
 	overflow: hidden;
-	text-overflow: hidden;
+	text-overflow: ellipsis;
 	width: 45%;
+	white-space:nowrap;
 }
-
 #exercise-contents {
-	color: #787878;
+	color: #787878
+}
+#exercise-contents>td{
+	overflow:hidden;
 }
 
 /*페이징*/
@@ -79,7 +83,7 @@ container{
 	overflow: auto;
 	width:500px;
 	position:relative;
-	left:50px;
+	left:150px;
 	
 }
 

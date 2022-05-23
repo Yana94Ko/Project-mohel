@@ -21,4 +21,5 @@ public interface MemberService {
     public MemberVO adminView(String nickname);
     //관리자 페이지 회원 삭제
     public int adminDelete(String nickname);
+	public int updatePwd(MemberVO vo);
 }

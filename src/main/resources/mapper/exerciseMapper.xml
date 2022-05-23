@@ -6,112 +6,99 @@
 
 
 <mapper namespace="com.finalproject.mohel.dao.ExerciseDAO">
-	<select id="exerciseList"
-		resultType="com.finalproject.mohel.vo.BoardVO">
-		select no, title, contents, nickname, date_format(writedate,
-		'%Y-%m-%d') as writedate, hit
+	<select id="exerciseList" resultType="com.finalproject.mohel.vo.BoardVO">
+		select no, title, contents, nickname,
+		date_format(writedate,'%Y-%m-%d') as writedate, hit
 		from board
-		where category='exercise'
-		<if test='searchWord != null'>
-			where ${searchKey} like '%${searchWord}%'
+		where
+		category='exercise'
+		<if test="param2!=null">
+			and nickname=#{param2}
+		</if>
+		<if test='param1.searchWord != null'>
+			and ${param1.searchKey} like '%${param1.searchWord}%'
 		</if>
 		order by no desc
-		limit ${onePageRecord} offset ${offsetIndex}
+		limit ${param1.onePageRecord} offset
+		${param1.offsetIndex}
 	</select>
 	<select id="totalRecord" resultType="int">
 		select count(no) cnt from board
-		<if test='searchWord !=null'>
-			where ${searchKey} like '%${searchWord}%'
+		where category='exercise'
+		<if test="param2!=null">
+			and nickname=#{param2}
+		</if>
+		<if test='param1.searchWord !=null'>
+			and ${param1.searchKey} like '%${param1.searchWord}%'
 		</if>
 	</select>
 
 	<!-- exerciseWrite -->
 
 	<insert id="exerciseInsert">
-		insert into board(no, title, contents, img1,
-		category, nickname, writedate)
-		values(#{no}, #{title}, #{contents},
-		#{img1}, #{category}, #{nickname}, now())
+		insert into board(no, title, contents, img1, category, nickname, writedate)
+		values(#{no}, #{title}, #{contents}, #{img1}, #{category}, #{nickname}, now())
 	</insert>
 	<update id="cntHit" parameterType="int">
 		update board set hit = hit+1
 		where no=#{param1}
 	</update>
 	<select id="exerciseSelect" resultType="BoardVO">
-		select no, title,
-		contents, category, nickname,
-		DATE_FORMAT(writedate, '%Y-%m-%d') AS
-		writedate ,hit, img1
+		select no, title, contents, category, nickname,	DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,hit, img1
 		from board where no=#{param1}
 	</select>
 	<update id="exerciseUpdate">
-		update board set title=#{title},
-		contents=#{contents}, img1=#{img1},
-		moddate=now()
+		update board set title=#{title}, contents=#{contents}, img1=#{img1}, moddate=now()
 		where no=#{no} and nickname=#{nickname}
 	</update>
 	<delete id="exerciseDelete">
 		delete from board where no=#{param1}
 	</delete>
-
-	<select id="getFileName" resultType="com.finalproject.mohel.vo.BoardVO">
+	<select id="getFileName"
+		resultType="com.finalproject.mohel.vo.BoardVO">
 		select img1 from board where no=${param1}
 	</select>
 
 
 	<!-- 운동 참가 신청 -->
-
 	<insert id="exerciseMemberInsert">
 		insert into exercise_member (exerciseNo, nickname)
 		values(#{exerciseNo}, #{nickname})
 	</insert>
 
 	<!-- 참가신청여부 확인용 -->
-
 	<select id="resolveStatus" resultType="int">
-		select count(nickname) as
-		cnt from exercise_member
+		select count(nickname) as cnt 
+		from exercise_member
 		where nickname=#{param1} and no=#{param2}
 	</select>
 
 
 	<!-- view페이지에 보여주기 -->
-
-	<select id="exerciseMemberShow" resultType="com.finalproject.mohel.vo.ExerciseMemberVO">
-		select no,
-		exerciseNo, nickname, status
-		from exercise_member where exerciseNo=#{param1}
+	<select id="exerciseMemberShow"	resultType="com.finalproject.mohel.vo.ExerciseMemberVO">
+		select no, exerciseNo, nickname, status
+		from exercise_member
+		where exerciseNo=#{param1}
 	</select>
 	<delete id="exerciseMemberDelete">
-		delete from exercise_member 
+		delete from exercise_member
 		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</delete>
-
 	<update id="exerciseMemberUpdate">
 		update exercise_member set status=1
-		where exerciseNo=#{exerciseNo} and nickname=#{nickname}
+		where
+		exerciseNo=#{exerciseNo} and nickname=#{nickname}
 	</update>
-	
-	
-	
-	
 	<delete id="exerciseStateDel">
-		delete from exercise_member where no=#{no} and
-		nickname=#{nickname}
-	</delete>
-	<delete id="ridingStateCancel">
 		delete from exercise_member where no=#{no} and
 		nickname=#{nickname}
 	</delete>
 
 	<!-- everyexercise list -->
-	<select id="every_exerciseList"
-		resultType="com.finalproject.mohel.vo.ExerciseVO">
-		select no, title, hashtag, contents,
-		date_format(startdate, '%Y-%m-%d')as startdate, date_format(enddate, '%Y-%m-%d')as enddate,
-		date_format(writedate, '%Y-%m-%d') as writedate,
-		placeinfo,
-		applicantCnt, applicantMax, hit, nickname, img
+	<select id="every_exerciseList"	resultType="com.finalproject.mohel.vo.ExerciseVO">
+		select no, title, hashtag, contents, 
+		date_format(startdate,'%Y-%m-%d')as startdate, date_format(enddate, '%Y-%m-%d')as enddate, date_format(writedate, '%Y-%m-%d') as writedate,
+		placeinfo, applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise
 		<if test='searchWord != null'>
 			where ${searchKey} like '%${searchWord}%'
@@ -119,12 +106,10 @@
 		order by no desc
 		limit ${onePageRecord} offset ${offsetIndex}
 	</select>
-	<insert id="every_exerciseInsert" >
-		insert into everyexercise(no, title, hashtag, contents,
-		startdate, enddate, writedate, placeinfo, applicantCnt, applicantMax,
-		hit, nickname, img)
-		values(#{no}, #{title}, #{hashtag}, #{contents}, #{startdate}, #{enddate},
-		now(), #{placeinfo}, #{applicantCnt}, #{applicantMax}, #{hit}, #{nickname}, #{img})
+	<insert id="every_exerciseInsert">
+		insert into everyexercise(no, title, hashtag, contents, startdate, enddate, writedate, placeinfo, applicantCnt, applicantMax, hit, nickname, img)
+		values(#{no}, #{title},	#{hashtag}, #{contents}, #{startdate}, #{enddate}, now(), #{placeinfo},
+		#{applicantCnt}, #{applicantMax}, #{hit}, #{nickname}, #{img})
 	</insert>
 	<update id="every_cntHit" parameterType="int">
 		update everyexercise set
@@ -138,31 +123,30 @@
 		limit 1
 	</select>
 	<select id="every_exerciseSelect" resultType="ExerciseVO">
-		select no, title, hashtag,
-		contents, DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate
-		,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,placeinfo,
-		applicantCnt, applicantMax, hit, nickname, img
+		select no, title, hashtag, contents, 
+		DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS	startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
+		placeinfo,applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise where no=#{param1}
 	</select>
 	<update id="every_exerciseUpdate">
-		update everyexercise set title=#{title}, hashtag=#{hashtag},
-		contents=#{contents},startdate= DATE_FORMAT(startdate, '%Y-%m-%d %H:%i:%S') ,  enddate=DATE_FORMAT(enddate, '%Y-%m-%d %H:%i:%S') ,writedate =now(),	 
-		 <if test="placeinfo != null and placeinfo != ''">
-		 placeinfo=#{placeinfo},
-		 </if>
-		 applicantMax=#{applicantMax}
-		 <if test="img != null and img != ''">
-		 ,img=#{img}
-		 </if>
+		update everyexercise set title=#{title}, hashtag=#{hashtag}, contents=#{contents},
+		startdate= DATE_FORMAT(startdate, '%Y-%m-%d	%H:%i:%S') , enddate=DATE_FORMAT(enddate, '%Y-%m-%d %H:%i:%S'),writedate =now(),
+		<if test="placeinfo != null and placeinfo != ''">
+			placeinfo=#{placeinfo},
+		</if>
+		applicantMax=#{applicantMax}
+		<if test="img != null and img != ''">
+			,img=#{img}
+		</if>
 		where no=#{no} and nickname=#{nickname}
 	</update>
 	<delete id="every_exerciseDelete">
 		delete from everyexercise where no=#{param1}
 	</delete>
-		<select id="totalRecord1" resultType="int">
+	<select id="totalRecord1" resultType="int">
 		select count(no) cnt from everyexercise
 		<if test='searchWord !=null'>
-		where ${searchKey} like '%${searchWord}%'
+			where ${searchKey} like '%${searchWord}%'
 		</if>
 	</select>
 	
@@ -175,4 +159,12 @@
 		update everyexercise set
 		applicantCnt = #{param2} where no= #{param1}
 	</update>
+	<!-- home -->
+	<select id="home_exercise" resultType="ExerciseVO"> 
+		select no, title, hashtag, contents, 
+		DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS	startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
+		placeinfo,applicantCnt, applicantMax, hit, nickname, img
+		from everyexercise
+		order by hit desc limit 3
+	</select>
 </mapper>

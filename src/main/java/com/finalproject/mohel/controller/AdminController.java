@@ -134,7 +134,7 @@ public class AdminController {
 	public ModelAndView adminEveryExercise(ExercisePagingVO pVO) {
 		ModelAndView mav = new ModelAndView();
 		pVO.setOnePageRecord(10);
-		pVO.setTotalRecord(exerciseService.totalRecord(pVO));
+		pVO.setTotalRecord(exerciseService.totalRecord1(pVO));
 		mav.addObject("lst", exerciseService.every_exerciseList(pVO));
 		mav.addObject("pVO", pVO);
 		mav.setViewName("admin/adminEveryExercise");

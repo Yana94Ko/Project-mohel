@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.BoardService;
 import com.finalproject.mohel.vo.BoardVO;
+import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.PagingVO;
 @RestController
 @RequestMapping("/board/")
@@ -57,12 +58,9 @@ public class BoardController {
 	}
 	//글 등록
 	@PostMapping("boardWriteOk")
-	public ResponseEntity<String> boardWriteOk(BoardVO vo, HttpServletRequest request){
-		//vo.setNickname("ㅇㅇ"); 
-		//vo.setNickname(request.getRemoteAddr()); 
-		//글쓴이-session로그인 아이디를 구한다
-		vo.setNickname((String)request.getSession().getAttribute("logId"));
-		
+	public ResponseEntity<String> boardWriteOk(BoardVO vo, HttpServletRequest request, HttpSession session){
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		ResponseEntity<String> entity = null; //데이터와 처리 상태를 가진다
 		HttpHeaders header = new HttpHeaders();
 		header.add("Content-Type", "text/html; charset=utf-8");

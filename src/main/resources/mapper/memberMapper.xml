@@ -59,4 +59,9 @@
         DELETE FROM member
         WHERE nickname = #{nickname}
     </delete>
+	<update id="updatePwd">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>
 </mapper>

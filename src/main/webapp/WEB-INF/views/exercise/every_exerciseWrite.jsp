@@ -5,15 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="${url}/css/exercise/every_exerciseWrite.css"
-	rel="stylesheet" type="text/css" />
+<link href="${url}/css/exercise/every_exerciseWrite.css" rel="stylesheet" type="text/css" />
 <!-- 카카오 api 라이브러리  -->
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
-
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=096ec0036610b77d5b4e1aa8571cbb1e&libraries=services,clusterer,drawing"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -45,7 +40,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="location" class="form-label mt-4">장소</label> 
+					<label for="location" class="form-label mt-4">모임장소</label> 
 					<input type="text" class="form-control" id="location" name="location">
 					<small id="keywordhelp"	class="form-text text-muted">검색 희망하는 장소를 선택 후 엔터키를 입력하세요</small>
 				
@@ -89,17 +84,19 @@
 						class="form-text text-muted">최대 참가자 수는 숫자만 입력가능합니다</small>
 						
 				</div>
+
 				<div class="form-group">
-					<label for="formFile" class="form-label mt-4">사진 업로드</label> <input
-						class="form-control" type="file" id="formFile" name="filename">
+					<label for="formFile" class="form-label mt-4">사진 업로드</label>
+					<input class="form-control" type="file" id="formFile" name="filename">
+					<label for="formFile" class="form-label mt-4">사진 업로드</label> 
+					<input id="upload-btn" class="form-control" type="file" id="formFile" name="filename">
 				</div>
 
-				<button type = "button" onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>
+				<button type="button" onclick="everyExerciseWriteOk()" class="btn btn-primary">등록하기</button>
 			</fieldset>
 		</form>
 	</div>
 
-	<script type="text/javascript"
-		src="${url}/js/exercise/every_exerciseWrite.js"></script>
+	<script type="text/javascript" src="${url}/js/exercise/every_exerciseWrite.js"></script>
 </body>
 </html>

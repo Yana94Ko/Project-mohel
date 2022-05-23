@@ -295,3 +295,40 @@ h5 {
 .applier-view-label {
 	background-color: rgba(234, 234, 234);
 }
+
+/*참가자*/
+#applicantBox{
+	margin:15px;
+}
+#excerciseMemberApply{
+	border-color:#008C8C;
+}
+#excerciseMemberApplyDel{
+	border-color:#008C8C;
+	position:relative;
+	left:10px;
+	
+}
+/*댓글*/
+#line{
+	height:1px;
+	border:none;
+	color:#8c8c8c;
+	background-color:#8c8c8c;
+}
+#reply-contents{
+	width:800px;
+	height:80px;
+}
+#reply-submit{
+	position:relative;
+	left:85%;
+	top:-70px;
+}
+#replyList{
+	position:relative;
+	width: 950px;
+	height: 400px;
+	overflow:scroll;
+	margin:auto;
+}

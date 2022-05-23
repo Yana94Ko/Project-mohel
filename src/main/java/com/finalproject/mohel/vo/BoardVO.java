@@ -16,6 +16,15 @@ public class BoardVO {
 	private String moddate;
 	private int hit;
 
+	@Override
+	public String toString() {
+		return "BoardVO [getNo()=" + getNo() + ", getTitle()=" + getTitle() + ", getContents()=" + getContents()
+				+ ", getCategory()=" + getCategory() + ", getNickname()=" + getNickname() + ", getFoodlist()="
+				+ getFoodlist() + ", getFoodcodes()=" + getFoodcodes() + ", getMeals()=" + getMeals() + ", getImg1()="
+				+ getImg1() + ", getImg2()=" + getImg2() + ", getImg3()=" + getImg3() + ", getWritedate()="
+				+ getWritedate() + ", getModdate()=" + getModdate() + ", getHit()=" + getHit() + "]";
+	}
+	
 	public int getNo() {
 		return no;
 	}

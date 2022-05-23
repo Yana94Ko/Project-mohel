@@ -20,15 +20,14 @@ body{
 #search-box{
 	float:relative;
 	width:500px;
-	left: 150px;
 	margin:auto;
+}
+#recruitment_box{
+	margin: auto;
+	width: 400px;
 }
 #recruitment {
 	width: 400px;
-	left: 370px;
-	right: 0;
-	margin: auto;
-	position: relative;
 	background:#01c9c6;
 	border-color:#01c9c6;
 }
@@ -46,7 +45,6 @@ body{
 }
 .service_item {
 	position: relative;
-	left: 200px;
 	float:left;
 	margin:30px;
 }
@@ -70,7 +68,7 @@ body{
 	overflow: auto;
 	width:500px;
 	position:relative;
-	left:50px;
+	left:150px;
 	
 }
 

@@ -65,5 +65,7 @@ public class MemberServiceIpml implements MemberService {
 	public int adminDelete(String nickname) {
 		return dao.adminDelete(nickname);
 	}
-	
+	public int updatePwd(MemberVO vo) {
+		return dao.updatePwd(vo);
+	}
 }
