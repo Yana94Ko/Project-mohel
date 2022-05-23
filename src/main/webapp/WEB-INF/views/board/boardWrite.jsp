@@ -12,9 +12,7 @@
 			<li>제목</li>
 			<li><input type="text" name="title" id="title"/></li>
 			<li><textarea name="contents" id="contents"></textarea></li>
-			<li><input type="submit" value="확인"/></li>
-			
-			
+			<li><input type="submit" value="확인"/><input type="button" value="취소" onclick="history.back()"/></li>
 		</ul>
 	</form>
 </div> 

@@ -8,14 +8,14 @@
   		values(#{boardNo}, #{nickname}, #{contents})
   	</insert>
   	<select id="replyList" resultType="com.finalproject.mohel.vo.ReplyVO">
-  		select boardNo, nickname, contents, writedate
+  		select no, nickname, contents, writedate
   		from boardreply where boardNo=${param1}
   		order by boardNo desc
   	</select>
   	<update id="replyEdit">
-  		update boardreply set contents=#{contents} where boardNo=${boardNo} and nickname=#{nickname}
+  		update boardreply set contents=#{contents} where no=${no} and nickname=#{nickname}
   	</update>
   	<delete id="replyDel">
-  		delete from boardreply where boardNo=${param1} and nickname=#{param2}
+  		delete from boardreply where no=${param1} and nickname=#{param2}
   	</delete>
 </mapper>

@@ -16,5 +16,5 @@ public interface ReplyDAO {
 	//댓글 수정
 	public int replyEdit(ReplyVO vo);
 	//댓글 삭제
-	public int replyDel(int boardNo, String nickname);
+	public int replyDel(int no, String nickname);
 }

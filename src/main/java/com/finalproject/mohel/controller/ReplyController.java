@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.finalproject.mohel.service.ReplyService;
+import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.ReplyVO;
 
 @RestController
@@ -24,8 +25,8 @@ public class ReplyController {
 	@RequestMapping(value="/reply/writeOk", method=RequestMethod.POST)
 	public int writeOk(ReplyVO vo, HttpSession session) {
 		System.out.println(vo.getBoardNo());
-		vo.setNickname((String)session.getAttribute("logId"));
-		
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		return service.replyWrite(vo);
 	}	
 	//댓글 목록 가져오기
@@ -36,12 +37,15 @@ public class ReplyController {
 	//댓글 수정
 	@PostMapping("/reply/editOk")
 	public int editOk(ReplyVO vo, HttpSession session) {
-		vo.setNickname((String)session.getAttribute("logId"));
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
+		vo.setNickname(mvo.getNickname());
 		return service.replyEdit(vo);
 	}
 	//댓글 삭제
 	@GetMapping("/reply/del")
-	public int delOk(int boardNo, HttpSession session) {
-		return service.replyDel(boardNo, (String)session.getAttribute("logId"));
+	public int delOk(int no, HttpSession session) {
+		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
+		System.out.println(mvo.getNickname() + no);
+		return service.replyDel(no, mvo.getNickname());
 	}
 }
