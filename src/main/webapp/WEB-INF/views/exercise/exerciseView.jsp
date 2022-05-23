@@ -33,12 +33,14 @@ function del(){
 							placeholder="${vo.title }">
 					</div>
 				</div>
+				<!-- 
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label> <input
 						type="text" class="form-control" id="keyword" readonly
 						placeholder="#하체 #스쿼트"> <small id="keywordhelp"
 						class="form-text text-muted">오늘의 운동 키워드를 해시태그로 입력하세요</small>
 				</div>
+				 -->
 
 				<div class="form-group">
 					<label for="contents" class="form-label mt-4" >내용</label>
@@ -53,7 +55,10 @@ function del(){
 					<input type='hidden' name='nickname'
 						id='nickname' value='${nickname}' />
 						<input type='hidden' name='no' value='${vo.no }'/>
+					
 					<img src='/img/exercise/${vo.img1}' id="preview" name="img1" class="rounded"/>
+					
+
 				</div>
 
 

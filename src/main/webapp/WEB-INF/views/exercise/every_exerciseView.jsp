@@ -152,6 +152,7 @@
 							placeholder="${vo.title}">
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="keyword" class="form-label mt-4">오늘의 키워드</label> <input
 						type="text" class="form-control" id="keyword" readonly
