@@ -1,7 +1,12 @@
 package com.finalproject.mohel.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -85,12 +90,29 @@ public class MemberController {
 	}
 	
 	@PostMapping("loginOk")
-	public String loginOk(HttpSession session, MemberVO vo, RedirectAttributes redirect) {
+	public String loginOk(HttpServletResponse response, HttpSession session, MemberVO vo, RedirectAttributes redirect) throws IOException {
 		MemberVO userInfo = service.selectMember(vo);
+		//System.out.println("회원상태"+userInfo.getVerify());
 		if(userInfo!=null) {
+			if(userInfo.getVerify()==9) {
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out = response.getWriter(); 
+				out.println("<script>alert('정지된 회원입니다. 정지사유는 관리자에게 문의하세요.');location.href='/member/login';</script>");
+				out.flush();
+				return "redirect:login";
+			}
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("verify", userInfo.getVerify());
-			return "redirect:/";
+			SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+			String currentTime = format1.format (System.currentTimeMillis());
+			vo.setRecentvisit(currentTime);
+			vo.setNickname(userInfo.getNickname());
+			service.setRecentvisit(vo);
+			if(userInfo.getVerify()==1) {
+				return "redirect:/admin/adminMain";
+			}else {
+				return "redirect:/";
+			}
 		}else {
 			redirect.addFlashAttribute("email", vo.getEmail());
 			redirect.addFlashAttribute("nologin", true);
@@ -112,7 +134,11 @@ public class MemberController {
 		if(userInfo!=null) {
 			session.setAttribute("userInfo", userInfo);
 			session.setAttribute("kakao", true);
-			return "redirect:/";
+			if(userInfo.getVerify()==1) {
+				return "redirect:/admin/adminMain";
+			}else {
+				return "redirect:/";
+			}
 		}else {
 			redirect.addFlashAttribute("kakaoVO", kakaoVO);
 			return "redirect:signup";

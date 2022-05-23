@@ -34,12 +34,8 @@ public class ExercisePagingVO {
 
 		public void setPageNum(int pageNum) {
 			this.pageNum = pageNum;
-			// offset 위치 계산
-			offsetIndex = (pageNum - 1) * onePageRecord;
-			// 페이지 번호의 시작값
-			startPage = ((pageNum - 1) / onePageCount * onePageCount) + 1;
-			System.out.println(offsetIndex);
-			System.out.println(startPage);
+			//페이지 번호의 시작값
+			startPage = ((pageNum-1)/onePageCount*onePageCount)+1;
 		}
 
 		//
@@ -48,12 +44,12 @@ public class ExercisePagingVO {
 		}
 		public void setTotalRecord(int totalRecord) {
 			this.totalRecord = totalRecord;
-
-			// 총 페이지 수
-			if (totalRecord % onePageRecord == 0) { // 나머지 레코드가 없는 경우
-				totalPage = totalRecord / onePageRecord;
-			} else { // 나머지 레코드가 있는 경우 (1~4개)
-				totalPage = totalRecord / onePageRecord + 1;
+			
+			//총 페이지 수
+			if(totalRecord%onePageRecord==0) {
+				totalPage = totalRecord/onePageRecord;
+			}else {
+				totalPage = totalRecord/onePageRecord+1;
 			}
 		}
 		
@@ -137,7 +133,8 @@ public class ExercisePagingVO {
 		}
 
 		public int getOffsetIndex() {
-			return offsetIndex;
+			//offset위치계산
+			return (pageNum-1)*onePageRecord;
 		}
 
 		public void setOffsetIndex(int offsetIndex) {

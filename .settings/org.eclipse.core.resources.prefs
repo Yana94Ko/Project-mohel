@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/views/exercise/every_exerciseView.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/inc/bottom.jspf=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/login.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/signup.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/welcome.jsp=UTF-8

@@ -329,13 +329,12 @@ public class ExerciseController {
 	@GetMapping("/exercise/every_exerciseView")
 	public ModelAndView every_exerciseView(ExerciseVO vo, HttpSession session, int no, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("뷰로 왔어요");
+		//System.out.println("뷰로 왔어요");
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("userInfo");
 		if(mvo!=null) {
 			mav.addObject("nickname",mvo.getNickname());
 			vo.setNickname(mvo.getNickname());
 		}
-		
 		
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
