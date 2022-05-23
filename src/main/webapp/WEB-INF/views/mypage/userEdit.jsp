@@ -18,7 +18,7 @@
 				<input id="defaultProfile" type="button" value="기본 이미지">
 			</div>
 			<ul>
-				<c:if test="${kakao!=true }">
+				<c:if test="${kakao!='true' }">
 					<li>이메일</li>
 					<li class="basic-list-email">${userInfo.email }</li>
 				</c:if>
@@ -99,7 +99,7 @@
 			</div>
 		</div>
 		<button class="info-edit-pw-btn btn btn-info btn-sm">수정</button>
-		<c:if test="${kakao!=true }">
+		<c:if test="${kakao!='true' }">
 			<input id="editCkPwd" name=pwd class="info-edit-pw-btn" type="password" placeholder="Password">
 		</c:if>
 	</form>

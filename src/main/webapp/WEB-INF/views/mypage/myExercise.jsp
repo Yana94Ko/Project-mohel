@@ -29,7 +29,7 @@
 			</tbody>
 		</table>
 		<!-- 페이징 -->
-		<c:if test="${myExerciseList.size()>10 }">
+		<c:if test="${pVO.totalRecord>10 }">
 			<ul class="paging">
 				<!-- 이전 페이지 -->
 				<c:if test="${pVO.pageNum<=pVO.onePageCount}">

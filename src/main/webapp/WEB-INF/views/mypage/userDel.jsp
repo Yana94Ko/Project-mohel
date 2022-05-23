@@ -35,7 +35,7 @@
 					<textarea name="reasonText" id="delReason5Text" class="del-reason-input" placeholder="기타 사유를 적어주세요." disabled></textarea>
 				</li>
 				
-				<c:if test="${kakao!=true }">
+				<c:if test="${kakao!='true' }">
 					<li><h3> 비밀번호 입력</h3></li>
 					<li><input id="pwd" name="pwd" class="del-pwd-input" type="password" placeholder="사용중인 비밀번호를 입력해주세요. "><br></li>
 				</c:if>
