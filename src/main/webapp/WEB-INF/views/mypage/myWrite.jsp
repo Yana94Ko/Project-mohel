@@ -23,7 +23,7 @@
 					<tr>
 						<td>
 							<c:if test="${bList.category=='everyMeal'}">모두의 식단</c:if>
-							<c:if test="${bList.category=='myExercise'}">나만의 운동</c:if>
+							<c:if test="${bList.category=='exercise'}">나만의 운동</c:if>
 							<c:if test="${bList.category=='free'}">자유 게시판</c:if>
 							<c:if test="${bList.category=='challenge'}">챌린지 게시판</c:if>
 							<c:if test="${bList.category=='ba'}">Before&After</c:if>
@@ -31,8 +31,8 @@
 						
 						<td title="${bList.title }">
 							<a <c:if test="${bList.category=='everyMeal'}">href="/mypage/everyFoodView?no=${bList.no}"</c:if>
-								<c:if test="${bList.category=='myExercise'}">href="/exercise/exerciseView?no=${bList.no}"</c:if>
-								<c:if test="${bList.category!='everyMeal' && bList.category!='myExercise'}">href="/board/boardView?no=${bList.no}&category=${bList.category }"</c:if>
+								<c:if test="${bList.category=='exercise'}">href="/exercise/exerciseView?no=${bList.no}"</c:if>
+								<c:if test="${bList.category!='everyMeal' && bList.category!='exercise'}">href="/board/boardView?no=${bList.no}&category=${bList.category }"</c:if>
 							>${bList.title }</a>
 						</td>
 						<td>${bList.writedate }</td>
