@@ -27,6 +27,7 @@
 					</div>
 					<div id="emailCheckBox" class="form-use-btn check">
 						<input id="emailCk" class="text-box" type="text" placeholder="인증번호 6자리" disabled>
+						<span></span>
 						<input id="emailCkBtn" type="button" value="확인" disabled>
 					</div>
 					<div id="emailCkMsg" class="ck-msg"></div>

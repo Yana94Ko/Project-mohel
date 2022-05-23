@@ -14,10 +14,15 @@
 		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{active}, #{BMR}, #{AMR})
 	</insert>
 	<select id="selectMember" resultType="MemberVO">
-		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active, bmr, amr, verify
+		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify
 		from member where email=#{email}
 		<if test="pwd!=null">
 			 and pwd=#{pwd}
 		</if>
 	</select>
+	<update id="updatePwd">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>
 </mapper>

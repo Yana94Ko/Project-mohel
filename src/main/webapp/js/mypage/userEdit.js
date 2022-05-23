@@ -174,15 +174,15 @@ $(function() {
 			BMR = 655.1+(9.56*$(weight).val())+(1.85*$(height).val())-(4.68*age);
 		}
 		var AMR = BMR*$('input[name=active]:checked').val();
-		$('#BMR>span').text(Math.round(BMR * 100)/100+'kcal');
-		$('#AMR>span').text(Math.round(AMR * 100)/100+'kcal');
+		$('#BMR>span').text(Math.round(BMR * 100)/100);
+		$('#AMR>span').text(Math.round(AMR * 100)/100);
 	}
 	setABMR();
 	$('input[name=active], #birthdate, input[name=gender], #height, #weight').on('change', function() {
 		setABMR();
 	});
 	
-	$('#userEditFrm').submit(function() {
+	$('#userEditFrm').submit(function(e) {
 		let userInfo = nicknameCheck && telCheck;
 		let metabolicRate = age * $(height).val() * $(weight).val() * $('input[name=active]:checked').val()!=0
 		if(!userInfo){
@@ -192,5 +192,25 @@ $(function() {
 			alert("대사량 측정 입력란을 확인해주세요.");
 			return false;
 		}
+		
+		try{
+			if($(editCkPwd).val().length==0){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}else {
+				$.ajax({
+					url: '/mypage/pwdCk',
+					data: 'pwd='+$(editCkPwd).val(),
+					type: 'post',
+					async: false,
+					success: function(r) {
+						if(r==0) {
+							alert("비밀번호가 틀렸습니다.");
+							e.preventDefault();
+						}
+					}
+				});
+			}
+		}catch (e) {}
 	});
 });
