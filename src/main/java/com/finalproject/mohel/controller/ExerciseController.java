@@ -1,7 +1,5 @@
 package com.finalproject.mohel.controller;
 
-
-
 import java.io.File;
 import java.nio.charset.Charset;
 
@@ -49,7 +47,7 @@ public class ExerciseController {
 			}
 		}
 		pVO.setTotalRecord(service.totalRecord(pVO, nickname));
-		System.out.println(nickname);
+		//System.out.println(nickname);
 		mav.addObject("lst", service.exerciseList(pVO, nickname));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
@@ -69,16 +67,6 @@ public class ExerciseController {
 		return mav;
 	}
 	
-	@PostMapping("/exercise/exerciseWrite")
-	public ModelAndView exerciseWritepost(BoardVO VO, ExercisePagingVO pVO, int no) {
-		ModelAndView mav = new ModelAndView();	
-		//JSONObject courseResiveData = new JSONObject(rVO.getCourseSendData());
-		mav.addObject("lst", service.exerciseSelect(no));
-		mav.addObject("VO", VO );
-		mav.setViewName("exercise/exerciseWrite");
-		return mav;
-	}
-	
 	@PostMapping("/exercise/exerciseWriteOk")
     public ResponseEntity<String> exerciseWriteOk(BoardVO vo, HttpServletRequest request, MultipartHttpServletRequest mr){
 
@@ -93,40 +81,59 @@ public class ExerciseController {
         mr = (MultipartHttpServletRequest) request;
 
 		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
-        System.out.println(path);
+        //System.out.println(path);
         
     	MultipartFile file = mr.getFile("filename");
-        
-    	String orgFileName = file.getOriginalFilename();
-        int point = orgFileName.lastIndexOf(".");
-        String ext = orgFileName.substring(point+1);
-        			
-        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
-        			
-        orgFileName = f.getName();
-
-        //String filename = file.getOriginalFilename();
-		//File uploadFile = new File(path, filename);
-        try {
-        	file.transferTo(f);
-			//vo.setImg1(file.getOriginalFilename());
-        	vo.setImg1(orgFileName);
-        	
-			//글등록 성공
-        	service.exerciseInsert(vo);
-			
-			
-			//글 목록으로 이동
-			String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/exerciseList';</script>";
-			entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK);
-		} catch (Exception e) {
-			// 글등록 실패
-			e.printStackTrace();
-			//글 등록 폼으로
-			String msg = "<script>alert('글등록을 실패 하였습니다.');history.back();</script>";
-			entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+    	//사진 없을 시
+    	if(!file.getOriginalFilename().equals("")) {
+	    	String orgFileName = file.getOriginalFilename();
+	        int point = orgFileName.lastIndexOf(".");
+	        String ext = orgFileName.substring(point+1);
+	        			
+	        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
+	        			
+	        orgFileName = f.getName();
+	        //String filename = file.getOriginalFilename();
+			//File uploadFile = new File(path, filename);
+	        
+	        try {
+	        	file.transferTo(f);
+				//vo.setImg1(file.getOriginalFilename());
+	        	vo.setImg1(orgFileName);
+	        	
+				//글등록 성공
+	        	service.exerciseInsert(vo);
+				
+				
+				//글 목록으로 이동
+				String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/exerciseList';</script>";
+				entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+			} catch (Exception e) {
+				// 글등록 실패
+				e.printStackTrace();
+				//글 등록 폼으로
+				String msg = "<script>alert('글등록을 실패 하였습니다.');history.back();</script>";
+				entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+    	}else {
+    		try {	        	
+				//글등록 성공
+	        	service.exerciseInsert(vo);
+				
+				
+				//글 목록으로 이동
+				String msg = "<script>alert('글이 등록되었습니다.');location.href='/exercise/exerciseList';</script>";
+				entity = new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+			} catch (Exception e) {
+				// 글등록 실패
+				e.printStackTrace();
+				//글 등록 폼으로
+				String msg = "<script>alert('글등록을 실패 하였습니다.');history.back();</script>";
+				entity = new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+    	}
 	}
 	//글 보기
 	@GetMapping("/exercise/exerciseView")
@@ -149,7 +156,7 @@ public class ExerciseController {
 	//글 수정
 	@GetMapping("/exercise/exerciseEdit")
 	public ModelAndView exerciseEdit(int no, BoardVO vo, HttpSession session) {
-		System.out.println(no);
+		//System.out.println(no);
 		ModelAndView mav = new ModelAndView();
 		//mav.addObject("lst2", service.exerciseMemberShow(no));
 		mav.addObject("vo", service.exerciseSelect(no));
@@ -176,34 +183,50 @@ public class ExerciseController {
 	
 		
 		String path = request.getSession().getServletContext().getRealPath("/img/exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
-        System.out.println(path);
+        //System.out.println(path);
         
     	MultipartFile file = mr.getFile("filename");
-        
-    	String orgFileName = file.getOriginalFilename();
-        int point = orgFileName.lastIndexOf(".");
-        String ext = orgFileName.substring(point+1);
-        			
-        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
-        			
-        orgFileName = f.getName();
-
-		try {
-			file.transferTo(f);
-			vo.setImg1(orgFileName);
-			
-			int result =service.exerciseUpdate(vo);
-			System.out.println(result);
-			//System.out.println(vo.getApplicantMax());
-			String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/exerciseView?no="+vo.getNo()+"';</script>";
-			entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			String msg = "<script>alert('글 수정 실패 하였습니다.'); history.go(-1);</script>";
-			entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+    	//사진 없을 시
+    	if(!file.getOriginalFilename().equals("")) {
+	    	String orgFileName = file.getOriginalFilename();
+	        int point = orgFileName.lastIndexOf(".");
+	        String ext = orgFileName.substring(point+1);
+	        			
+	        File f = new File(path, System.currentTimeMillis()+"."+ext);//업로드한 파일
+	        			
+	        orgFileName = f.getName();
+	
+			try {
+				file.transferTo(f);
+				vo.setImg1(orgFileName);
+				
+				int result =service.exerciseUpdate(vo);
+				//System.out.println(result);
+				//System.out.println(vo.getApplicantMax());
+				String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/exerciseView?no="+vo.getNo()+"';</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				String msg = "<script>alert('글 수정 실패 하였습니다.'); history.go(-1);</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+    	}else {
+    		try {				
+				int result =service.exerciseUpdate(vo);
+				//System.out.println(result);
+				//System.out.println(vo.getApplicantMax());
+				String msg="<script>alert('글이 수정되었습니다.');location.href='/exercise/exerciseView?no="+vo.getNo()+"';</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.OK);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				String msg = "<script>alert('글 수정 실패 하였습니다.'); history.go(-1);</script>";
+				entity=new ResponseEntity<String>(msg, headers, HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+    	}
 				
 	}
 	// 글 삭제
@@ -214,12 +237,12 @@ public class ExerciseController {
 		int result = service.exerciseDelete(no, nickname);
 		if(result>0) {
 			//삭제됨
-			System.out.println("글 삭제 성공");
+			//System.out.println("글 삭제 성공");
 			mav.setViewName("redirect:exerciseList");
 			
 		} else {
 			//삭제 안됨
-			System.out.println("삭제 실패하였습니다.");
+			//System.out.println("삭제 실패하였습니다.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:exerciseView");
 		}
@@ -283,7 +306,7 @@ public class ExerciseController {
 		MultipartFile file = mr.getFile("filename");
 		
 		String path = request.getSession().getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
-        System.out.println(path);
+        //System.out.println(path);
        
         String orgFileName = file.getOriginalFilename();
         int point = orgFileName.lastIndexOf(".");
@@ -306,12 +329,12 @@ public class ExerciseController {
 			emvo.setExerciseNo(vo2.getNo());
 			emvo.setNickname(vo.getNickname());
 			service.exerciseMemberInsert(emvo);
-			System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getExerciseNo());
+			//System.out.println("어떻게 들어갔니 "+emvo.getNickname()+"/"+emvo.getExerciseNo());
 			service.exerciseMemberUpdate(emvo);
 
 			//참가자 중 확정자 수 확인하는 함수
 			int applicantCnt = service.exerciseMemberCnt(emvo.getExerciseNo());
-			System.out.println(applicantCnt+"명");
+			//System.out.println(applicantCnt+"명");
 			//확정자 수 update 함수
 			service.exerciseApplicantCntSet(emvo.getExerciseNo(), applicantCnt);
 			
@@ -343,12 +366,12 @@ public class ExerciseController {
 		service.every_cntHit(no); // 조회수 증가
 		ExerciseVO vo2 =service.every_exerciseSelect(no);
 		String jsonStr=vo2.getPlaceinfo();
-		System.out.println(jsonStr);
+		//System.out.println(jsonStr);
 		JSONObject obj=new JSONObject(jsonStr);
 		String addr=obj.getString("place_name");
 		String x=obj.getString("x");
 		String y=obj.getString("y");
-		System.out.println(x+"gggggggggg"+y);
+		//System.out.println(x+"gggggggggg"+y);
 		mav.addObject("vo", vo2);
 		mav.addObject("placeinfo",addr);
 		mav.addObject("x",x);
@@ -396,7 +419,7 @@ public class ExerciseController {
 			
 			
 			String path = session.getServletContext().getRealPath("/img/every_exercise"); // 파일 업로드를 위한 업로드 위치의 절대 주소
-	        System.out.println(path);
+	        //System.out.println(path);
 	        
 	    	//MultipartFile file = mr.getFile("filename");
 	    	String orgFileName=null;
@@ -418,9 +441,9 @@ public class ExerciseController {
 			 }
 			 
 			vo.setImg(orgFileName);
-			System.out.println(vo.toString());
+			//System.out.println(vo.toString());
 			int result =service.every_exerciseUpdate(vo);
-			System.out.println("result ="+result);
+			//System.out.println("result ="+result);
 			
 			//System.out.println(vo.getApplicantMax());
 			if(result>0) {
@@ -451,7 +474,7 @@ public class ExerciseController {
 			
 		} else {
 			//삭제 안됨
-			System.out.println("삭제 실패하였습니다.");
+			//System.out.println("삭제 실패하였습니다.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:every_exerciseView");
 		}
@@ -468,7 +491,7 @@ public class ExerciseController {
 		int result = 0;
 		try {
 
-			System.out.println(exerciseNo+"번글");
+			//System.out.println(exerciseNo+"번글");
 			result = service.exerciseMemberInsert(mvo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -486,7 +509,7 @@ public class ExerciseController {
 			service.exerciseMemberDelete(mvo);
 			//참가자 중 확정자 수 확인하는 함수
 			int applicantCnt = service.exerciseMemberCnt(exerciseNo);
-			System.out.println(applicantCnt+"명");
+			//System.out.println(applicantCnt+"명");
 			//확정자 수 update 함수
 			service.exerciseApplicantCntSet(exerciseNo, applicantCnt);
 			
@@ -499,11 +522,11 @@ public class ExerciseController {
 	@GetMapping("/exercise/excerciseStateOk")
 	public boolean ridingStateOk(ExerciseVO vo,ExerciseMemberVO mvo) { 
 		try { 
-			System.out.println(mvo.getExerciseNo()+mvo.getNickname());
+			//System.out.println(mvo.getExerciseNo()+mvo.getNickname());
 			service.exerciseMemberUpdate(mvo);
 			//참가자 중 확정자 수 확인하는 함수
 			int applicantCnt = service.exerciseMemberCnt(mvo.getExerciseNo());
-			System.out.println(applicantCnt+"명");
+			//System.out.println(applicantCnt+"명");
 			//확정자 수 update 함수
 			service.exerciseApplicantCntSet(mvo.getExerciseNo(), applicantCnt);
 			return true;
@@ -520,7 +543,7 @@ public class ExerciseController {
 			service.exerciseMemberDelete(mvo);
 			return true;
 		} catch (Exception e) { 
-			System.out.println(e);
+			//System.out.println(e);
 			e.printStackTrace();
 			return false;
 		}

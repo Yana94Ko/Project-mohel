@@ -74,7 +74,7 @@ public class Certified {
 	    
 	    String body = bodyJson.toString();
 	    
-//	    System.out.println(body);
+//	    //System.out.println(body);
 	    
         try {
             URL url = new URL(apiUrl);
@@ -96,7 +96,7 @@ public class Certified {
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-//            System.out.println("responseCode" +" " + responseCode);
+//            //System.out.println("responseCode" +" " + responseCode);
             if(responseCode == 202) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else { // 에러 발생
@@ -110,7 +110,7 @@ public class Certified {
             }
             br.close();
             
-//            System.out.println(response.toString());
+//            //System.out.println(response.toString());
 
         } catch (Exception e) {}
         
