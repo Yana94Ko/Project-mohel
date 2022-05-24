@@ -113,6 +113,10 @@ document.addEventListener("DOMContentLoaded", function(event){
                 </div>
             </li>
 
+            <!-- 선 나눔 -->
+            <hr class="sidebar-divider" style="border: 1px solid #313942">
+
+
             <!-- 통계 -->
             <li class="nav-item">
                 <a class="nav-link" href="${url}/admin/adminMain">
@@ -218,10 +222,10 @@ document.addEventListener("DOMContentLoaded", function(event){
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
+                        <li onclick="location.href='/member/logout'" class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nickName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">관리자 : ${userInfo.nickname} | 로그아웃</span>
                                 <img class="img-profile rounded-circle"
                                      src="${url}/css/admin/img/undraw_profile.svg">
                             </a>

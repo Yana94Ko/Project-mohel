@@ -55,9 +55,9 @@ function del(){
 					<input type='hidden' name='nickname'
 						id='nickname' value='${nickname}' />
 						<input type='hidden' name='no' value='${vo.no }'/>
-					
-					<img src='/img/exercise/${vo.img1}' id="preview" name="img1" class="rounded"/>
-					
+					<c:if test="${vo.img1!=null}">
+						<img src='/img/exercise/${vo.img1}' id="preview" name="img1" class="rounded"/>
+					</c:if>
 
 				</div>
 

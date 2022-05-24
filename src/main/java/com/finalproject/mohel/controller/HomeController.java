@@ -44,7 +44,7 @@ public class HomeController {
 		
 		pVO.setTotalRecord(service.totalRecord(pVO, nickname));
 		mav.addObject("lst", service.home_exercise(pVO));
-		System.out.println(category+"/"+service.home_exercise(pVO));
+		//System.out.println(category+"/"+service.home_exercise(pVO));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
 		

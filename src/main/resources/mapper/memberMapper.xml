@@ -64,4 +64,37 @@
 		set pwd=#{pwd}
 		where email=#{email}
 	</update>
+	<!-- 관리자 페이지 : 통계 -->
+	<select id="genderCount" resultMap="genderMap">
+        select gender, count(*) from member group by gender;
+    </select>
+    <resultMap id="genderMap" type="map">
+        <result column="gender" property="gender"/>
+        <result column="count(*)" property="count"/>
+    </resultMap>
+    <select id="ageCount" resultMap="ageMap">
+        select
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 0 and 19 , 1, 0)) as under_20,
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 20 and 29 , 1, 0)) as age_20,
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 30 and 39 , 1, 0)) as age_30,
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 40 and 49 , 1, 0)) as age_40,
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 50 and 59 , 1, 0)) as age_50,
+            sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 60 and 69 , 1, 0)) as over_60
+        from member
+    </select>
+    <resultMap id="ageMap" type="map">
+    </resultMap>
+    <select id="joinCount" resultMap="joinMap">
+        select
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=0,1,0)) as d0,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=1,1,0)) as d1,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=2,1,0)) as d2,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=3,1,0)) as d3,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=4,1,0)) as d4,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=5,1,0)) as d5,
+            sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=6,1,0)) as d6
+        from member
+    </select>
+    <resultMap id="joinMap" type="map">
+    </resultMap>
 </mapper>

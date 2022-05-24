@@ -1,5 +1,7 @@
 package com.finalproject.mohel;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +21,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if ((MemberVO)session.getAttribute("userInfo") != null) {
 			return true;
 		} else {
-			response.sendRedirect("/member/login");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			 
+			out.println("<script>alert('로그인 후 이용하세요.'); location.href='/member/login';</script>");
+			out.flush();
 			return false;
 		}
 	}
