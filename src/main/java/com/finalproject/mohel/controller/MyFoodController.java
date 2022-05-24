@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.finalproject.mohel.MohelApplication;
 import com.finalproject.mohel.service.BoardService;
 
 import com.finalproject.mohel.service.MyFoodService;
@@ -287,7 +288,25 @@ public class MyFoodController {
     public String everyFoodDel(BoardVO bvo, HttpSession session) {
     	String nickname = ((MemberVO)session.getAttribute("userInfo")).getNickname();
     	bvo.setNickname(nickname);
-    	int result = service.everyFoodDel(bvo);
+    	String path = session.getServletContext().getRealPath("/img/food");
+    	BoardVO bvof = service.getDBImg(bvo.getNo());
+    	
+		for(int i=1; i<=3; i++) {
+			String img = null;
+			if(i==1) {
+				img = bvof.getImg1();
+			}else if(i==2) {
+				img = bvof.getImg2();
+			}else {
+				img = bvof.getImg3();
+			}
+			
+			if(img!=null) {
+				MohelApplication.removeImg(path+"\\"+img);
+			}
+		}
+		
+		int result = service.everyFoodDel(bvo);
     	if(result>0) {
     		return "redirect:/everyFoodList";
     	}else {

@@ -116,4 +116,9 @@ public class MyFoodServiceImpl implements MyFoodService {
 		dao.adminMyFoodDel(no);
 	}
 
+	@Override
+	public List<BoardVO> everyFoodForMain() {
+		return dao.everyFoodForMain();
+	}
+
 }
