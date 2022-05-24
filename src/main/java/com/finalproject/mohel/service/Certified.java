@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -33,17 +32,6 @@ public class Certified {
 	
 	public void sendMail(String subject, String text, String email) {
 		MimeMessage message = javaMailSender.createMimeMessage();
-		
-//		String htmlText = "<div style='text-align: center;'>";
-//		htmlText += "<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>";
-//		htmlText += "<div style='margin: 0 auto; margin-top: 20px; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 470px; padding: 20px 0; font-size: 12px;'>";
-//		htmlText += "<p style='font-size: 14px; font-weight: bold; margin-bottom: 10px;'>안녕하세요 회원님 비밀번호를 재설정 하시겠어요?</p>";
-//		htmlText += "<p>비밀번호를 재설정 하길 원하시면 아래 버튼을 클릭해주세요!</p>";
-//		htmlText += "<p>만약 회원님께서 비밀번호 재설정을 요청하지 않은 경우에는 이 메일을 무시해주세요.</p>";
-//		htmlText += "<div style='margin-top: 30px; margin-bottom: 10px;'><a style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold;'>비밀번호 재설정</a></div>";
-//		htmlText += "</div>";
-//		htmlText += "<p style='margin-top: 60px;'>&#169; 2022 Mohel. All rigths reserved.</p>";
-//		htmlText += "</div>";
 		
 		try {
 			MimeMessageHelper mmh = new MimeMessageHelper(message, true, "UTF-8");
@@ -86,7 +74,7 @@ public class Certified {
 	    
 	    String body = bodyJson.toString();
 	    
-//	    System.out.println(body);
+//	    //System.out.println(body);
 	    
         try {
             URL url = new URL(apiUrl);
@@ -108,7 +96,7 @@ public class Certified {
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-//            System.out.println("responseCode" +" " + responseCode);
+//            //System.out.println("responseCode" +" " + responseCode);
             if(responseCode == 202) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else { // 에러 발생
@@ -122,7 +110,7 @@ public class Certified {
             }
             br.close();
             
-//            System.out.println(response.toString());
+//            //System.out.println(response.toString());
 
         } catch (Exception e) {}
         

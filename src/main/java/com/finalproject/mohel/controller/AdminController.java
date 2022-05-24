@@ -1,8 +1,25 @@
 package com.finalproject.mohel.controller;
 
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.BoardService;
@@ -15,24 +32,6 @@ import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.ExerciseVO;
 import com.finalproject.mohel.vo.MemberVO;
 import com.finalproject.mohel.vo.PagingVO;
-
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.servlet.http.HttpServletRequest;
-
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 @RequestMapping("/admin/")
 @Controller // 현재의 클래스를 controller bean에 등록시킴
@@ -73,7 +72,7 @@ public class AdminController {
 	public ModelAndView adminMember(@RequestParam String nickname) { 
 		ModelAndView mav = new ModelAndView();
 		MemberVO vo = memberService.adminView(nickname);
-		System.out.println(vo.getActive()+vo.getNickname());
+		//System.out.println(vo.getActive()+vo.getNickname());
 		mav.addObject("av", vo);
 		mav.setViewName("admin/adminMember");
 		return mav;
@@ -155,7 +154,7 @@ public class AdminController {
 	}
 	//관리자 페이지 게시판 글 삭제하기
 	@GetMapping("adminEveryExerciseDelete") 
-	public ModelAndView adminEveryExerciseDelete(String nickname, int no, ModelAndView mav) { 
+	public ModelAndView adminEveryExerciseDelete(String nickname, int no, ModelAndView mav, HttpServletResponse response)throws Exception  { 
 		int result = exerciseService.every_exerciseDelete(no, nickname);
 		if(result>0) {
 			//삭제됨
@@ -163,7 +162,12 @@ public class AdminController {
 			
 		} else {
 			//삭제 안됨
-			System.out.println("삭제 실패하였습니다.");
+			//System.out.println("삭제 실패하였습니다.");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			 
+			out.println("<script>alert('삭제 실패.');</script>");
+			out.flush();
 			mav.addObject("no", no);
 			mav.setViewName("redirect:adminEveryExercise");
 		} 
@@ -187,5 +191,34 @@ public class AdminController {
 		myFoodService.adminMyFoodDel(no);
 		mav.setViewName("redirect:adminMyMeal");
 		return mav; 
+	}
+	//관리자 페이지 메인 axios : 성별 분포
+	@PostMapping("genderCount")
+    @ResponseBody
+    public String genderCount() {
+        List<Map<String,String>> list = memberService.genderCount();
+        JSONArray jsonArray = new JSONArray();
+        //System.out.println(list);
+        for(Map<String,String> map : list){
+            jsonArray.put(map);
+        }
+        return jsonArray.toString();
+    }
+	@PostMapping("ageCount")
+	@ResponseBody
+	public String ageCount() { 
+		Map<String,String> map =memberService.ageCount(); 
+		JSONObject jsonObject = new JSONObject(map); 
+		return jsonObject.toString();
+	}
+	@PostMapping("joinCount")
+	@ResponseBody
+	public String joinCount() { 
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		String currentTime = format1.format (System.currentTimeMillis());
+		Map<String,String> map =memberService.joinCount(currentTime);
+        //System.out.println(map);
+		JSONObject jsonObject = new JSONObject(map); 
+		return jsonObject.toString();
 	}
 }

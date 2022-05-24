@@ -1,6 +1,5 @@
 package com.finalproject.mohel.controller;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -175,7 +174,7 @@ public class MypageController {
 	
 	@PostMapping("userDelOk")
 	public ResponseEntity<String> userDelOk(HttpSession session) {
-		if(session.getAttribute("kakao")!=null && ((String)session.getAttribute("kakao")).equals("true")) {
+		if(session.getAttribute("kakao")!=null &&((String)session.getAttribute("kakao")).equals("true")) {
 			kakao.disconnKakao((String)session.getAttribute("accessToken"));
 		}
 		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");

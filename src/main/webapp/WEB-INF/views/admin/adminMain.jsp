@@ -4,8 +4,8 @@
 <link rel = "stylesheet" href="/css/admin/adminMain.css" type="text/css"/>
 <link rel="stylesheet" href="/css/statistics/statistics.css" type="text/css"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <%--ajax 라이브러리 추가--%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="${url}/js/statistics/statisticsMake.js"></script>
 <script src="${url}/js/admin/adminMain.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(event){
@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function(event){
                     </div>
                 </div>
             </li>
+
+            <!-- 선 나눔 -->
+            <hr class="sidebar-divider" style="border: 1px solid #313942">
+
 
             <!-- 통계 -->
             <li class="nav-item">
@@ -179,10 +183,10 @@ document.addEventListener("DOMContentLoaded", function(event){
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
+                        <li onclick="location.href='/member/logout'" class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nickName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">관리자 : ${userInfo.nickname} | 로그아웃</span>
                                 <img class="img-profile rounded-circle"
                                      src="${url}/css/admin/img/undraw_profile.svg">
                             </a>
@@ -213,13 +217,15 @@ document.addEventListener("DOMContentLoaded", function(event){
                             <main id="inside">
                                 <div class="st">
                                     <div class="statisticsContainer" >
-                                        <div id="gender" class="chart" style="position: relative; right: 10vw; top: 57vh;">
+                                        <div id="gender" class="chart" style="width:450px; display:inline;  margin: 0; position:relative; top: 1vh;">
                                             <canvas id="genderChart" width="400px" height="400px"></canvas>
                                         </div>
-                                        <div id="age" class="chart" style="position: relative; top: 14vh; left: 25vw;">
+                                        <div id="age" class="chart" style="width:450px;display:inline; margin: 0; position:relative;  top : -400px; left: 600px;">
                                             <canvas id="ageChart" width="400px" height="400px"></canvas>
                                         </div>
-                                        <hr style="position: relative; bottom: 40vh; right: 350px; border: 1px solid #313942">
+                                        <div id="join" class="chart" style=" margin-top: -300px;">
+                                            <canvas id="joinChart" width="1000px" height="400px"></canvas>
+                                        </div>
                                         <div style="position: relative; bottom: 75vh; right: 15vw; font-size: 1.5em; color: #313942">
                                             <div id="ariding">
                                                 <span id="ridingCount"></span>

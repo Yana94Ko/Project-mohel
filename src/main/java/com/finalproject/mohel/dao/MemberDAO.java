@@ -1,6 +1,7 @@
 package com.finalproject.mohel.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,8 @@ public interface MemberDAO {
     //관리자 페이지 회원 삭제
     public int adminDelete(String nickname);
 	public int updatePwd(MemberVO vo);
+	//관리자 페이지 통계 관련
+    public List<Map<String,String>> genderCount();
+    public Map<String,String> ageCount();
+    public Map<String,String> joinCount(String currentTime);
 }

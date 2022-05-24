@@ -18,4 +18,13 @@ main{
     padding: 0;
 
 }
+.st {
+    position: relative;
+    left: 340px;
+    margin-bottom: 30px;
+}
 
+.gender {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
