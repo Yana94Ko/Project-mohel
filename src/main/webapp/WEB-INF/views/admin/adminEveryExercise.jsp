@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시판 글 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">모두의 운동 목록</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                                             </li>
                                         </c:if>
                                         <c:if test="${pVO.pageNum<pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="${url}/admin/adminEveryExercise?pageNum=${pVO.pageNum+1}<c:if test='${pVO.searchWord != null}'>&searchKey=${pVO.searchKey }&searchWord=${pVO.searchWord }</c:if>">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>

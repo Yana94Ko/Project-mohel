@@ -47,19 +47,11 @@ document.addEventListener("DOMContentLoaded", function(event){
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- 통계 -->
-            <li class="nav-item">
-                <a class="nav-link" href="${url}/admin/adminMain">
-                    <i class="fas fa-fw fa-chart-area" style="color: #313942;"></i>
-                    <span style="color: #313942;">통계</span></a>
-            </li>
-
             <!-- Heading -->
             <div class="sidebar-heading" style="color: #313942;">
                 관리자
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+			<!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
@@ -84,6 +76,16 @@ document.addEventListener("DOMContentLoaded", function(event){
             <!-- 선 나눔 -->
             <hr class="sidebar-divider" style="border: 1px solid #313942">
 
+
+            <!-- 통계 -->
+            <li class="nav-item">
+                <a class="nav-link" href="${url}/admin/adminMain">
+                    <i class="fas fa-fw fa-chart-area" style="color: #313942;"></i>
+                    <span style="color: #313942;">통계</span></a>
+            </li>
+
+            <!-- 선 나눔 -->
+            <hr class="sidebar-divider" style="border: 1px solid #313942;">
 
             <!-- 사이드 메뉴 회원전용탭 -->
             <div class="sidebar-heading" style="color: #313942;">
@@ -185,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시판 글 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">나만의 식단 목록</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -243,14 +245,14 @@ document.addEventListener("DOMContentLoaded", function(event){
                                             </c:if>
                                         </c:forEach>
                                         <c:if test="${pVO.pageNum==pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="#">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>
                                         </c:if>
                                         <c:if test="${pVO.pageNum<pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="${url}/admin/adminMyMeal?pageNum=${pVO.pageNum+1}<c:if test='${pVO.searchWord != null}'>&searchKey=${pVO.searchKey }&searchWord=${pVO.searchWord }</c:if>">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>

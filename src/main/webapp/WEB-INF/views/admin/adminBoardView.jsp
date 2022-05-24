@@ -182,7 +182,12 @@ document.addEventListener("DOMContentLoaded", function(event){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시판 글 상세보기</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">
+	                            <c:if test="${vo.category=='free'}">자유 게시판 글 상세보기</c:if>
+	                            <c:if test="${vo.category=='ba'}">비포에프터 게시판 글 상세보기</c:if>
+	                            <c:if test="${vo.category=='challenge'}">챌린지 게시판 글 상세보기</c:if>
+	                            <c:if test="${vo.category=='exercise'}">나만의 운동 게시판 글 상세보기</c:if>
+                            </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -193,7 +198,10 @@ document.addEventListener("DOMContentLoaded", function(event){
                                         	<c:if test="${vo.category=='everyMeal'}">
                                         		<a href="/everyFoodView?no=${vo.no}">
                                         	</c:if>
-                                        	<c:if test="${vo.category!='everyMeal'}">
+                                        	<c:if test="${vo.category=='exercise'}">
+                                        		<a target="_black" href="${url}/exercise/exerciseView?no=${vo.no}">
+                                        	</c:if>
+                                        	<c:if test="${vo.category!='everyMeal'&&$vo.category!='exercise'}">
                                         		<a target="_black" href="${url}/board/boardView?category=${vo.category}&no=${vo.no}">
                                         	</c:if>
                                         ${vo.title }</a></td>
