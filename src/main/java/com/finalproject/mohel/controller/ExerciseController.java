@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.finalproject.mohel.MohelApplication;
 import com.finalproject.mohel.service.ExerciseService;
 import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.ExerciseMemberVO;
@@ -481,7 +482,13 @@ public class ExerciseController {
 			mav.addObject("no", no);
 			mav.setViewName("redirect:every_exerciseView");
 		}
-		
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		String imgRealPath = "";
+		if(userInfo.getProfile()!=null && !userInfo.getProfile().equals("") && userInfo.getProfile().startsWith("/img/")) {
+			imgRealPath = session.getServletContext().getRealPath(userInfo.getProfile());
+		}
+		MohelApplication.removeImg(imgRealPath);
+		session.invalidate();
 		return mav;
 	}
 	// 모두의 운동 참가신청(작성자 외)
