@@ -264,6 +264,7 @@ public class ExerciseController {
 	// 모두의 운동 리스트
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
+		System.out.println("리스트로 왔다");
 		ModelAndView mav = new ModelAndView();
 		pVO.setTotalRecord(service.totalRecord1(pVO));
 		
@@ -474,13 +475,12 @@ public class ExerciseController {
 			//삭제됨
 			mav.setViewName("redirect:every_exerciseList");
 			String imgRealPath = "";
-			if(vo.getImg()!=null && !vo.getImg().equals("") && vo.getImg().startsWith("/img/")) {
+			if(vo.getImg()!=null && vo.getImg().startsWith("/img/")) {
 				imgRealPath = session.getServletContext().getRealPath(vo.getImg());
 			}
 			MohelApplication.removeImg(imgRealPath);
 		} else {
 			//삭제 안됨
-			//System.out.println("삭제 실패하였습니다.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:every_exerciseView");
 		}

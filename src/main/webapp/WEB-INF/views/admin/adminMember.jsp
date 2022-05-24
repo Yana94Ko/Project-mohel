@@ -279,15 +279,15 @@ document.addEventListener("DOMContentLoaded", function(event){
                                     </c:forEach>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
+                                    <ul class="pagination" style="margin:auto;width: 500px;">
+                                        <li class="page-item"style="margin:auto;margin-right:0;">
                                             <c:if test="${pVO.pageNum==1}">
                                             <a class="page-link" href="#" aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                             </c:if>
                                             <c:if test="${pVO.pageNum>1}">
-                                        <li>
+                                        <li style="margin:auto;">
                                             <a class="page-link" aria-label="Previous" href="${url}/admin/adminMember?pageNum=${pVO.pageNum-1}<c:if test='${pVO.searchWord != null}'>&searchKey=${pVO.searchKey }&searchWord=${pVO.searchWord }</c:if>">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
@@ -312,14 +312,14 @@ document.addEventListener("DOMContentLoaded", function(event){
                                             </c:if>
                                         </c:forEach>
                                         <c:if test="${pVO.pageNum==pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="#">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>
                                         </c:if>
                                         <c:if test="${pVO.pageNum<pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="${url}/admin/adminMember?pageNum=${pVO.pageNum+1}<c:if test='${pVO.searchWord != null}'>&searchKey=${pVO.searchKey }&searchWord=${pVO.searchWord }</c:if>">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>

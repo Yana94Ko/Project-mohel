@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                                             </li>
                                         </c:if>
                                         <c:if test="${pVO.pageNum<pVO.totalPage}">
-                                            <li class="page-item">
+                                            <li class="page-item" style="margin:auto;margin-left:0;">
                                                 <a class="page-link" aria-label="Next" href="${url}/admin/adminEveryExercise?pageNum=${pVO.pageNum+1}<c:if test='${pVO.searchWord != null}'>&searchKey=${pVO.searchKey }&searchWord=${pVO.searchWord }</c:if>">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
