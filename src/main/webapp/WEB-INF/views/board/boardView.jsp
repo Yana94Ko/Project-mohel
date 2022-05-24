@@ -18,8 +18,8 @@
     </div> 
 	<div>
 		<c:if test="${userInfo.nickname==vo.nickname}"> 
-			<a href="/board/boardEdit?no=${vo.no}&category=${category}">글수정</a> 
-			<a href="javascript:delCheck()">글삭제</a>
+			<a class="board-btn" id="edit-btn" href="/board/boardEdit?no=${vo.no}&category=${category}">글수정</a> 
+			<a class="board-btn" id="del-btn"href="javascript:delCheck()">글삭제</a>
 		</c:if>
 	</div>
     <div class="comment-box">
@@ -32,10 +32,10 @@
         </form>
       </div>
       <div class="comment" id="replyList">
-        <div class="info">
-      </div>
-    </div>
-  </div>
+        	<div class="info">
+      		</div>
+   	  </div>
+  	</div>
 </div>	
 <script>
 	function delCheck(){
@@ -61,20 +61,20 @@
 					var tag = "<ul>";
 					
 					$result.each(function(idx, vo){
-						tag += "<li><div>"+vo.nickname;
+						tag += "<li><div><span class='reply-name'>"+vo.nickname+"</span>";
 						tag += "("+vo.writedate+") ";
 						
 						if(vo.nickname=='${userInfo.nickname}'){
-							tag += "<input type='button' value='수정'/>";
-							tag += "<input type='button' value='삭제' title='"+vo.no+"'/>";
+							tag += "<input class='replyedit-btn' type='button' value='수정'/>";
+							tag += "<input class='replydel-btn' type='button' value='삭제' title='"+vo.no+"'/>";
 						}
-						tag += "<br/>"+vo.contents+"</div>";
+						tag += "<br/><span class='reply-contents'>"+vo.contents+"</span></div>";
 						
 						//본인 글일때 댓글수정 폼이 있어야 한다
 						if(vo.nickname=='${userInfo.nickname}'){
-							tag += "<div style='display:none'><form method='post'>";
+							tag += "<div class='edit-box'style='display:none'><form method='post'>";
 							tag += "<input type='hidden' name='no' value='"+vo.no+"'/>";
-							tag += "<textarea name='contents' style='width:400px; height:50px'>"+vo.contents+"</textarea>";
+							tag += "<textarea name='contents' rows='2'>"+vo.contents+"</textarea>";
 							tag += "<input type='submit' value='수정'/>";
 							tag += "</form></div>";
 						}
@@ -93,7 +93,7 @@
 		//댓글 등록
 		$("#replyFrm").submit(function(){
 			event.preventDefault();
-			if($("#contents").val()==""){
+			if($("#replyContents").val()==""){
 				alert("댓글을 입력하세요");
 				return;
 			}else{
@@ -106,7 +106,7 @@
 					success : function(r){
 						//댓글 입력 성공 후 쓰기 창을 초기화
 						//alert(JSON.stringify(r))
-						$("#contents").val("");
+						$("#replyContents").val("");
 						
 						replyListAll();
 					},
