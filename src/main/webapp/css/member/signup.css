@@ -1,0 +1,155 @@
+@charset "UTF-8";
+#signupFrm {
+	width: 460px;
+	margin: 0 auto;
+}
+#signupLogo {
+	width: 300px;
+	margin: 30px 0;
+}
+.signup-main{
+	text-align: center;
+}
+#defaultProfile {
+	margin-bottom: 30px;
+}
+.ck-msg {
+	line-height: 20px;
+	height: 20px;
+	font-size: 12px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.not-ck-msg{
+	margin: 20px 0;
+}
+
+#emailCk {
+	width: 350px;
+}
+#emailCheckBox>span {
+	display: inline-block;
+	width: 44px;
+	color: #888;
+}
+.form-use-btn {
+	border: 1px solid #ccc;
+	width: inherit;
+}
+.form-use-btn>input:first-child {
+	width: 395px;
+	border: 0px;
+	padding: 0 10px;
+}
+.form-use-btn>input:first-child:focus {
+	outline: none;
+}
+.form-use-btn>input[type="button"] {
+	background: white;
+	border: 1px solid #888;
+	width: 50px;
+}
+.form-use-btn>input[type="button"]:disabled,
+.form-use-btn>input[type="button"]:hover {
+	background: #eee;
+}
+.form-use-btn>input[type="button"]:active {
+	background: #fff;
+}
+.input-first {
+	margin-bottom: 5px;
+}
+.text-box{
+	height: 45px;
+	padding: 0 15px;
+}
+
+#sugnupFrmBox input[type="password"],
+#nickname {
+	width: 460px;
+	border-radius: 0px;
+	border: 1px solid #ccc;
+}
+
+.profile-img:hover {
+	cursor: pointer;
+}
+
+.selectGender{
+	float: right;
+}
+.selectGender>div {
+	display: inline-block;
+}
+.w-box {
+	margin-left: 5px;
+}
+
+.list-left {
+	text-align: left !important;
+}
+
+.body-size {
+	display: flex;
+	justify-content: space-between;
+}
+#height {
+	width: 50px;
+}
+#weight {
+	width: 40px;
+}
+.body-size-input {
+	border: 1px solid #ccc;
+}
+.body-size-label {
+	padding-right: 10px;
+}
+
+.active-quantity {
+	width: 350px;
+	margin: 0 auto;
+	text-align: left;
+}
+.active-quantity label {
+	width: 330px;
+}
+.bmr-amr>div {
+	font-weight: bold;
+}
+#sugnupFrmBox button {
+	padding: 5px 20px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	margin-bottom: 50px;
+}
+
+.check {
+	background-color: #FAFAFA
+}
+#emailCk,
+#telCk {
+	background-color: rgba(0,0,0,0);
+}
+
+#metabolicRateList {
+	border: 1px solid gray;
+	padding: 0 50px;
+}
+#metabolicRateBox > li {
+	margin: 30px 0;
+}
+
+.submit-btn{
+	margin-top: 30px;
+}
+
+.bmr-amr > div{
+	margin: 10px 0;
+	font-size: 18px;
+}
+.bmr-amr span {
+	margin-left: 20px;
+	float: right;
+}

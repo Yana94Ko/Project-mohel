@@ -1,0 +1,80 @@
+@charset "UTF-8";
+#everyFoodList-container{
+	width:1120px;
+	margin:0 auto;
+	overflow:auto;
+}
+#everyFoodList-best{
+    width: 300px;
+    height: 800px;
+    float: left;
+    text-align: center;
+    padding-top: 250px;
+    box-shadow: inset 0px 10px 20px 20px lightgrey;
+}
+#everyFoodList-view{
+	width:810px;
+	min-height:600px;
+	float:right;
+	text-align:center;
+}
+#everyFoodList-view>h1{
+	margin-top:35px;
+	margin-bottom:35px;
+}
+#everyFoodList-contents{
+	margin-left:30px;
+}
+#everyFoodList-contents>li{
+	width:250px;
+	height:330px;
+	float:left;
+}
+.everyFoodList-thumbnail{
+	width:200px;
+	height:200px;
+}
+.everyFoodList-title{
+	width:200px;
+	height:30px;
+	line-height:30px;
+	font-weight:bold;
+	font-size:1.1em;
+	display:inline-block;
+	margin-top:10px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.partAndCal{
+	width:200px;
+	height:20px;
+	line-height:20px;
+	display:inline-block;
+}
+.dateAndHit{
+	width:200px;
+	height:20px;
+	line-height:20px;
+	margin:0 auto;
+}
+.dateAndHit>img{
+	margin-top:-5px;
+	width:15px;
+	height:15px;
+}
+.everyFoodList-nickname{
+	width:200px;
+	height:20px;
+	line-height:20px;
+	margin:0 auto;
+}
+#everyFoodList-pagination{
+	width:810px;
+	height:50px;
+	float:right;
+	text-align:center;
+}
+.pagination{
+	justify-content:center;
+}

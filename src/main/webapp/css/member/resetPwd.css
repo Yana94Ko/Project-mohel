@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.top{display:none;}
+
+footer{display:none;}
+
+
+.resetPwdFrm{
+	position:absolute;
+	top:5%;
+	left:40%;
+	width: 500px;
+	padding: 30px;
+	border: none;
+}
+
+.newPwd-img{
+	margin-left:80px;
+}
+
+h3{
+	margin-top:30px;
+}
+
+.resetPwdFrm li{
+	margin-top: 10px;
+}
+.resetPwdFrm li input{
+	width:300px;
+	height:40px;
+	border: 0.5px solid #D8D8D8;
+	border-radius: 5px;
+	font-size:15px;
+}
+#pwdCkMsg {
+	margin-top: 0;
+	font-size: 14px;
+}
+
+.newPwd-button{
+	margin-top:20px;
+	width:120px;
+	padding:5px;
+	display: inline-block;
+ 	background-color: #01c9c6;
+  	color: white;
+  	font-weight: var(--font-medium);
+  	font-size: 15px;
+  	transition: 0.5s;
+  	border-radius: 8px;
+  	border:none;
+}
+.newPwd-button:hover {
+  background-color: #01d8d6;
+  }
+

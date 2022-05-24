@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* board-view */
+.board-view {
+  width: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 30px; 
+}
+.board-view h3 {
+  padding: 8px 0;
+  text-align: center;
+}
+
+/* board-view title */
+.board-view .title {
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0 16px 0;
+  
+}
+.board-view .title .writer {
+  align-items: flex-end; 
+  display: flex;
+  font-weight: 600;
+}
+.board-view .title .writer > span {
+  margin-right: 16px;
+}
+.board-view .title .writer p:nth-child(2) {
+  font-weight: 500;
+  color: #999;
+  margin : 0; 
+  margin-right: 16px;
+}
+.board-view .title .writer p:last-child {
+  margin : 0;
+  color: #999;
+  font-weight: 500;
+}
+.board-view .title .writer p:last-child > span {
+  color: #000;
+  font-weight: 600;
+}
+
+/* board-view contents */
+.board-view > .contents {
+  min-height: 20vh;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+.board-view > div:nth-child(4){
+  display:flex;
+  justify-content:end;
+  margin:20px 0;
+}
+.board-view .board-btn{
+  padding:8px 12px;
+  color:#fff;
+  font-weight:500;
+  border-radius:5px;
+}
+.board-view #del-btn {
+  background-color:#ff0000;
+}
+.board-view #edit-btn{
+  background-color:#01c9c6;
+  margin-right: 5px;
+}
+/* board-view comment */
+.board-view .comment-box .write-area {
+  border: 1px solid #ccc;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 32px;
+  border-radius:5px;
+}
+.board-view .comment-box .write-area span {
+  display: inline-block;
+  font-weight: 600;
+  margin: 16px 0 16px 16px;
+}
+.board-view .comment-box .write-area form {
+  display: flex;
+  flex-direction: column;
+}
+.board-view .comment-box .write-area form textarea {
+  margin: 0 16px;
+  resize: none;
+  border: none;
+}
+.board-view .comment-box .write-area form button {
+  width: 15%;
+  align-self: flex-end;
+  margin-top: 16px;
+  border: none;
+  background-color: #01c9c6;
+  font-weight: 500;
+  padding: 16px 0;
+  cursor: pointer;
+  border-radius:5px;
+  color:#fff;
+}
+.board-view .comment ul li >div {
+  color: #999;
+}
+.board-view .comment ul li >div .reply-name{
+  color: #000;
+  font-weight:500;
+  margin-right:5px;
+}
+.board-view .comment ul li >div .reply-contents{
+  color: #000;
+  font-size:16px; 
+  margin: 20px 0;
+  display:block;
+  margin-left:2px;
+}
+.board-view .comment input[type=button]{
+  padding:5px 7px;
+  color:#fff;
+  font-weight:500;
+  border-radius:5px;
+  border:none;
+  margin-left:3px;
+}
+.board-view .comment .replydel-btn {
+  background-color:#ff0000;
+}
+.board-view .comment .replyedit-btn {
+  background-color:#01c9c6;
+}
+.board-view .comment .edit-box{
+  border:1px solid #ccc;
+  width:50%;
+  padding:12px;
+  border-radius:5px;
+}
+.board-view .comment .edit-box>form{
+  display:flex;
+  justify-content:center;	
+}
+.board-view .comment .edit-box>form>textarea{
+  resize:none;	
+  width:80%;
+  border:none;
+  margin-right:12px;
+}
+.board-view .comment .edit-box>form>input[type=submit]{
+  width:20%; 
+  height:48px; 
+  border:none;
+  border-radius:5px;
+  background-color:#01c9c6;
+  color:#fff;
+  align-self:center;
+}

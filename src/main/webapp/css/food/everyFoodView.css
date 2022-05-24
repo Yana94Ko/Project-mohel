@@ -1,0 +1,135 @@
+@charset "UTF-8";
+#everyFoodView-container{
+	width:900px;
+	margin:0 auto;
+	overflow:auto;
+}
+#titleBox{
+	height:50px;
+	margin-top:50px;
+	display:flex;
+	justify-content:space-between;
+	border-bottom:3px solid gray;
+}
+#titleBox>h2{
+	width:50%;
+}
+#otherData{
+	display:flex;
+	align-items:flex-end;
+	font-weight:500;
+}
+#otherData>img{
+	width:20px;
+	height:20px;
+}
+#foodMeta{
+	height:40px;
+	display:inline-block;
+	border-bottom:3px solid lightgray;
+	margin-top:20px;
+}
+#modifyAndDel{
+	height:40px;
+	margin-top:10px;
+	float:right;
+}
+#modifyAndDel>button{
+	border:none;
+}
+#foodList{
+	border-bottom:3px solid lightgray;
+	margin-top:20px;
+}
+#foodList button{
+	min-width: 100px;
+    height: 30px;
+    line-height: 0px;
+    margin: 0 10px 5px 0;
+    background-color:lightgreen;
+    cursor:default;
+}
+#foodImages{
+	border-bottom:3px solid lightgray;
+	margin-top:20px;
+}
+#foodImages>img{
+	width:200px;
+	height:200px;
+	margin:0 20px 3px 0;
+}
+#contents{
+	min-height:200px;
+	display:flex;
+	align-items:center;
+	border-bottom:3px solid gray;
+	margin:20px 0 20px 0;
+	padding-bottom:20px;
+}
+#replyFrm{
+	margin:10px 0 50px 0;
+	display:flex;
+	border:1px solid lightgray;
+}
+#replyFrm>textarea{
+	resize:none;
+	width:100%;
+	height:100px;
+	border:none;
+}
+#replyFrm>button{
+	width:100px;
+	height:100px;
+	border:none;
+}
+.replyEach{
+	border-bottom:3px solid lightgray;
+	margin-bottom:20px;
+}
+.replyTop{
+	margin-bottom:20px;
+}
+.replyTop>span{
+	font-weight:bold;
+	margin-right:20px;
+}
+.replyTop>span:last-child{
+	font-weight:500;
+	color:#acadac;
+}
+.replyBottom{
+	display:flex;
+	margin-bottom:10px;
+}
+.replyBottom>p{
+	/* background-color:lightblue; */
+	width:100%;
+}
+.buttonZone{
+	/* background-color:orange; */
+	display:flex;
+	justify-content:flex-end;
+	width:150px;
+}
+.buttonZone>button{
+	width:50px;
+	height:50px;
+	border:none;
+	margin-left:10px;
+}
+.replyEditFrm{
+	margin:10px 0 20px 0;
+	display:none;
+	border:1px solid lightgray;
+}
+.replyEditFrm>textarea{
+	resize:none;
+	width:100%;
+	height:100px;
+	border:none;
+}
+.replyEditFrm>button{
+	width:100px;
+	height:100px;
+	border:none;
+}
