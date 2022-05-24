@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link rel = "stylesheet" href="/css/admin/adminBoard.css" type="text/css"/>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="${url}/js/statistics/statisticsMake.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
@@ -68,10 +70,14 @@ document.addEventListener("DOMContentLoaded", function(event){
                         <a class="collapse-item" href="${url}/admin/adminEveryExercise" style="color:#oc09oa;">모두의 운동 관리</a>
                         <a class="collapse-item" href="${url}/admin/adminBoard?category=free" style="color:#oc09oa;">자유게시판 관리</a>
                         <a class="collapse-item" href="${url}/admin/adminBoard?category=challenge" style="color:#oc09oa;">챌린지게시판 관리</a>
-                        <a class="collapse-item" href="${url}/admin/adminBoard?category=ba" style="color:#oc09oa;">비포에프터게시판 관리</a>a>
+                        <a class="collapse-item" href="${url}/admin/adminBoard?category=ba" style="color:#oc09oa;">비포에프터게시판 관리</a>
                     </div>
                 </div>
             </li>
+
+            <!-- 선 나눔 -->
+            <hr class="sidebar-divider" style="border: 1px solid #313942">
+
 
             <!-- 통계 -->
             <li class="nav-item">
@@ -145,10 +151,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
+                        <li onclick="location.href='/member/logout'" class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nickName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><c:if test="${userInfo==null}">관리자 : ${userInfo.nickname} | 로그아웃</c:if></span>
                                 <img class="img-profile rounded-circle"
                                      src="${url}/css/admin/img/undraw_profile.svg">
                             </a>
@@ -246,9 +252,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     <!-- Page level plugins -->
     <script src="${url}/css/admin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="${url}css/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="${url}/css/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="${url}js/admin/js/demo/datatables-demo.js"></script>
+    <script src="${url}/js/admin/js/demo/datatables-demo.js"></script>
 
 </main>

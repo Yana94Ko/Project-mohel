@@ -29,4 +29,5 @@ public interface MyFoodService {
 	public List<MyFoodVO> adminGetMyFood( PagingVO pVO);
     public int totalRecord(PagingVO pVO);
     public void adminMyFoodDel(int no);
+    public List<BoardVO> everyFoodForMain();
 }

@@ -24,7 +24,7 @@ public class ReplyController {
 	//댓글 등록
 	@RequestMapping(value="/reply/writeOk", method=RequestMethod.POST)
 	public int writeOk(ReplyVO vo, HttpSession session) {
-		System.out.println(vo.getBoardNo());
+		//System.out.println(vo.getBoardNo());
 		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
 		vo.setNickname(mvo.getNickname());
 		return service.replyWrite(vo);
@@ -45,7 +45,7 @@ public class ReplyController {
 	@GetMapping("/reply/del")
 	public int delOk(int no, HttpSession session) {
 		MemberVO mvo = (MemberVO)session.getAttribute("userInfo");
-		System.out.println(mvo.getNickname() + no);
+		//System.out.println(mvo.getNickname() + no);
 		return service.replyDel(no, mvo.getNickname());
 	}
 }

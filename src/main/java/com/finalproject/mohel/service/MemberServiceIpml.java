@@ -1,6 +1,7 @@
 package com.finalproject.mohel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -68,4 +69,20 @@ public class MemberServiceIpml implements MemberService {
 	public int updatePwd(MemberVO vo) {
 		return dao.updatePwd(vo);
 	}
+
+	@Override
+	public List<Map<String, String>> genderCount() {
+		return dao.genderCount();
+	}
+
+	@Override
+	public Map<String, String> ageCount() {
+		return dao.ageCount();
+	}
+
+	@Override
+	public Map<String, String> joinCount(String currentTime) {
+		return dao.joinCount(currentTime);
+	}
+	
 }

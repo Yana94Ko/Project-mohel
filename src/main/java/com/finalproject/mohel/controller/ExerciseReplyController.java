@@ -32,9 +32,9 @@ public class ExerciseReplyController {
 	// 댓글목록
 	@RequestMapping("/exercise/exerciseReplyList")
 	public List<ExerciseReplyVO> exerciseReplyList(int no) {
-		System.out.println(no);
+		//System.out.println(no);
 		List<ExerciseReplyVO> lst=service.exerciseReplyList(no);
-		System.out.println(lst.size());
+		//System.out.println(lst.size());
 		return lst;
 	}
 

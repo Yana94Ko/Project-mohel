@@ -84,31 +84,17 @@
 			👍 <strong>모두의 식단</strong> 👍
 		</h3>
 		<div class="every-01">
-			<div class="b1">
-				<a href="" class="pic"><img src="/img/main-diet-01.jpg"></a>
-
-				<ul>
-					<li>5월 10일 점심(350kcal)</li>
-					<li>2022-5-10 | 조회수 7</li>
-				</ul>
-			</div>
-			<div class="pic1">
-				<a href="" class="pic"><img src="/img/main-diet-02.jpg"></a>
-
-				<ul>
-					<li>5월 10일 저녁식사(388kcal)</li>
-					<li>2022-5-10 | 조회수 9</li>
-				</ul>
-			</div>
-			<div class="pic1">
-				<a href="" class="pic"><img src="/img/main-diet-03.jpg"></a>
-
-				<ul>
-					<li>5월 10일 아침식사</li>
-					<li>2022-5-10 | 조회수 4</li>
-				</ul>
-			</div>
-
+			<c:forEach var="fvo" items="${everyFoodBest}">
+				<div class="pic1">
+					<a href="/everyFoodView?no=${fvo.no}" class="pic">
+						<img src="/img/food/${fvo.img1}">
+					</a>
+					<ul>
+						<li><strong>[${fvo.meals}]</strong>&nbsp;${fvo.title}</li>
+						<li>${fvo.writedate} | 조회수 ${fvo.hit}</li>
+					</ul>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<div class="body-03">

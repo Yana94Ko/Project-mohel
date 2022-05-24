@@ -97,4 +97,9 @@
 	<delete id="adminMyFoodDel">
 		delete from mymeals where no=#{param1}
 	</delete>
+	<select id="everyFoodForMain" resultType="BoardVO">
+		SELECT no, title, nickname, foodcalories, meals, img1, 
+			DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate, hit 
+		FROM board WHERE category="everyMeal" ORDER BY hit DESC LIMIT 0,3
+	</select>
 </mapper>
