@@ -86,8 +86,6 @@
 				</div>
 
 				<div class="form-group">
-					<label for="formFile" class="form-label mt-4">사진 업로드</label>
-					<input class="form-control" type="file" id="formFile" name="filename">
 					<label for="formFile" class="form-label mt-4">사진 업로드</label> 
 					<input id="upload-btn" class="form-control" type="file" id="formFile" name="filename">
 				</div>

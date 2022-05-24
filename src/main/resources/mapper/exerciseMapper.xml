@@ -162,7 +162,7 @@
 	<!-- home -->
 	<select id="home_exercise" resultType="ExerciseVO"> 
 		select no, title, hashtag, contents, 
-		DATE_FORMAT(startdate, '%Y-%m-%dT%H:%i:%S') AS	startdate, DATE_FORMAT(enddate, '%Y-%m-%dT%H:%i:%S')AS enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
+		DATE_FORMAT(startdate, '%Y-%m-%d %H:%i:%S')as startdate, DATE_FORMAT(enddate, '%Y-%m-%d %H:%i:%S')AS enddate,DATE_FORMAT(writedate, '%Y-%m-%d') AS writedate ,
 		placeinfo,applicantCnt, applicantMax, hit, nickname, img
 		from everyexercise
 		order by hit desc limit 3
