@@ -2,6 +2,8 @@ package com.finalproject.mohel.controller;
 
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.mohel.service.ExerciseService;
 import com.finalproject.mohel.service.MemberService;
+import com.finalproject.mohel.service.MyFoodService;
+import com.finalproject.mohel.vo.BoardVO;
 import com.finalproject.mohel.vo.ExercisePagingVO;
 import com.finalproject.mohel.vo.MemberVO;
 
@@ -23,6 +27,9 @@ public class HomeController {
 	
 	@Inject
 	MemberService memberService;
+	
+	@Inject
+	MyFoodService foodService;
 	
 	@GetMapping("/")
 
@@ -40,6 +47,13 @@ public class HomeController {
 		System.out.println(category+"/"+service.home_exercise(pVO));
 		mav.addObject("pVO", pVO);
 		mav.addObject("category", category);
+		
+		String[] partname = {"", "아침", "오전간식", "점심", "오후간식", "저녁"};
+    	List<BoardVO> fvo = foodService.everyFoodForMain();
+    	fvo.forEach(x->{
+    		x.setMeals(partname[Integer.parseInt(x.getMeals())]);
+    	});
+		mav.addObject("everyFoodBest", fvo);
 		mav.setViewName("/home");
 		
 		Cookie[] cookies = req.getCookies();
