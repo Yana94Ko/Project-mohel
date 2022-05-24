@@ -191,7 +191,12 @@ document.addEventListener("DOMContentLoaded", function(event){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시판 글 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">
+                            <c:if test="${category=='free'}">자유 게시판 글 목록</c:if>
+                            <c:if test="${category=='ba'}">비포에프터 게시판 글 목록</c:if>
+                            <c:if test="${category=='challenge'}">챌린지 게시판 글 목록</c:if>
+                            <c:if test="${category=='exercise'}">나만의 운동 게시판 글 목록</c:if>
+                            </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

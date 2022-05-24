@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function(){
 				{
 					label: '회원유입 현황',
 					data: [],
-					borderColor: '#ffc0cb' ,
-					backgroundColor: '#ffc0cb',
+					borderColor: '#ffbcd9' ,
+					backgroundColor: '#fa7cd7',
 					pointStyle: 'circle',
 				    pointRadius: 10,
 				    pointHoverRadius: 15
@@ -130,25 +130,4 @@ document.addEventListener("DOMContentLoaded", function(){
             },
         });
     }
-    axios.get("availableRiding")
-        .then((res) => {
-            document.getElementById("ridingCount").innerText = `참여 가능한 라이딩 : ${res.data}`
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    axios.get("todayRiding")
-        .then((res) => {
-            document.getElementById("todayRiding").innerText = `오늘 개설된 라이딩 : ${res.data}`
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    axios.get("availableCourse")
-        .then((res) => {
-            document.getElementById("courseCount").innerText = `경험 가능한 추천 코스 : ${res.data}`
-        })
-        .catch((error) => {
-            console.log(error);
-        })
 });

@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시판 글 상세보기</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">모두의 운동 글 상세보기</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                                         <td>${vo.contents}</td>
                                     </tr>
                                     <tr>
-                                        <th>장소정보</th>
+                                        <th>장소명</th>
                                         <td>${placeinfo}</td>
                                     </tr>
                                     <tr>
