@@ -120,7 +120,7 @@ public class KakaoAPI {
 			
 	        StringBuffer response = getResponse(con);
 			
-//			System.out.println(response.toString());
+//			//System.out.println(response.toString());
 			tokenJson = new JSONObject(response.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
