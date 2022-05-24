@@ -264,6 +264,7 @@ public class ExerciseController {
 	// 모두의 운동 리스트
 	@GetMapping("/exercise/every_exerciseList")
 	public ModelAndView every_exerciseList(ExercisePagingVO pVO) {
+		System.out.println("리스트로 왔다");
 		ModelAndView mav = new ModelAndView();
 		pVO.setTotalRecord(service.totalRecord1(pVO));
 		
@@ -466,26 +467,23 @@ public class ExerciseController {
 	// 모두의 운동 글 삭제
 	@GetMapping("/exercise/every_exerciseDel")
 	public ModelAndView every_exerciseDel(BoardVO bvo, ExerciseVO vo, int no, HttpSession session, ModelAndView mav) {
-		String nickname = (String)session.getAttribute("nickname");
-		bvo.setNickname((String)session.getAttribute("logId"));
+		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
+		String nickname = userInfo.getNickname();
+		
 		int result = service.every_exerciseDelete(no, nickname);
 		if(result>0) {
 			//삭제됨
 			mav.setViewName("redirect:every_exerciseList");
-			
+			String imgRealPath = "";
+			if(vo.getImg()!=null && vo.getImg().startsWith("/img/")) {
+				imgRealPath = session.getServletContext().getRealPath(vo.getImg());
+			}
+			MohelApplication.removeImg(imgRealPath);
 		} else {
 			//삭제 안됨
-			//System.out.println("삭제 실패하였습니다.");
 			mav.addObject("no", no);
 			mav.setViewName("redirect:every_exerciseView");
 		}
-		MemberVO userInfo = (MemberVO)session.getAttribute("userInfo");
-		String imgRealPath = "";
-		if(userInfo.getProfile()!=null && !userInfo.getProfile().equals("") && userInfo.getProfile().startsWith("/img/")) {
-			imgRealPath = session.getServletContext().getRealPath(userInfo.getProfile());
-		}
-		MohelApplication.removeImg(imgRealPath);
-		session.invalidate();
 		return mav;
 	}
 	// 모두의 운동 참가신청(작성자 외)
