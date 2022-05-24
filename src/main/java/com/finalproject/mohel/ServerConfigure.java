@@ -21,7 +21,6 @@ public class ServerConfigure implements WebMvcConfigurer {
 			"/exercise/every_exerciseWrite","/exercise/every_exerciseWriteOk","/exercise/every_exerciseEdit","/exercise/every_exerciseEditOk","/exercise/every_exerciseDel",
 			"/exercise/exerciseReplyWriteOk","/exercise/exerciseReplyEditOk","/exercise/exercisegReplyDel",
 			"/exercise/excerciseMemberOk","/exercise/excerciseMemberCancel","/exercise/excerciseStateOk","/exercise/excerciseStateDel",
-			"/member/resetPwdCertifiedMail","/member/changePwdSendMail","/member/changePwdSendMail","/member/codeCheck","/member/resetPwdOk",
 			"/myFoodMain","/everyFoodWrite","/myFoodMain/saveInfo","/everyFoodWriteOk","/everyFoodReplyOk","/everyFoodEdit","/everyFoodEditOk","/everyFoodDel","/everyFoodReplyDel","/replyEditOk"
 		};
 	
