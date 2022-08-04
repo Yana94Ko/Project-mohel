@@ -20,7 +20,8 @@
 				</c:if>
 			</div>
 		<hr>
-		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8299169b3aa46a93e89d0f3fe4ed0583&redirect_uri=http://localhost:8040/member/kakaologin"><img class="kakao-login-img" src="/img/kakao_login.png"></a>
+		<!-- <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8299169b3aa46a93e89d0f3fe4ed0583&redirect_uri=http://localhost:8040/member/kakaologin"><img class="kakao-login-img" src="/img/kakao_login.png"></a> -->
+		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8299169b3aa46a93e89d0f3fe4ed0583&redirect_uri=http://43.200.8.117/member/kakaologin"><img class="kakao-login-img" src="/img/kakao_login.png"></a>
 		
 		<a href="/member/signup" class="search-and-signup">아직 회원이 아니신가요?</a>
 		<a href="/member/resetPwdCertifiedMail" class="search-and-signup">아이디 또는 비밀번호를 잊어버리셨나요?</a>

@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class KakaoAPI {
 	private final String REST_API_KEY = "8299169b3aa46a93e89d0f3fe4ed0583";
-	private final String REDIRECT_URI = "http://localhost:8040/member/kakaologin";
+//	private final String REDIRECT_URI = "http://localhost:8040/member/kakaologin";
+	private final String REDIRECT_URI = "http://43.200.8.117/member/kakaologin";
 
 //	토큰 받기
 //	 -d "grant_type=authorization_code"

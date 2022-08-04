@@ -22,35 +22,28 @@
 			location.href = "/exercise/every_exerciseDel?no=${vo.no}";
 		}
 	}
-
 	// 댓글----------------------------------------------------------
 	$(function() {
 		// 댓글 목록을 가져오는 함수
 		function replyListAll() { // 현재 글의 댓글을 모두 가져오기
 			var url = "/exercise/exerciseReplyList";
 			var params = "no=${vo.no}"; // 32번 글인경우: no=32 
-
 			$.ajax({
 						url : url,
 						data : params,
 						success : function(result) {
 							var $result = $(result); // vo, vo, vo, vo...
-
 							var tag = "<ul clss='list-group'>";
-
 							$result
 									.each(function(idx, vo) {
 										tag += "<li class='list-group-item'><div>" + vo.nickname;
 										tag += "(" + vo.writedate + ")";
 										//  'goguma' ==  'goguma'
 										if (vo.nickname == '${userInfo.nickname}') {
-
 											tag += "<input type='button' class='btn btn-warning' value='수정' style='margin:5px; background-color:white;'/>";
 											tag += "<input type='button' class='btn btn-danger' value='삭제' style='background-color:white; color:black;'title='"+vo.no+"'/>";
 										}
-
 										tag += "<br/>" + vo.contents + "</div>";
-
 										// 본인글일때 수정폼이 있어야 한다.
 										if (vo.nickname == '${userInfo.nickname}') {
 											tag += "<div style='display:none;'><form method='post'>";
@@ -60,21 +53,17 @@
 													+ "</textarea>";
 											tag += "<input type='submit' class='btn btn-warning' value='수정' style='background-color:white; position:relative; top:-20px; margin:5px;'/>";
 											tag += "</form></div>";
-
 										}
 										tag += "</li>"; // vo의 개수만큼 순환
 									});
-
 							tag += "</ul>";
 							$("#replyList").html(tag);
-
 						},
 						error : function(e) {
 							console.log(e.responseText);
 						}
 					})
 		}
-
 		// 댓글등록
 		$("#replyFrm").submit(function() {
 			event.preventDefault(); // form 기본이벤트 제거
@@ -123,7 +112,6 @@
 				}
 			});
 		});
-
 		// 댓글 삭제
 		$(document).on('click', '#replyList input[value=삭제]', function() {
 			if (confirm('댓글을 삭제하시겠습니까?')) {
@@ -142,7 +130,6 @@
 				})
 			}
 		});
-
 		// 현재글의 댓글
 		replyListAll();
 	});
