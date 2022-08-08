@@ -89,6 +89,7 @@ public class MemberController{
 		return service.searchEmail(email);
 	}
 	
+	// 이메일 인증
 	@PostMapping("checkMail")
 	@ResponseBody
 	public String checkMail(String email) {
@@ -97,7 +98,8 @@ public class MemberController{
 		String key = String.format("%06d", (int)(Math.random()*1000000));
 		StringBuffer htmlText = new StringBuffer();
 		htmlText.append("<div style='text-align: center;'>");
-		htmlText.append("<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
+//		htmlText.append("<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
+		htmlText.append("<a href='http://43.200.8.117/'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
 		htmlText.append("<div style='margin: 0 auto; margin-top: 20px; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 470px; padding: 20px 0; font-size: 12px;'>");
 		htmlText.append("<p style='font-size: 14px; font-weight: bold; margin-bottom: 10px;'>모헬[모두의 헬스]에서 보낸 이메일 확인을 위한 인증번호 입니다.</p>");
 		htmlText.append("<p>아래의 인증번호 6자리를 입력하여 이메일 인증을 완료해 주세요</p>");
@@ -233,12 +235,14 @@ public class MemberController{
 			String subject="모헬[모두의 헬스] 비밀번호 변경";
 			StringBuffer htmlText = new StringBuffer();
 			htmlText.append("<div style='text-align: center;'>");
-			htmlText.append("<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
+//			htmlText.append("<a href='http://localhost:8040'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
+			htmlText.append("<a href='http://43.200.8.117/'><img src='https://i.ibb.co/kB2CZhX/mohel-logo-11.png' alt='mohel-logo-11' border='0'></a>");
 			htmlText.append("<div style='margin: 0 auto; margin-top: 20px; border-top: 1px solid gray; border-bottom: 1px solid gray; width: 470px; padding: 20px 0; font-size: 12px;'>");
 			htmlText.append("<p style='font-size: 14px; font-weight: bold; margin-bottom: 10px;'>안녕하세요 회원님 비밀번호를 재설정 하시겠어요?</p>");
 			htmlText.append("<p>비밀번호를 재설정 하길 원하시면 아래 버튼을 클릭해주세요!</p>");
 			htmlText.append("<p>메일이 온 시간부터 30분 내로 비밀번호를 변경 해주세요.</p>");
-			htmlText.append("<div style='margin-top: 30px; margin-bottom: 10px;'><a href='http://localhost:8040/member/codeCheck?authCode="+code.toString()+"' style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold; text-decoration: none;'>비밀번호 재설정</a></div>");
+//			htmlText.append("<div style='margin-top: 30px; margin-bottom: 10px;'><a href='http://localhost:8040/member/codeCheck?authCode="+code.toString()+"' style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold; text-decoration: none;'>비밀번호 재설정</a></div>");
+			htmlText.append("<div style='margin-top: 30px; margin-bottom: 10px;'><a href='http://43.200.8.117/member/codeCheck?authCode="+code.toString()+"' style='background-color: #01c9c6; color: white; border-radius: 5px; padding: 10px 40px; font-size: 16px; font-weight: bold; text-decoration: none;'>비밀번호 재설정</a></div>");
 			htmlText.append("</div>");
 			htmlText.append("<p style='margin-top: 60px;'>&#169; 2022 Mohel. All rigths reserved.</p>");
 			htmlText.append("</div>");
