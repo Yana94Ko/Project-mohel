@@ -9,10 +9,12 @@
 	<select id="searchEmail" resultType="int">
 		select count(no) from member where email=#{param1}
 	</select>
+	
 	<insert id="insertMember">
 		insert into member(email, pwd, nickname, tel, profile, birthdate, gender, age, height, weight, active, BMR, AMR)
 		values(#{email}, #{pwd}, #{nickname}, #{tel}, #{profile}, #{birthdate}, #{gender}, #{age}, #{height}, #{weight}, #{active}, #{BMR}, #{AMR})
 	</insert>
+	
 	<select id="selectMember" resultType="MemberVO">
 		select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify
 		from member where email=#{email}
@@ -20,10 +22,12 @@
 			 and pwd=#{pwd}
 		</if>
 	</select>
+	
 	<update id="setRecentvisit">
 		update member set recentvisit = #{recentvisit}
 		where nickname = #{nickname}
 	</update>
+	
 	<!-- 관리자 페이지 회원 목록 페이지 수 -->
     <select id="totalRecord" resultType="int">
         select count(joindate) as cnt from member
@@ -31,6 +35,7 @@
             where ${searchKey} like '%${searchWord}%'
         </if>
     </select>
+    
     <!-- 관리자 페이지 회원 목록 -->
     <select id = "memberList" resultType="com.finalproject.mohel.vo.MemberVO">
     	select no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify, recentvisit, joindate
@@ -41,6 +46,7 @@
         ORDER BY no DESC
         LIMIT ${onePageRecord} OFFSET ${offsetIndex}
     </select>
+    
     <!--관리자 페이지 회원정보 상세보기 -->
     <select id = "adminView" resultType="com.finalproject.mohel.vo.MemberVO">
         SELECT no, email, nickname, tel, profile, birthdate, gender, age, height, weight, active , bmr, amr, verify, recentvisit, joindate, pwd
@@ -59,19 +65,23 @@
         DELETE FROM member
         WHERE nickname = #{nickname}
     </delete>
+    
 	<update id="updatePwd">
 		update member
 		set pwd=#{pwd}
 		where email=#{email}
 	</update>
+	
 	<!-- 관리자 페이지 : 통계 -->
 	<select id="genderCount" resultMap="genderMap">
         select gender, count(*) from member group by gender;
     </select>
+    
     <resultMap id="genderMap" type="map">
         <result column="gender" property="gender"/>
         <result column="count(*)" property="count"/>
     </resultMap>
+    
     <select id="ageCount" resultMap="ageMap">
         select
             sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 0 and 19 , 1, 0)) as under_20,
@@ -82,8 +92,10 @@
             sum(if(date_format(now(),'%Y')-substring(birthdate,1,4) between 60 and 69 , 1, 0)) as over_60
         from member
     </select>
+    
     <resultMap id="ageMap" type="map">
     </resultMap>
+    
     <select id="joinCount" resultMap="joinMap">
         select
             sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=0,1,0)) as d0,
@@ -95,6 +107,7 @@
             sum(if(TIMESTAMPDIFF(DAY, joindate, #{param1})=6,1,0)) as d6
         from member
     </select>
+    
     <resultMap id="joinMap" type="map">
     </resultMap>
 </mapper>
